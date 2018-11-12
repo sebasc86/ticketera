@@ -24,11 +24,16 @@
 		{{csrf_field()}}
 		  <div class="form-group">
 		    <label for="exampleFormControlInput1">Email address</label>
-		    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+		    <input type="text" name="email" class="form-control" id="email" placeholder="name@example.com">
+		   	@if($errors->has('email'))
+		    <div class="alert alert-danger">
+		        {{ $errors->first('email') }}
+		    </div>
+		    @endif
 		  </div>
 		   <div class="form-group">
 		    <label for="exampleFormControlInput1">Name</label>
-		    <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+		    <input type="text" name="name" class="form-control" id="name" placeholder="name@example.com">
 		    @if($errors->has('name'))
 		    <div class="alert alert-danger">
 		        {{ $errors->first('name') }}
@@ -47,7 +52,7 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleFormControlInput1">Nro de cliente</label>
-		    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+		    <input type="text" class="form-control" id="clientN" name="clientN" placeholder="name@example.com">
 		  </div>
 
 		  <div class="form-group">
@@ -57,6 +62,7 @@
 		  <input class="btn btn-primary" type="submit" value="Submit">
 		</form>
 	</div>
+	
 	
 </body>
 </html>
