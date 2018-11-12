@@ -27,7 +27,8 @@
 		</p>
 
   		<a class="btn btn-success" href="newTicket" role="button">Crear Tickets</a>
-		<button type="button" class="btn btn-warning">Ver Tickets</button>
+  		<a class="btn btn-warning" href="viewTicket" role="button">Ver Tickets</a>
+		
 	</div>
 	
 </body>

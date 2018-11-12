@@ -23,3 +23,5 @@ Route::get('/', function () {
 
 Route::get('/newTicket', 'newTicketController@index')->name('/newTicket');
 Route::post('/newTicket', 'newTicketController@store');
+
+Route::get('/viewTicket', 'viewTicketController@index')->name('/viewTicket');
