@@ -9,16 +9,6 @@ class newTicketController extends Controller
 {
      public function index()
     {
-    	
-     
-
-     /* $pastel = new Ticket;
-
-	$pastel->status = 1;
-	$pastel->apartament  = 'chessecake';
-	$pastel->number = 444444 ;
-	$pastel->save();
-*/
 	 return view('newTicket');
     }
 
