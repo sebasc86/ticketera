@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Ticket;
+use App\User;
 
 class viewTicketController extends Controller
 {
@@ -17,7 +19,11 @@ class viewTicketController extends Controller
     public function index()
     {
 
-     $tickets = Ticket::all();
-	 return view('viewTicket')->with('tickets',$tickets);
+    	$user = Auth::user();
+		$userId = $user->id;	
+
+		$userFind = User::find($userId);
+		$tickets= $userFind->tickets;
+		return view('viewTicket')->with('tickets',$tickets);
     }
 }
