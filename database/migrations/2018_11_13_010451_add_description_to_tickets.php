@@ -14,7 +14,8 @@ class AddDescriptionToTickets extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->longText('description')->nullable()->after('client');
+            $table->string('description')->nullable()->after('client');
+            $table->longText('details')->nullable()->after('description');
         });
     }
 

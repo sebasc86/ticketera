@@ -42,7 +42,7 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleFormControlSelect1">Descripcion</label>
-		    <select class="form-control" id="exampleFormControlSelect1">
+		    <select class="form-control" id="description" name='description'>
 		      <option>1</option>
 		      <option>2</option>
 		      <option>3</option>
@@ -57,7 +57,7 @@
 
 		  <div class="form-group">
 		    <label for="exampleFormControlTextarea1">Detalle</label>
-		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		    <textarea class="form-control" name='details' id="details" rows="3"></textarea>
 		  </div>
 		  <input class="btn btn-primary" type="submit" value="Submit">
 		</form>

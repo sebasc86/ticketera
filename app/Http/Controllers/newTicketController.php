@@ -7,6 +7,12 @@ use App\Ticket;
 
 class newTicketController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
      public function index()
     {
 	 return view('newTicket');
@@ -40,7 +46,9 @@ class newTicketController extends Controller
 
 	$ticket->status = 1;
 	$ticket->apartament  = 'chessecake';
-	$ticket->client = request()->clientN;
+    $ticket->client = request()->clientN;
+    $ticket->description = request()->description;
+    $ticket->details = request()->details;
 	$ticket->number = date('Ymd') . 0 . $ticketLastId + 1;
 	$ticket->save();
 	

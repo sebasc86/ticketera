@@ -15,7 +15,6 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-
 Route::get('/', function () {
     return view('index');
 });
@@ -25,3 +24,6 @@ Route::get('/newTicket', 'newTicketController@index')->name('/newTicket');
 Route::post('/newTicket', 'newTicketController@store');
 
 Route::get('/viewTicket', 'viewTicketController@index')->name('/viewTicket');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
