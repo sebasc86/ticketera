@@ -44,6 +44,7 @@
       <th scope="col">Detalles</th>
       <th scope="col">User</th>
       <th scope="col">Creado</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -60,6 +61,7 @@
           <td>{{ $dato->details }}</td>
           <td>{{ $dato->user_id }}</td>
           <td>{{ $dato->created_at }}</td>
+          <td><a class="btn btn-primary" href="/ticketView/{{ $dato->number }}" role="button">Ver mas</a></td>
     </tr>
     @endforeach
   @else

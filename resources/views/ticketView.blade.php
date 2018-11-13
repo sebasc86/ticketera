@@ -17,6 +17,7 @@
 	@include('header')
 
   <div class='container mt-5'>
+  
     
     <div class="row justify-content-between">
       <div class="bg-light col-5 border rounded ">
@@ -30,7 +31,9 @@
             <h2 class='h5'>Estado Ticket</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>Abierto</p>
+            
+            <p class='h6'>{{ $ticketNumber->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
+            
           </div>      
         </div>
         
@@ -39,7 +42,7 @@
             <h2 class='h5'>Departamento</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>BOT</h2>
+            <p class='h6'>{{$ticketNumber->apartament}}</h2>
           </div>      
         </div>
 
@@ -48,7 +51,7 @@
             <h2 class='h5'>Creado en:</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>15/6/18 13:52</p>
+            <p class='h6'>{{$ticketNumber->created_at}}</p>
           </div>      
         </div>
 
@@ -66,7 +69,7 @@
             <h2 class='h5'>Nombre Creador</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>Sebastián Coscia</h2>
+          <p class='h6'>{{$userFind->name}}</h2>
           </div>      
         </div>
         
@@ -75,7 +78,7 @@
             <h2 class='h5'>Correo</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>scoscia@telecentro.net.ar</p>
+            <p class='h6'>{{$userFind->email}}</p>
           </div>      
         </div>
 
@@ -99,7 +102,7 @@
       <div class="bg-light col-5 border rounded  mt-5 ">
         <div class='row align-items-center'>
           <div class="col">
-            <h1 class='h4 mt-2 border-bottom border-dark'>Descripcion//Titulo</h1>
+            <h1 class='h4 mt-2 border-bottom border-dark'>{{$ticketNumber->description}}</h1>
           </div>
         </div>
         <div class="row align-items-center">
@@ -107,7 +110,7 @@
             <h2 class='h5'>Nro de cliente</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>4301751</p>
+            <p class='h6'>{{$ticketNumber->client}}</p>
           </div>      
         </div>
       </div>
@@ -122,7 +125,7 @@
         </div>
         <div class="row align-items-center">
           <div class="col mt-2">
-            <p class='h6'>BlaBla bla</p>
+            <p class='h6'>{{$ticketNumber->details}}</p>
           </div>      
         </div>
       </div>
