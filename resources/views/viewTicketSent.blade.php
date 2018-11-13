@@ -66,7 +66,10 @@
         todavia no hay reportes generados
   @endif
 
+ 
+
   </tbody>
+  <hr>
 </table>
 
 

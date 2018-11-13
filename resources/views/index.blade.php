@@ -27,7 +27,9 @@
 		</p>
 
   		<a class="btn btn-success" href="newTicket" role="button">Crear Tickets</a>
-  		<a class="btn btn-warning" href="viewTicket" role="button">Ver Tickets</a>
+  		<a class="btn btn-warning" href="ticketSent" role="button">Ver Tickets Enviados</a>
+  		<a class="btn btn-warning" href="ticketGet" role="button">Ver Tickets Recibidos</a>
+		
 		
 	</div>
 	

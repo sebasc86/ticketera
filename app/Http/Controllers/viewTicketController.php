@@ -10,20 +10,23 @@ use App\User;
 class viewTicketController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
-    
-    public function index()
+    public function index(Request $request,$ticket)
     {
 
     	$user = Auth::user();
 		$userId = $user->id;	
-
 		$userFind = User::find($userId);
-		$tickets= $userFind->tickets;
-		return view('viewTicket')->with('tickets',$tickets);
+		$userN = $userFind->id;
+		
+
+		$userQueue = Ticket::where('queue', $userN)->get(;
+		$ticketN = Ticket::where('number', $ticket)->get();
+
+		dd($userQueue);
+		
+		
+		return view('ticketView');
+
     }
 }
