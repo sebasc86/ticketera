@@ -16,25 +16,48 @@
 <body>
 
   @include('header')
-  <table class="tabla">
+  <!-- <table class="tabla">
       
         <tr>
-          <th>Empresa</th>  
-          <th>Categoria</th>
-          <th>Material</th>
-          <th>Descripción</th>
-          <th>Fecha</th>
+          
+          <th>Estado</th>
+          <th>Sector</th>
+          <th>Nro ticket</th>
+          <th>Cliente</th>
+          <th>Descripcion</th>
+          <th>Detalles</th>
+          <th>User</th>
+          <th>Creado</th>
+          
         </tr>
+  
+  </table> -->
+
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Estado</th>
+      <th scope="col">Sector</th>
+      <th scope="col">Nro ticket</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Detalles</th>
+      <th scope="col">User</th>
+      <th scope="col">Creado</th>
+    </tr>
+  </thead>
+  <tbody>
   @if($tickets)
 
     @foreach($tickets as $dato)
 
     <tr>
-          <td>{{ $dato->id }}</td>
           <td>{{ $dato->status }}</td>
           <td>{{ $dato->apartament }}</td>
           <td>{{ $dato->number }}</td>
           <td>{{ $dato->client }}</td>
+          <td>{{ $dato->description }}</td>
+          <td>{{ $dato->details }}</td>
           <td>{{ $dato->user_id }}</td>
           <td>{{ $dato->created_at }}</td>
     </tr>
@@ -42,7 +65,10 @@
   @else
         todavia no hay reportes generados
   @endif
-  </table>
+
+  </tbody>
+</table>
+
 
 </body>
 </html>  
