@@ -8,4 +8,9 @@ class Ticket extends Model
 {
     protected $table = 'tickets';
 
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }
