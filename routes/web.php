@@ -23,7 +23,10 @@ Route::get('/', function () {
 Route::get('/newTicket', 'newTicketController@index')->name('/newTicket');
 Route::post('/newTicket', 'newTicketController@store');
 
-Route::get('/viewTicket', 'viewTicketController@index')->name('/viewTicket');
+Route::get('/ticketView/{ticket}', 'viewTicketController@index')->name('/ticketView');
+
+Route::get('/ticketSent', 'viewTicketSentController@index')->name('/viewTicketSent');
+Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

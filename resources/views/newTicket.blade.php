@@ -32,8 +32,8 @@
 		    @endif
 		  </div>
 		   <div class="form-group">
-		    <label for="exampleFormControlInput1">Name</label>
-		    <input type="text" name="name" class="form-control" id="name" placeholder="name@example.com">
+		    <label for="exampleFormControlInput1">Enviar a:</label>
+		    <input type="text" name="queue" class="form-control" id="queue" placeholder="name@example.com">
 		    @if($errors->has('name'))
 		    <div class="alert alert-danger">
 		        {{ $errors->first('name') }}

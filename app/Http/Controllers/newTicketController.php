@@ -53,6 +53,7 @@ class newTicketController extends Controller
 
 		$ticket->status = 1;
 		$ticket->apartament  = 'chessecake';
+		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
 	    $ticket->description = request()->description;
 	    $ticket->details = request()->details;
