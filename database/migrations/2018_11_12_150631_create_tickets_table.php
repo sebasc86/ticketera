@@ -18,6 +18,7 @@ class CreateTicketsTable extends Migration
             $table->integer('status')->nullable();
             $table->string('apartament')->nullable();
             $table->bigInteger('number');
+            
             $table->integer('client')->nullable();
             $table->integer('user_id')->unsigned()->nullable();;
             $table->foreign('user_id')->references('id')->on('users');
