@@ -12,10 +12,10 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\User');
     }
-
-    public function comments()
+//falta clave foranea para relacionar con ticket
+/*    public function comments()
     {
-    	return $this->hasMany('App\Comment');
-    }
+    	return $this->hasMany('App\Comment', 'ticket_id', 'id');
+    }*/
 
 }

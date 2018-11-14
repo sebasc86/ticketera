@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    public function ticket()
+
+	//falta clave foranea en ticket para relacionar con Comment
+/*    public function tickets()
     {
-        return $this->hasOne('App\Ticket');
-    }
+        return $this->belongsTo('App\Ticket');
+    }*/
 }

@@ -25,7 +25,7 @@ $('#buttonSend').click(function(e){
       }
   });
   $.ajax({
-          url: '/ticketView/post',
+          url: '/ticketView/{{$ticket->number}}/post',
           method: 'POST',
           data: {
              comments: $('#comments').val(),

@@ -72,7 +72,7 @@
             <h2 class='h5'>Nombre Creador</h2>
           </div>
           <div class="col-6">
-          <p class='h6'>{{$userFind->name}}</h2>
+          <p class='h6'>{{$ticketUserCreator->name}}</h2>
           </div>      
         </div>
         
@@ -81,7 +81,7 @@
             <h2 class='h5'>Correo</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$userFind->email}}</p>
+            <p class='h6'>{{$ticketUserCreator->email}}</p>
           </div>      
         </div>
 
