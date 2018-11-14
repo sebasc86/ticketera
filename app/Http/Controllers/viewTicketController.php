@@ -17,29 +17,48 @@ class viewTicketController extends Controller
     }
 
     public function index(Request $request,$ticket)
-    {
+    {	
+
 
     	$user = Auth::user();
 		$userId = $user->id;
+
 
 		
 
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
 
+
 		
-		if($ticketN) {
-			$ticketQueue = $ticketN->queue;
-			$ticketUser = $ticketN->user_id;
+		
 		
 
-			$userFind = User::find($ticketUser);
+		
+		if($ticketN) {
+			
+
+			$ticketId = $ticketN->id;
+
+			$request->session()->put('ticket_id', $ticketId);
+			$ticketQueue = $ticketN->queue;
+			$ticketUser = $ticketN->user_id;
+
+			$comments = DB::table('tickets')
+			->join('id', 'tickets.id', '=', 'comments.ticket_id')
+			->get();
+			dd(comments);
+
+		
+
+			$ticketUserCreator = User::find($ticketUser);
+			
 			
 
 
 				
 			if($ticketUser == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('userFind', $userFind);
+		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator);
 			}else {
 				return abort(403);
 			};
@@ -54,12 +73,22 @@ class viewTicketController extends Controller
 
      public function store(Request $request)
 	 {		
-	        $comment = new Comment();
-	        $comment->comments = $request->comments;
 
+	 		$user = Auth::user();
+			$userId = $user->id;
+
+			$ticketId = $request->session()->get('ticket_id');
+
+					
+
+	        $comment = new Comment();
+	        $comment->user_id = $userId;
+	        $comment->comments = $request->comments;
+	        $comment->ticket_id = $ticketId;        
 
 	        $comment->save();
+	        
 
-	        return response()->json(['success'=>'Data is successfully added']);
+	        return response()->json(['success'=>'ok']);
 	 }
 }
