@@ -42,7 +42,7 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleFormControlSelect1">Descripcion</label>
-		    <select class="form-control" id="description" name='description'>
+		    <select class="form-control" id="title" name='title'>
 		      <option>1</option>
 		      <option>2</option>
 		      <option>3</option>

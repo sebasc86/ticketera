@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDescriptionToTickets extends Migration
+class AddSectorToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddDescriptionToTickets extends Migration
      */
     public function up()
     {
-        Schema::table('tickets', function (Blueprint $table) {
-            $table->string('title')->nullable()->after('client');
-            $table->longText('details')->nullable()->after('title');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('sector', 50)->nullable()->after('email');
         });
     }
 

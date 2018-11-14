@@ -42,7 +42,7 @@
             <h2 class='h5'>Departamento</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$ticketNumber->apartament}}</h2>
+            <p class='h6'>{{$ticketNumber->sector}}</h2>
           </div>      
         </div>
 
@@ -102,7 +102,7 @@
       <div class="bg-light col-5 border rounded  mt-5 ">
         <div class='row align-items-center'>
           <div class="col">
-            <h1 class='h4 mt-2 border-bottom border-dark'>{{$ticketNumber->description}}</h1>
+            <h1 class='h4 mt-2 border-bottom border-dark'>{{$ticketNumber->title}}</h1>
           </div>
         </div>
         <div class="row align-items-center">
@@ -116,8 +116,8 @@
       </div>
      
     </div>
-
-      <div class="bg-light col border rounded  mt-5 ">
+    <div class="row justify-content-between">
+      <div class="bg-light col-12 border rounded  mt-5 ">
         <div class='row'>
           <div class="col">
             <h1 class='h4 mt-2 border-bottom border-dark text-center'>Detalle Ticket</h1>
@@ -129,18 +129,28 @@
           </div>      
         </div>
       </div>
-
-    {{-- <div class="row align-items-center mt-5">
-      <div class="col-12">
-        <h1 class='h4 text-center'>Detalle Ticket</h1>
-        <div class="row  align-items-center">
-          <div class="col-6">
-            <p class='mt-2'>BlaBla bla</h1>
-          </div>    
-        </div>
-      </div>
-    </div> --}}
+      
+      <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
+          
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
+            <textarea class="form-control" name='details' id="details" rows="3"></textarea>
+          </div>
+          <div class="mt-4">
+            <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
+            <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
+          </div>  
+      </form>
+    </div>
   </div>
+
+  
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
   
 </body>
 </html>

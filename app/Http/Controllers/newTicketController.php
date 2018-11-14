@@ -52,10 +52,10 @@ class newTicketController extends Controller
 		$ticket = new Ticket;
 
 		$ticket->status = 1;
-		$ticket->apartament  = 'chessecake';
+		$ticket->sector  = 'chessecake';
 		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
-	    $ticket->description = request()->description;
+	    $ticket->title = request()->title;
 	    $ticket->details = request()->details;
 	    $ticket->user_id = $userId;
 		$ticket->number = date('Ymd') . 0 . $ticketLastId + 1;
