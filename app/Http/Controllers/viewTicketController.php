@@ -23,22 +23,26 @@ class viewTicketController extends Controller
 		$ticketN = Ticket::where('number', $ticket)->first();
 
 		
-
-		$ticketQueue = $ticketN->queue;
-		$ticketUser = $ticketN->user_id;
+		if($ticketN) {
+			$ticketQueue = $ticketN->queue;
+			$ticketUser = $ticketN->user_id;
 		
 
-		$userFind = User::find($ticketUser);
-		
+			$userFind = User::find($ticketUser);
+			
 
 
 				
-		if($ticketUser == $userId || $userId == $ticketQueue){
-		 	return view('ticketView')->with('ticketNumber', $ticketN)->with('userFind', $userFind);
+			if($ticketUser == $userId || $userId == $ticketQueue){
+		 		return view('ticketView')->with('ticketNumber', $ticketN)->with('userFind', $userFind);
+			}else {
+				$problem = 'Acceso restringido';
+				return view('ticketView')->with('problem', $problem);
+			};
 		}else {
-			$problem = 'Acceso restringido';
-			return view('ticketView')->with('problem', $problem);
-		};
+			return abort(403);
+		}
+		
 		
 		
 
