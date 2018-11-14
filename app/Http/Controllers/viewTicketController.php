@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Ticket;
 use App\User;
 use App\Comment;
@@ -44,21 +45,30 @@ class viewTicketController extends Controller
 			$ticketQueue = $ticketN->queue;
 			$ticketUser = $ticketN->user_id;
 
-			$comments = DB::table('tickets')
-			->join('id', 'tickets.id', '=', 'comments.ticket_id')
+			$comments = DB::table('comments')
+			->join('tickets', 'tickets.id', '=', 'comments.ticket_id')
 			->get();
-			dd(comments);
 
-		
+			$userIdComments = [];
+			$i = 0;
+			foreach ($comments as $value) {
+				$userIdComments[] = $value->user_id;
+				$create = $value->created_at;
+				$id = $value->id;
+				$i++;
+			}
+
+			dd($userIdComments);
+			
+			
 
 			$ticketUserCreator = User::find($ticketUser);
-			
 			
 
 
 				
 			if($ticketUser == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator);
+		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator)->with('comments', $comments);
 			}else {
 				return abort(403);
 			};

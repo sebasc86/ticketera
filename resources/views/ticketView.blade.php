@@ -132,20 +132,55 @@
           </div>      
         </div>
       </div>
-      
-      <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
-        {{csrf_field()}}
-          
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
-            <textarea class="form-control" name='comments' id="comments" rows="3"></textarea>
-          </div>
-          <div class="mt-4">
-            <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
-            <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
-          </div>  
-      </form>
+    </div>  
 
+      
+      @if($comments)
+
+      @foreach($comments as $dato)
+        <div class="row justify-content-between">
+          <div class="bg-light col-12 border rounded  mt-5 ">
+            <div class='row'>
+              <div class="col">
+                <h1 class='h5 mt-2 border-bottom border-dark text-left'>Comentario:</h1>
+                
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col mt-2">
+                <p class='h6'>{{$dato->comments}}</p>
+              </div>            
+            </div>
+            <div class="row align-items-center">
+              <div class="col mt-2">
+                <p class='text-right'>creado por: {{$dato->user_id}}</p>
+              </div>            
+            </div>
+          </div>
+        </div>  
+
+        
+      @endforeach
+      @endif
+
+
+      <div class="row justify-content-between">
+          
+              <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
+                {{csrf_field()}}
+                  
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
+                    <textarea class="form-control" name='comments' id="comments" rows="3"></textarea>
+                  </div>
+                  <div class="mt-4">
+                    <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
+                    <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
+                  </div>  
+              </form>
+          
+      </div>
+      
 
 
     </div>
