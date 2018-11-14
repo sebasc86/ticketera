@@ -24,6 +24,7 @@ Route::get('/newTicket', 'newTicketController@index')->name('/newTicket');
 Route::post('/newTicket', 'newTicketController@store');
 
 Route::get('/ticketView/{ticket}', 'viewTicketController@index')->name('/ticketView');
+Route::post('/ticketView/post', 'viewTicketController@store');
 
 Route::get('/ticketSent', 'viewTicketSentController@index')->name('/viewTicketSent');
 Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet');

@@ -12,6 +12,8 @@
 
   		  <!-- Bootstrap CSS -->
    		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
+
+       <meta name="csrf-token" content="{{ csrf_token() }}" />
   	</head>
 <body>
 	@include('header')
@@ -32,6 +34,7 @@
           </div>
           <div class="col-6">
             
+
             <p class='h6'>{{ $ticketNumber->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
             
           </div>      
@@ -135,13 +138,16 @@
           
           <div class="form-group">
             <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
-            <textarea class="form-control" name='details' id="details" rows="3"></textarea>
+            <textarea class="form-control" name='comments' id="comments" rows="3"></textarea>
           </div>
           <div class="mt-4">
             <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
             <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
           </div>  
       </form>
+
+
+
     </div>
   </div>
 
@@ -150,7 +156,12 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+               crossorigin="anonymous">
+  </script>
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
-  
+ 
+
 </body>
 </html>
