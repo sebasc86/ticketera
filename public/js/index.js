@@ -1,9 +1,11 @@
 console.log('init.app')
 
-var detailsNode = $('#details')
+var detailsNode = $('#comments')
 detailsNode.hide()
 var buttonSend = $('#buttonSend')
 buttonSend.hide()
+
+
 
 $('#buttonArea').on('click', function(){
     detailsNode.show('slow')
@@ -14,4 +16,22 @@ $('#buttonArea').on('click', function(){
     }
 })
 
+
+$('#buttonSend').click(function(e){
+   e.preventDefault();
+   $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $.ajax({
+          url: '/ticketView/post',
+          method: 'POST',
+          data: {
+             comments: $('#comments').val(),
+          },
+          success: function(result){
+             console.log(result);
+   }});
+});
 

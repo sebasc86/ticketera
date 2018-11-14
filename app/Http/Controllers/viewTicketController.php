@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Ticket;
 use App\User;
+use App\Comment;
 
 class viewTicketController extends Controller
 {
 
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(Request $request,$ticket)
     {
@@ -34,10 +39,9 @@ class viewTicketController extends Controller
 
 				
 			if($ticketUser == $userId || $userId == $ticketQueue){
-		 		return view('ticketView')->with('ticketNumber', $ticketN)->with('userFind', $userFind);
+		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('userFind', $userFind);
 			}else {
-				$problem = 'Acceso restringido';
-				return view('ticketView')->with('problem', $problem);
+				return abort(403);
 			};
 		}else {
 			return abort(403);
@@ -47,4 +51,15 @@ class viewTicketController extends Controller
 		
 
     }
+
+     public function store(Request $request)
+	 {		
+	        $comment = new Comment();
+	        $comment->comments = $request->comments;
+
+
+	        $comment->save();
+
+	        return response()->json(['success'=>'Data is successfully added']);
+	 }
 }
