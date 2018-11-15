@@ -134,6 +134,8 @@
       </div>
     </div>  
 
+    
+
       
       @if($comments)
 
@@ -169,6 +171,12 @@
       @endif
 
 
+      <div id="commentsNode">
+
+          
+          
+      </div>
+    
       <div class="row justify-content-between">
           
               <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
