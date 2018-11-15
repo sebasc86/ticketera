@@ -84,6 +84,8 @@ class viewTicketController extends Controller
 
 	 		$user = Auth::user();
 			$userId = $user->id;
+			$userName = $user->name;
+			
 
 			$ticketId = $request->session()->get('ticket_id');
 
@@ -97,6 +99,6 @@ class viewTicketController extends Controller
 	        $comment->save();
 	        
 
-	        return response()->json(['success'=>'ok']);
+	        return response()->json(['success'=>'1','userName' => $userName]);
 	 }
 }
