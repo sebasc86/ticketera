@@ -153,9 +153,14 @@
             </div>
             <div class="row align-items-center">
               <div class="col mt-2">
-                <p class='text-right'>creado por: {{$dato->user_id}}</p>
-              </div>            
+                <p class='text-right' style="margin-bottom: 0px">Creado por: {{$userNameComments[$dato->user_id]}} </p>
+              </div>               
             </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <p class='small text-right'>A las: {{$dato->created_at}}hs </p>
+                </div>               
+              </div>
           </div>
         </div>  
 

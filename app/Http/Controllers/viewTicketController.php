@@ -40,35 +40,33 @@ class viewTicketController extends Controller
 			
 
 			$ticketId = $ticketN->id;
+			$ticketNumber = $ticketN->number;
+			
 
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
 			$ticketUser = $ticketN->user_id;
 
-			$comments = DB::table('comments')
-			->join('tickets', 'tickets.id', '=', 'comments.ticket_id')
+			$comments = DB::table('tickets')
+			->join('comments', 'tickets.id', '=', 'comments.ticket_id')
 			->get();
 
-			$userIdComments = [];
+
+			$userNameComments = [];
 			$i = 0;
 			foreach ($comments as $value) {
-				$userIdComments[] = $value->user_id;
-				$create = $value->created_at;
-				$id = $value->id;
+				$userNameComments[$value->user_id] = User::where('id', $value->user_id)->first()->name;
 				$i++;
 			}
-
-			dd($userIdComments);
-			
+		
 			
 
 			$ticketUserCreator = User::find($ticketUser);
 			
 
-
 				
 			if($ticketUser == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator)->with('comments', $comments);
+		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator)->with('comments', $comments)->with('userNameComments',$userNameComments);
 			}else {
 				return abort(403);
 			};
