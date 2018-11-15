@@ -33,8 +33,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Ticket');
     }
 
-    public function tickets()
+    public function comments()
     {
-        return $this->hasMany('App\Comments');
+        return $this->hasMany('App\Comment');
     }
 }

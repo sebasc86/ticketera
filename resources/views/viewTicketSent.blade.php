@@ -44,7 +44,7 @@
       <th scope="col">Detalles</th>
       <th scope="col">User</th>
       <th scope="col">Creado</th>
-      <th scope="col">#</th>dd
+      <th scope="col">#</th>
       
     </tr>
   </thead>
