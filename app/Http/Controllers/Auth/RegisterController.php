@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;    
 
 class RegisterController extends Controller
 {
@@ -37,7 +38,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+       /* $this->middleware('guest');*/
+       $this->middleware('auth');    
     }
 
     /**
@@ -51,6 +53,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'sector' => ['required', 'string', 'max:50'],
+            'isAdmin' => ['required', 'integer', 'min:0', 'max:1'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }

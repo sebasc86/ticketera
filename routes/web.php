@@ -31,3 +31,11 @@ Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
+    return "eres mayor de edad y puedes ver este contenido";
+}]);*/
+
+Route::get('auth/register', function () {
+    return view('/register');
+})->middleware('auth', 'isAdmin:1');
