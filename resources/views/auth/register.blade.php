@@ -39,6 +39,42 @@
                             </div>
                         </div>
 
+                         <div class="form-group row">
+                            <label for="sector" class="col-md-4 col-form-label text-md-right">{{ __('Sector') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="sector" type="sector" class="form-control{{ $errors->has('sector') ? ' is-invalid' : '' }}" name="sector" value="{{ old('sector') }}" required>
+
+                                @if ($errors->has('sector'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('sector') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                         
+
+                        <div class="form-group row">
+                            <label for="isAdmin" class="col-md-4 col-form-label text-md-right">{{ __('Es Admin') }}
+                            </label>
+                            <div class="col-md-6">
+                                <select class="form-control is-invalid" id="isAdmin" name='isAdmin'>
+
+                                    <option value='0'>No</option>         
+                                    <option value='1'>Si</option>
+
+                                </select>   
+
+                                @if ($errors->has('isAdmin'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('isAdmin') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                      </div>
+
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
