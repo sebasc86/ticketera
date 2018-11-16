@@ -59,7 +59,7 @@
                             <label for="isAdmin" class="col-md-4 col-form-label text-md-right">{{ __('Es Admin') }}
                             </label>
                             <div class="col-md-6">
-                                <select class="form-control is-invalid" id="isAdmin" name='isAdmin'>
+                                <select class="form-control {{ $errors->has('isAdmin') ? ' is-invalid' : '' }}" id="isAdmin" name='isAdmin'>
 
                                     <option value='0'>No</option>         
                                     <option value='1'>Si</option>
