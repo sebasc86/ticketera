@@ -17,12 +17,15 @@
 	@include('header')
 
 	
+	<div class="container mt-4">
+		<h2>Bienvenido a la creacion del ticket usuario: {{ $userLogin->name }}</h2>		
+	</div>
 
 	
-	<div class="container">
+	<div class="container mt-4">
 		<form action="" name="newTicket" method="post" enctype="multipart/form-data">
 		{{csrf_field()}}
-		  <div class="form-group">
+		  {{-- <div class="form-group">
 		    <label for="exampleFormControlInput1">Email address</label>
 		    <input type="text" name="email" class="form-control" id="email" placeholder="name@example.com">
 		   	@if($errors->has('email'))
@@ -30,29 +33,29 @@
 		        {{ $errors->first('email') }}
 		    </div>
 		    @endif
-		  </div>
+		  </div> --}}
 		   <div class="form-group">
 		    <label for="exampleFormControlInput1">Enviar a:</label>
-		    <input type="text" name="queue" class="form-control" id="queue" placeholder="name@example.com">
+		    <select class="form-control" id="queue" name='queue'>
+		    @foreach ($usersAll as $user)
+				<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
+		    @endforeach
+		    </select>	
 		    @if($errors->has('name'))
 		    <div class="alert alert-danger">
 		        {{ $errors->first('name') }}
 		    </div>
 		    @endif
 		  </div>
-		  <div class="form-group">
-		    <label for="exampleFormControlSelect1">Descripcion</label>
-		    <select class="form-control" id="title" name='title'>
-		      <option>1</option>
-		      <option>2</option>
-		      <option>3</option>
-		      <option>4</option>
-		      <option>5</option>
-		    </select>
-		  </div>
+		
 		  <div class="form-group">
 		    <label for="exampleFormControlInput1">Nro de cliente</label>
-		    <input type="text" class="form-control" id="clientN" name="clientN" placeholder="name@example.com">
+		    <input type="text" class="form-control" id="clientN" name="clientN" placeholder="4301751">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleFormControlInput1">Titulo</label>
+		    <input type="text" class="form-control" id="title" name="title" placeholder="titulo">
 		  </div>
 
 		  <div class="form-group">

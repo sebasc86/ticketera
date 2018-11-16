@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Ticket;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,17 @@ class newTicketController extends Controller
 
      public function index()
     {
-		return view('newTicket');
+
+    	$userLogin = Auth::user();
+    	$users =  User::all();
+    	$usersArray;
+    	foreach ($users as $value) {
+    		if($value->id != $userLogin->id){
+    			$usersArray[] = $value;
+    		};
+    	};
+
+		return view('/newTicket')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
 
     }
 
@@ -37,7 +48,7 @@ class newTicketController extends Controller
 		  'accion.driver' =>  'min:1|max:1',
 		  'accion.co-driver' =>  'min:2|max:2',
 		  'profile_picture' => 'max:2048|mimes:jpg,jpeg,gif,png',*/
-		  'email' => 'required|email',
+		  /*'email' => 'required|email',*/
 		]);
 
 
