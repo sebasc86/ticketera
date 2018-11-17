@@ -8,13 +8,13 @@ class Comment extends Model
 {
 
 	//falta clave foranea en ticket para relacionar con Comment
-    public function tickets()
+    public function ticket()
     {
-        return $this->belongsTo('App\Ticket');
+        return $this->belongsTo(Ticket::class);
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }
