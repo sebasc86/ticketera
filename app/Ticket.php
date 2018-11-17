@@ -8,14 +8,13 @@ class Ticket extends Model
 {
     protected $table = 'tickets';
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
-//falta clave foranea para relacionar con ticket
-/*    public function comments()
+    public function comment()
     {
     	return $this->hasMany('App\Comment', 'ticket_id', 'id');
-    }*/
+    }
 
 }

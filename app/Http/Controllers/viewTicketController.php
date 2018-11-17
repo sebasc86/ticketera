@@ -24,49 +24,49 @@ class viewTicketController extends Controller
     	$user = Auth::user();
 		$userId = $user->id;
 
-
-		
-
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
-
-
-		
-		
-		
-
 		
 		if($ticketN) {
 			
 
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
+			$ticketName = $ticketN->user->name;
 			
-
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
-			$ticketUser = $ticketN->user_id;
-
-			$comments = DB::table('tickets')
-			->join('comments', 'tickets.id', '=', 'comments.ticket_id')
-			->get();
-
-
-			$userNameComments = [];
-			$i = 0;
-			foreach ($comments as $value) {
-				$userNameComments[$value->user_id] = User::where('id', $value->user_id)->first()->name;
-				$i++;
-			}
+			$ticketUserId = $ticketN->user_id;
 		
-			
 
-			$ticketUserCreator = User::find($ticketUser);
-			
+			// SI ESTAN BIEN ECHAS LAS TABLAS DE REALIACIONES NO HACE FALTA ESTO
+			// $comments = DB::table('tickets')
+			// ->where('number', $ticket)
+			// ->join('comments', 'tickets.id', '=', 'comments.ticket_id')
+			// ->join('users', 'users.id', '=' ,'comments.user_id')
+			// ->get();
 
+			// $userNameComments = [];
+			// $i = 0;
+			// foreach ($comments as $value) {
+			// 	$userNameComments = User::where('id', $value->user_id)->first()->name;
+			// 	$i++;
+			// }
+
+			// $comments = $ticketN->comment;
+			// $comments2 = $comments->where('user_id', $ticketN->user->id);
+			
+			// $userCommentId($comments2->first()->user_id)
+			// foreach ($comments2 as $key => $value) {
 				
-			if($ticketUser == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticketNumber', $ticketN)->with('ticketUserCreator', $ticketUserCreator)->with('comments', $comments)->with('userNameComments',$userNameComments);
+			// }
+
+			
+			
+
+			//queue es la cola de usuario osea esta realacionado al id del usuario	
+			if($ticketUserId == $userId || $userId == $ticketQueue){
+		 		return view('/ticketView')->with('ticket', $ticketN)->with('userLoginId', $userId);
 			}else {
 				return abort(403);
 			};
@@ -100,5 +100,28 @@ class viewTicketController extends Controller
 	        
 
 	        return response()->json(['success'=>'1','userName' => $userName]);
+	 }
+
+	 public function delete(Request $request)
+	 {		
+
+	 		// $user = Auth::user();
+			// $userId = $user->id;
+			// $userName = $user->name;
+			
+
+			// $ticketId = $request->session()->get('ticket_id');
+
+					
+
+	        // $comment = new Comment();
+	        // $comment->user_id = $userId;
+	        // $comment->comments = $request->comments;
+	        // $comment->ticket_id = $ticketId;        
+
+	        // $comment->save();
+	        
+
+	        // return response()->json(['success'=>'1','userName' => $userName]);
 	 }
 }

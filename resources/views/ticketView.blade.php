@@ -35,7 +35,7 @@
           <div class="col-6">
             
 
-            <p class='h6'>{{ $ticketNumber->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
+            <p class='h6'>{{ $ticket->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
             
           </div>      
         </div>
@@ -45,7 +45,7 @@
             <h2 class='h5'>Departamento</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$ticketNumber->sector}}</h2>
+            <p class='h6'>{{$ticket->sector}}</h2>
           </div>      
         </div>
 
@@ -54,7 +54,7 @@
             <h2 class='h5'>Creado en:</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$ticketNumber->created_at}}</p>
+            <p class='h6'>{{$ticket->created_at}}</p>
           </div>      
         </div>
 
@@ -72,7 +72,7 @@
             <h2 class='h5'>Nombre Creador</h2>
           </div>
           <div class="col-6">
-          <p class='h6'>{{$ticketUserCreator->name}}</h2>
+          <p class='h6'>{{$ticket->user->name}}</h2>
           </div>      
         </div>
         
@@ -81,7 +81,7 @@
             <h2 class='h5'>Correo</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$ticketUserCreator->email}}</p>
+            <p class='h6'>{{$ticket->user->email}}</p>
           </div>      
         </div>
 
@@ -105,7 +105,7 @@
       <div class="bg-light col-5 border rounded  mt-5 ">
         <div class='row align-items-center'>
           <div class="col">
-            <h1 class='h4 mt-2 border-bottom border-dark'>{{$ticketNumber->title}}</h1>
+            <h1 class='h4 mt-2 border-bottom border-dark'>{{$ticket->title}}</h1>
           </div>
         </div>
         <div class="row align-items-center">
@@ -113,7 +113,7 @@
             <h2 class='h5'>Nro de cliente</h2>
           </div>
           <div class="col-6">
-            <p class='h6'>{{$ticketNumber->client}}</p>
+            <p class='h6'>{{$ticket->client}}</p>
           </div>      
         </div>
       </div>
@@ -128,42 +128,53 @@
         </div>
         <div class="row align-items-center">
           <div class="col mt-2">
-            <p class='h6'>{{$ticketNumber->details}}</p>
+            <p class='h6'>{{$ticket->details}}</p>
           </div>      
         </div>
       </div>
     </div>  
 
-    
+
+
 
       
-      @if($comments)
+      @if($ticket->comment)
+      
 
-      @foreach($comments as $dato)
+      @foreach($ticket->comment as $dato)
+      
         <div class="row justify-content-between">
-          <div class="bg-light col-12 border rounded  mt-5 ">
+          <div class="bg-light col-11 border rounded  mt-5 ">
             <div class='row'>
               <div class="col">
                 <h1 class='h5 mt-2 border-bottom border-dark text-left'>Comentario:</h1>
-                
               </div>
             </div>
             <div class="row align-items-center">
               <div class="col mt-2">
-                <p class='h6'>{{$dato->comments}}</p>
+                <p class='h6'>{{$dato['comments']}}</p>
               </div>            
             </div>
             <div class="row align-items-center">
               <div class="col mt-2">
-                <p class='text-right' style="margin-bottom: 0px">Creado por: {{$userNameComments[$dato->user_id]}} </p>
+                <p class='text-right' style="margin-bottom: 0px">Creado por: {{($dato->user->name)}}  </p>
               </div>               
             </div>
             <div class="row align-items-center">
                 <div class="col">
-                    <p class='small text-right'>A las: {{$dato->created_at}}hs </p>
+                    <p class='small text-right'>A las: {{$dato['created_at']}}hs </p>
                 </div>               
-              </div>
+            </div>
           </div>
+
+          
+          @if($dato->user->id === $userLoginId)
+            <div class='row align-items-center'>
+              <div class="col mt-5">
+                <button type="button" id='buttonDelete' class="btn btn-danger">Delete</button>
+              </div>    
+            </div>
+          @endif  
         </div>  
 
         
@@ -187,12 +198,17 @@
                     <textarea class="form-control" name='comments' id="comments" rows="3"></textarea>
                   </div>
                   <div class="mt-4">
-                    <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
                     <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
+                    <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
                   </div>  
               </form>
-          
+              
+
+              <div class="col-5 mt-5">
+                  <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
+              </div>
       </div>
+
       
 
 

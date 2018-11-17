@@ -1,5 +1,6 @@
 console.log('init.app')
 
+
 var detailsNode = $('#comments')
 detailsNode.hide()
 var buttonSend = $('#buttonSend')
@@ -41,7 +42,9 @@ $('#buttonSend').click(function(e){
                 userName = result.userName
                 console.log(result)
                 insertComment(success)
+                $('#comments').val('')
     }});
+    
 });
 
 var commentsNode = $('#commentsNode')
