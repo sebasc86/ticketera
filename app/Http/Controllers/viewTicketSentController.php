@@ -24,14 +24,16 @@ class viewTicketSentController extends Controller
 
     public function getTickets()
     {   
+        
         $user = Auth::user();
         $userId = $user->id;
         $userFind = User::find($userId);
         $tickets = $userFind->ticket;
-        return Datatables::of($tickets)->make(true);
-        // $tickets = Ticket::select(['id','number','user_id','status']);
-        // return Datatables::of($tickets)->make(true);
-        
+        foreach ($tickets as $key => $value) {
+            $value->user_id = $userFind->name;
+        }
+       
+        return Datatables::of($tickets)->make(true);        
 
     }
 }
