@@ -25,8 +25,10 @@ Route::post('/newTicket', 'newTicketController@store');
 
 Route::get('/ticketView/{ticket}', 'viewTicketController@index')->name('/ticketView');
 Route::post('/ticketView/{ticket}/post', 'viewTicketController@store');
+Route::post('/ticketView/{ticket}/close', 'viewTicketController@close');
 
 Route::get('/ticketSent', 'viewTicketSentController@index')->name('/viewTicketSent');
+Route::get('/ticketSent/sent', ['as'=>'get.data','uses'=>'viewTicketSentController@getTickets']);
 Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet');
 Auth::routes();
 

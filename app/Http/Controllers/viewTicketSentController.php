@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
 use App\Ticket;
 use App\User;
 
@@ -18,17 +19,19 @@ class viewTicketSentController extends Controller
     
     public function index()
     {
+        return view('viewTicketSent');
+    }
 
-    	$user = Auth::user();
-		$userId = $user->id;	
-		$userFind = User::find($userId);
-		$tickets= $userFind->tickets;
-
-		
-
-		
-		return view('viewTicketSent')->with('tickets',$tickets);
-
+    public function getTickets()
+    {   
+        $user = Auth::user();
+        $userId = $user->id;
+        $userFind = User::find($userId);
+        $tickets = $userFind->ticket;
+        return Datatables::of($tickets)->make(true);
+        // $tickets = Ticket::select(['id','number','user_id','status']);
+        // return Datatables::of($tickets)->make(true);
+        
 
     }
 }

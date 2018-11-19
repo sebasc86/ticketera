@@ -21,6 +21,28 @@ $('#buttonArea').on('click', function(){
 })
 
 
+$('#close').click(function(e){
+    console.log('prueba')
+    e.preventDefault();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+            url: '/ticketView/{{$ticket->number}}/close',
+            method: 'POST',
+            data: {
+                close: 0,
+            },
+            success: function(result){
+                console.log(result);
+                $('#status').text('Cerrado');
+            
+    }});
+    
+});
+
 var success = ''
 var userName = ''
 $('#buttonSend').click(function(e){
@@ -79,7 +101,4 @@ function insertComment(success) {
 }
 
 
-// function insertComment() {
-    
-// }
 

@@ -35,7 +35,7 @@
           <div class="col-6">
             
 
-            <p class='h6'>{{ $ticket->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
+            <p id='status' class='h6'>{{ $ticket->status === 1 ? 'Abierto' : 'Cerrado' }}</p>
             
           </div>      
         </div>
@@ -144,7 +144,7 @@
       @foreach($ticket->comment as $dato)
       
         <div class="row justify-content-between">
-          <div class="bg-light col-11 border rounded  mt-5 ">
+          <div class="bg-light col-12 border rounded  mt-5 ">
             <div class='row'>
               <div class="col">
                 <h1 class='h5 mt-2 border-bottom border-dark text-left'>Comentario:</h1>
@@ -167,14 +167,14 @@
             </div>
           </div>
 
-          
-          @if($dato->user->id === $userLoginId)
+          {{-- boton delete comentario -- por hacer --}}
+          {{-- @if($dato->user->id === $userLoginId)
             <div class='row align-items-center'>
               <div class="col mt-5">
                 <button type="button" id='buttonDelete' class="btn btn-danger">Delete</button>
               </div>    
             </div>
-          @endif  
+          @endif   --}}
         </div>  
 
         
@@ -204,9 +204,16 @@
               </form>
               
 
-              <div class="col-5 mt-5">
-                  <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
+            
+            @if($ticket->queue == $userLoginId)
+            <form class='bg-light col-5 border rounded  mt-5' action="" name="close" id='closeTicket' method="post" enctype="multipart/form-data">
+                {{csrf_field()}}
+              <div class="col-2 mt-5 align-self-end">
+                  <input class="btn btn-primary" id='close' type="submit" value="close">
               </div>
+            </form>
+            @endif 
+              
       </div>
 
       
