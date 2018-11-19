@@ -55,7 +55,7 @@
       <th scope="col">Cliente</th>
       <th scope="col">Descripcion</th>
       <th scope="col">Detalles</th>
-      <th scope="col">User</th>
+      <th scope="col">Usuario Creador</th>
       <th scope="col">Creado</th>
       <th scope="col">#</th>
       <th id='href' scope="col">Button</th>
@@ -74,7 +74,7 @@
       var tickets = $('#tickets-table').DataTable({
             processing: true,
             serverSide: true,
-            
+            "order": [[ 0, 'desc' ], [ 8, 'desc' ]],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
             },
@@ -86,7 +86,8 @@
                     } else {
                       return '<td>Abierto</td>'
                     }
-                } },
+                  } 
+                }, 
                 { data: 'sector', name: 'sector' },
                 { data: 'number', name: 'number' },
                 { data: 'client', name: 'client' },
@@ -94,21 +95,15 @@
                 { data: 'details', name: 'details' },
                 { data: 'user_id', name: 'user_id' },
                 { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {"data": null, 
-                "defaultContent": "<button class='ticketView btn btn-primary'>Ver Ticket</button>"},   ],
+                { data: 'updated_at', name: 'updated_at', visible: false  },
+                { data: 'number', 
+                  render: function(data){
+                    return "<a href='http://127.0.0.1:8000/ticketView/"+ data + "' class='ticketView btn btn-primary'>Ver Ticket</button>"
+                  }
+                },
+            ],
               
         });
-        
-        setTimeout(function(){
-          console.log($('tr').children())
-          $('.ticketView').on('click', function(e){
-             var tableRow = $(this).parent().parent()
-             var numberTicket = tableRow.children('td:nth-child(3)').text()
-             var url = "http://127.0.0.1:8000/ticketView/" + numberTicket;
-             $(location).attr("href", url);
-          });
-        }, 500)
     });
 
     
