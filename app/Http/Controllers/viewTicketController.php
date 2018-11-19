@@ -70,6 +70,7 @@ class viewTicketController extends Controller
 			}else {
 				return abort(403);
 			};
+
 		}else {
 			return abort(403);
 		}
@@ -102,26 +103,16 @@ class viewTicketController extends Controller
 	        return response()->json(['success'=>'1','userName' => $userName]);
 	 }
 
-	 public function delete(Request $request)
+	 public function close(Request $request)
 	 {		
-
-	 		// $user = Auth::user();
-			// $userId = $user->id;
-			// $userName = $user->name;
+			 
+			$ticketId = $request->session()->get('ticket_id');
+			$ticket = Ticket::find($ticketId);
+			$ticket->status = 0;
+			$ticket->save();
 			
 
-			// $ticketId = $request->session()->get('ticket_id');
+			return response()->json(['success'=>'0','ticketId' => $ticketId]);
 
-					
-
-	        // $comment = new Comment();
-	        // $comment->user_id = $userId;
-	        // $comment->comments = $request->comments;
-	        // $comment->ticket_id = $ticketId;        
-
-	        // $comment->save();
-	        
-
-	        // return response()->json(['success'=>'1','userName' => $userName]);
 	 }
 }
