@@ -12,9 +12,17 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\User');
     }
+
     public function comment()
     {
     	return $this->hasMany('App\Comment', 'ticket_id', 'id');
     }
+
+    public function file()
+    {
+        return $this->hasMany('App\File');
+    }
+
+
 
 }
