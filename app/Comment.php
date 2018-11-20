@@ -17,4 +17,11 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function file()
+    {
+        return $this->hasMany('App\File');
+    }
+
+    
 }
