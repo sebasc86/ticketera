@@ -46,6 +46,11 @@ class viewTicketGetController extends Controller
     
         foreach ($ticketsQueue as $key => $value) {
             $value->user_id = $user->name;
+            if($value->status === 0){
+                $value->status = 'Cerrado';
+            } else {
+                $value->status = 'Abierto';
+            };
         }   
             
         return Datatables::of($ticketsQueue)->make(true);        

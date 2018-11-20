@@ -31,6 +31,11 @@ class viewTicketSentController extends Controller
         $tickets = $userFind->ticket;
         foreach ($tickets as $key => $value) {
             $value->user_id = $userFind->name;
+            if($value->status === 0){
+                $value->status = 'Cerrado';
+            } else {
+                $value->status = 'Abierto';
+            };
         }
        
         return Datatables::of($tickets)->make(true);        
