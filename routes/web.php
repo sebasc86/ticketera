@@ -29,7 +29,10 @@ Route::post('/ticketView/{ticket}/close', 'viewTicketController@close');
 
 Route::get('/ticketSent', 'viewTicketSentController@index')->name('/viewTicketSent');
 Route::get('/ticketSent/sent', ['as'=>'get.data','uses'=>'viewTicketSentController@getTickets']);
+
 Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet');
+Route::get('/ticketGet/get', ['as'=>'datas.get','uses'=>'viewTicketGetController@getTickets']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
