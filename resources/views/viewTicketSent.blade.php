@@ -29,23 +29,8 @@
 <body>
 
   @include('header')
-  <!-- <table class="tabla">
-      
-        <tr>
-          
-          <th>Estado</th>
-          <th>Sector</th>
-          <th>Nro ticket</th>
-          <th>Cliente</th>
-          <th>Descripcion</th>
-          <th>Detalles</th>
-          <th>User</th>
-          <th>Creado</th>
-          
-        </tr>
-  
-  </table> -->
-<div class="container">
+ 
+<div class="container mt-5">
   <table class='table' id='tickets-table'>
   <thead >
     <tr>
@@ -63,6 +48,18 @@
       
     </tr>
   </thead>
+
+  <tfoot>
+    <tr>
+        <th>Estado</th>
+        <th>Sector</th>
+        <th>Ticket</th>
+        <th>Cliente</th>
+        <th>Descripcion</th>
+        <th>Usuario Creador</th>
+        <th>Creado<th>
+    </tr>
+  </tfoot>
   <tbody>
 </div>
 
@@ -72,6 +69,27 @@
   <script type="text/javascript">
     $(function() {
       var tickets = $('#tickets-table').DataTable({
+            initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.cells('', column[0]).render('display').sort().unique().each( function ( d, j ) {
+                    console.log(d)
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+            },
             processing: true,
             serverSide: true,
             "order": [[ 0, 'desc' ], [ 8, 'desc' ]],
@@ -80,14 +98,7 @@
             },
             ajax: '{!! route('get.data') !!}',
             columns: [
-                { data: 'status', render: function( data, type, full, meta ) {
-                    if(data == 0){
-                      return '<td>Cerrado</td>'
-                    } else {
-                      return '<td>Abierto</td>'
-                    }
-                  } 
-                }, 
+                { data: 'status', name: 'status' }, 
                 { data: 'sector', name: 'sector' },
                 { data: 'number', name: 'number' },
                 { data: 'client', name: 'client' },
