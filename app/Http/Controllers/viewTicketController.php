@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Ticket;
 use App\User;
 use App\Comment;
@@ -42,28 +43,11 @@ class viewTicketController extends Controller
 			$ticketUserId = $ticketN->user_id;
 			$files = File::where('ticket_id', $ticketId)->get()->all();
 			
-
-			// SI ESTAN BIEN ECHAS LAS TABLAS DE REALIACIONES NO HACE FALTA ESTO
-			// $comments = DB::table('tickets')
-			// ->where('number', $ticket)
-			// ->join('comments', 'tickets.id', '=', 'comments.ticket_id')
-			// ->join('users', 'users.id', '=' ,'comments.user_id')
-			// ->get();
-
-			// $userNameComments = [];
-			// $i = 0;
-			// foreach ($comments as $value) {
-			// 	$userNameComments = User::where('id', $value->user_id)->first()->name;
-			// 	$i++;
-			// }
-
-			// $comments = $ticketN->comment;
-			// $comments2 = $comments->where('user_id', $ticketN->user->id);
+			/*dd(Storage::response("public/uploads/files/$files->filename"));*/
+			// $contents = Storage::disk('public')->get('uploads/files/'.$files->filename);
+			// dd($contents);
 			
-			// $userCommentId($comments2->first()->user_id)
-			// foreach ($comments2 as $key => $value) {
-				
-			// }
+	
 
 			
 			

@@ -131,14 +131,18 @@
             <p class='h6'>{{$ticket->details}}</p>
           </div>      
         </div>
-        @if ($files)
-            @foreach ($files as $item)
+
+     
+            
             <div class="col mt-2">
+            {{--  <img src="{{ url('storage/uploads/files/'.$files->filename) }}" alt="" title="" /> --}}
+            @foreach ($files as $file)
               
-              <img src="{{ asset( 'files/' . $item->filename) }}" alt="">
-            </div> 
+               <li><a href="{{ url('storage/uploads/files/'.$file->filename) }}" >Descargar</a></li>
             @endforeach
-        @endif
+            </div> 
+          
+      
       </div>
     </div>  
 
