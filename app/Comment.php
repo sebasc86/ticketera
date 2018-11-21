@@ -20,7 +20,7 @@ class Comment extends Model
 
     public function file()
     {
-        return $this->hasMany('App\File');
+        return $this->hasMany(File::class);
     }
 
     

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Ticket;
 use App\User;
 use App\Comment;
+use App\File;
 
 class viewTicketController extends Controller
 {
@@ -27,6 +28,8 @@ class viewTicketController extends Controller
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
 		
+		
+		
 		if($ticketN) {
 			
 
@@ -37,7 +40,8 @@ class viewTicketController extends Controller
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
 			$ticketUserId = $ticketN->user_id;
-		
+			$files = File::where('ticket_id', $ticketId)->get()->all();
+			
 
 			// SI ESTAN BIEN ECHAS LAS TABLAS DE REALIACIONES NO HACE FALTA ESTO
 			// $comments = DB::table('tickets')
@@ -66,7 +70,7 @@ class viewTicketController extends Controller
 
 			//queue es la cola de usuario osea esta realacionado al id del usuario	
 			if($ticketUserId == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticket', $ticketN)->with('userLoginId', $userId);
+		 		return view('/ticketView')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files);
 			}else {
 				return abort(403);
 			};
@@ -110,6 +114,7 @@ class viewTicketController extends Controller
 			$ticket = Ticket::find($ticketId);
 			$ticket->status = 0;
 			$ticket->save();
+			
 			
 
 			return response()->json(['success'=>'0','ticketId' => $ticketId]);
