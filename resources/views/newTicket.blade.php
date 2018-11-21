@@ -55,7 +55,7 @@
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlFile1">file input</label>
-				<input type="file" class="form-control-file" name='file' id="file">
+				<input type="file" class="form-control-file" name='file[]' id="file" multiple>
 			</div>
 		  <input class="btn btn-primary" type="submit" value="Submit">
 		</form>

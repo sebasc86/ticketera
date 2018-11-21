@@ -76,19 +76,23 @@ class newTicketController extends Controller
 		
 		
 		if(request()->file != null) {
-			// Asignamos nombre para la DB.
-						$fileName = uniqid() . "." . request()->file->extension();            
-			// Defino la carpeta en la que voy a guardar la imagen
-						$folder =  'uploads/files';
-			// Almacenar la imagen en el servidor con el nuevo nombre
-						$path = request()->file->storeAs($folder, $fileName, 'public');
 
-			// Salvamos el usuario para la data base.
-						$file = new File;
-
-						$file->ticket_id = $ticket->id;
-						$file->filename = $fileName;
-						$file->save();
+			.
+						foreach (request()->file as $key => $value) {
+							// Asignamos nombre para la DB	
+							$fileName = uniqid() . "." . $value->extension(); 
+							// Defino la carpeta en la que voy a guardar la imagen
+							$folder =  'uploads/files';
+							// Almacenar la imagen en el servidor con el nuevo nombre
+							$path =  $value->storeAs($folder, $fileName, 'public');
+							// Salvamos el usuario para la data base.
+							
+							$file = new File;
+							$file->ticket_id = $ticket->id;
+							$file->filename = $fileName;
+							$file->save();
+						}
+			
 						
 			// php artisan storage:link -> link storage desde consola.       
 					}
