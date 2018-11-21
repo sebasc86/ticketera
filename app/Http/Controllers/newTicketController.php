@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Ticket;
+use App\File;
 use Illuminate\Support\Facades\Auth;
 
 class newTicketController extends Controller
@@ -70,25 +71,27 @@ class newTicketController extends Controller
 	    $ticket->details = request()->details;
 	    $ticket->user_id = $userId;
 		$ticket->number = date('Ymd') . 0 . $ticketLastId + 1;
-		$ticket->save();
+		$ticket->save();          
 		
-          
-       /*$user->document = request()->document;
-	    $user->phone = request()->phone;
-	    $user->update();
-	   	Car::create([
-	    	'user_id' => Auth::user()->id,
-	    	'trademark' => request('trademark'),
-	    	'model' => request('model'),
-	    	'year' => request('year'),
-	    	'color' => request('color'),
-	    	'license_plate' => request('license_plate'),
-	    	'capacity' => request('capacity'),
-	    ]);    */
+		
+		
+		if(request()->file != null) {
+			// Asignamos nombre para la DB.
+						$fileName = uniqid() . "." . request()->file->extension();            
+			// Defino la carpeta en la que voy a guardar la imagen
+						$folder =  'uploads/files';
+			// Almacenar la imagen en el servidor con el nuevo nombre
+						$path = request()->file->storeAs($folder, $fileName, 'public');
 
+			// Salvamos el usuario para la data base.
+						$file = new File;
 
-          
-        
+						$file->ticket_id = $ticket->id;
+						$file->filename = $fileName;
+						$file->save();
+						
+			// php artisan storage:link -> link storage desde consola.       
+					}
         return redirect('newTicket');   
 
 
