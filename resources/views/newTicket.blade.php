@@ -25,15 +25,6 @@
 	<div class="container mt-4">
 		<form action="" name="newTicket" method="post" enctype="multipart/form-data">
 		{{csrf_field()}}
-		  {{-- <div class="form-group">
-		    <label for="exampleFormControlInput1">Email address</label>
-		    <input type="text" name="email" class="form-control" id="email" placeholder="name@example.com">
-		   	@if($errors->has('email'))
-		    <div class="alert alert-danger">
-		        {{ $errors->first('email') }}
-		    </div>
-		    @endif
-		  </div> --}}
 		   <div class="form-group">
 		    <label for="exampleFormControlInput1">Enviar a:</label>
 		    <select class="form-control" id="queue" name='queue'>
@@ -61,7 +52,11 @@
 		  <div class="form-group">
 		    <label for="exampleFormControlTextarea1">Detalle</label>
 		    <textarea class="form-control" name='details' id="details" rows="3"></textarea>
-		  </div>
+			</div>
+			<div class="form-group">
+				<label for="exampleFormControlFile1">file input</label>
+				<input type="file" class="form-control-file" name='file' id="file">
+			</div>
 		  <input class="btn btn-primary" type="submit" value="Submit">
 		</form>
 	</div>
