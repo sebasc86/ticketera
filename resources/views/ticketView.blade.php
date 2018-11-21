@@ -131,6 +131,14 @@
             <p class='h6'>{{$ticket->details}}</p>
           </div>      
         </div>
+        @if ($files)
+            @foreach ($files as $item)
+            <div class="col mt-2">
+              
+              <img src="{{ asset( 'files/' . $item->filename) }}" alt="">
+            </div> 
+            @endforeach
+        @endif
       </div>
     </div>  
 
