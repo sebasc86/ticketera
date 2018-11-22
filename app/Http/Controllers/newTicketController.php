@@ -95,10 +95,7 @@ class newTicketController extends Controller
 			
 						
 			// php artisan storage:link -> link storage desde consola.       
-					}
+		}
         return redirect('newTicket');   
-
-
-          
     }
 }
