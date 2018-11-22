@@ -77,7 +77,7 @@ class newTicketController extends Controller
 		
 		if(request()->file != null) {
 
-			.
+			
 						foreach (request()->file as $key => $value) {
 							// Asignamos nombre para la DB	
 							$fileName = uniqid() . "." . $value->extension(); 
