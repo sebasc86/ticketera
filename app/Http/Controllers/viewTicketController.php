@@ -46,13 +46,8 @@ class viewTicketController extends Controller
 			/*dd(Storage::response("public/uploads/files/$files->filename"));*/
 			// $contents = Storage::disk('public')->get('uploads/files/'.$files->filename);
 			// dd($contents);
-			
-	
-
-			
-			
-
 			//queue es la cola de usuario osea esta realacionado al id del usuario	
+
 			if($ticketUserId == $userId || $userId == $ticketQueue){
 		 		return view('/ticketView')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files);
 			}else {
@@ -103,5 +98,11 @@ class viewTicketController extends Controller
 
 			return response()->json(['success'=>'0','ticketId' => $ticketId]);
 
+	 }
+
+	 public function download(Request $request, $ticket, $filename) 
+	 {	
+
+		return Storage::download ("public/uploads/files/$filename");
 	 }
 }

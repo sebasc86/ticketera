@@ -137,8 +137,13 @@
             <div class="col mt-2">
             {{--  <img src="{{ url('storage/uploads/files/'.$files->filename) }}" alt="" title="" /> --}}
             @foreach ($files as $file)
-              
-               <li><a href="{{ url('storage/uploads/files/'.$file->filename) }}" >Descargar</a></li>
+               
+                <ul class="d-flex" style="padding: 0px; margin: 0">
+                  <li class="list-group-item d-flex p-2">
+                   <a class="" href="{{url('/ticketView/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
+                  </li> 
+                </ul>
+
             @endforeach
             </div> 
           

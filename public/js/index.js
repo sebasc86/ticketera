@@ -43,6 +43,8 @@ $('#close').click(function(e){
     
 });
 
+
+
 var success = ''
 var userName = ''
 $('#buttonSend').click(function(e){
