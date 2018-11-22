@@ -12,6 +12,7 @@
 
   		  <!-- Bootstrap CSS -->
    		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
 
        <meta name="csrf-token" content="{{ csrf_token() }}" />
   	</head>
@@ -138,10 +139,12 @@
             {{--  <img src="{{ url('storage/uploads/files/'.$files->filename) }}" alt="" title="" /> --}}
             @foreach ($files as $file)
                
-                <ul class="d-flex" style="padding: 0px; margin: 0">
+                <ul class="list group d-flex mt-2" style="padding: 0px; margin: 0">
+
                   <li class="list-group-item d-flex p-2">
+                   <span class="p-1 oi oi-data-transfer-download" title="person" aria-hidden="true"></span>
                    <a class="" href="{{url('/ticketView/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
-                  </li> 
+                   </li> 
                 </ul>
 
             @endforeach
