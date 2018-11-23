@@ -53,24 +53,18 @@ class newTicketController extends Controller
 		]);
 
 
-		$tickets =  Ticket::all()->last();
-		if($tickets) {
-			$ticketLastId = $tickets->id;
-		} else {
-			$ticketLastId = 0;
-		}
-
 
 		$ticket = new Ticket;
-
-		$ticket->status = 1;
+		$ticket->setUser($userId);
+		
+		$ticket->status = Ticket::OPEN_STATUS;
 		$ticket->sector  = 'chessecake';
 		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
 	    $ticket->title = request()->title;
 	    $ticket->details = request()->details;
 	    $ticket->user_id = $userId;
-		$ticket->number = date('Ymd') . 0 . $ticketLastId + 1;
+		$ticket->number = date('Ymd') . 0 . $ticket->ticketLast() + 1;
 		$ticket->save();          
 		
 		
