@@ -8,7 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Ticket;
 use App\User;
 
-class viewTicketGetController extends Controller
+class getTicketController extends Controller
 {
     public function __construct()
     {
@@ -28,7 +28,7 @@ class viewTicketGetController extends Controller
 		// $userQueue = Ticket::where('queue', $userN)->get();
         
 		
-		return view('viewTicketGet');
+		return view('get');
 
 
     }
