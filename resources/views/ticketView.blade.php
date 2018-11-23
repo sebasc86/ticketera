@@ -6,13 +6,24 @@
 
         <title>TicketCall</title>
 	<head>
-   		 <!-- Required meta tags -->
-   		 <meta charset="utf-8">
-   		 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
 
-  		  <!-- Bootstrap CSS -->
-   		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+
+       <!-- include libraries(jQuery, bootstrap) -->
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+      <!-- Popper JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+      <!-- include summernote css/js -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
 
        <meta name="csrf-token" content="{{ csrf_token() }}" />
   	</head>
@@ -120,6 +131,7 @@
       </div>
      
     </div>
+
     <div class="row justify-content-between">
       <div class="bg-light col-12 border rounded  mt-5 ">
         <div class='row'>
@@ -129,7 +141,7 @@
         </div>
         <div class="row align-items-center">
           <div class="col mt-2">
-            <p class='h6'>{{$ticket->details}}</p>
+            {!! $ticket->details !!}
           </div>      
         </div>
 
@@ -153,6 +165,8 @@
       
       </div>
     </div>  
+
+   
 
 
 
@@ -200,7 +214,11 @@
         
       @endforeach
       @endif
-
+      
+      <div class="container">
+        
+      </div>  
+      
 
       <div id="commentsNode">
 

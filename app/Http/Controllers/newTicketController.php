@@ -41,7 +41,7 @@ class newTicketController extends Controller
 		$userId = $user->id;	
         
 		$this->validate(request(), [       
-		/*          'name' => 'required|numeric',
+		/*'name' => 'required|numeric',
 		  'email' => 'unique:users,email,'.$user->id,
 		  'password' => 'required|alpha_num|min:8|max:12',
 		  'password_confirmation' => 'required|same:password',
@@ -52,44 +52,74 @@ class newTicketController extends Controller
 		  /*'email' => 'required|email',*/
 		]);
 
+		$details = request()->details;
+		
+		$dom = new \domdocument();
+		
+        $dom->loadHtml($details, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $images = $dom->getelementsbytagname('img');
+
+
+        foreach($images as $k => $img){
+            $data = $img->getattribute('src');
+ 
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+ 
+            $data = base64_decode($data);
+
+            $image_name = uniqid().'.png';
+            $folder = 'uploads/files';
+            
+            $path = storage_path('app/public/uploads/files') .'/' . $image_name;
+           	 			
+            file_put_contents($path, $data);
+           
+ 
+            $img->removeattribute('src');
+            $img->setattribute('src', asset('ticketView/20181123041/download/' . $image_name));
+        }
+
+        $details = $dom->savehtml();
+
 
 
 		$ticket = new Ticket;
-		$ticket->setUser($userId);
 		
-		$ticket->status = Ticket::OPEN_STATUS;
+		
+		$ticket->setOpenStatus();
 		$ticket->sector  = 'chessecake';
 		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
 	    $ticket->title = request()->title;
-	    $ticket->details = request()->details;
-	    $ticket->user_id = $userId;
-		$ticket->number = date('Ymd') . 0 . $ticket->ticketLast() + 1;
+	    $ticket->details = $details;
+	    $ticket->setUser($userId);
+	    $ticket->setTicketNumber();
+		$ticket->number = $ticket->setTicketNumber();
 		$ticket->save();          
 		
 		
 		
 		if(request()->file != null) {
 
-			
-						foreach (request()->file as $key => $value) {
-							// Asignamos nombre para la DB	
-							$fileName = uniqid() . "." . $value->extension(); 
-							// Defino la carpeta en la que voy a guardar la imagen
-							$folder =  'uploads/files';
-							// Almacenar la imagen en el servidor con el nuevo nombre
-							$path =  $value->storeAs($folder, $fileName, 'public');
-							// Salvamos el usuario para la data base.
-							
-							$file = new File;
-							$file->ticket_id = $ticket->id;
-							$file->filename = $fileName;
-							$file->save();
-						}
-			
-						
-			// php artisan storage:link -> link storage desde consola.       
+				foreach (request()->file as $key => $value) {
+					// Asignamos nombre para la DB	
+					$fileName = uniqid() . "." . $value->extension(); 
+					// Defino la carpeta en la que voy a guardar la imagen
+					$folder =  'uploads/files';
+					// Almacenar la imagen en el servidor con el nuevo nombre
+					$path =  $value->storeAs($folder, $fileName, 'public');
+					// Salvamos el usuario para la data base.
+					$file = new File;
+					$file->ticket_id = $ticket->id;
+					$file->filename = $fileName;
+					$file->save();
+				}
+			    
 		}
-        return redirect('newTicket');   
+
+
+        return redirect('ticketView/'. $ticket->number);   
     }
 }

@@ -12,6 +12,8 @@ class Ticket extends Model
     public const OPEN_STATUS = 1;
     public const IN_PROGRESS_STATUS = 2;
     protected $user;
+    protected $status;
+    protected $number;
 
     // Constructor
     public function __construct(){
@@ -28,15 +30,40 @@ class Ticket extends Model
 		}
     }
 
-    public function user()
+    public function setOpenStatus() 
     {
-        return $this->belongsTo('App\User');
+        $this->status = TICKET::OPEN_STATUS;
     }
+
+    public function setCloseStatus() 
+    {
+        $this->status = TICKET::CLOSE_STATUS;
+    }
+
+    public function setInProgress() 
+    {
+        $this->status = TICKET::IN_PROGRESS_STATUS;
+    }
+
 
     public function setUser($userId) 
     {
         $this->user_id = $userId;
     }
+
+    public function setTicketNumber()
+    {
+        $date = date('Ymd');
+        return $this->number = $date . 0 . $this->ticketLast() + 1;
+    }
+
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    
 
     public function comment()
     {
