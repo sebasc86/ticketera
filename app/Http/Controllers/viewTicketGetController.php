@@ -26,7 +26,7 @@ class viewTicketGetController extends Controller
 		
 
 		// $userQueue = Ticket::where('queue', $userN)->get();
-
+        
 		
 		return view('viewTicketGet');
 
@@ -41,19 +41,29 @@ class viewTicketGetController extends Controller
         $userId = $user->id;
 
         $ticketsQueue= Ticket::where('queue', $userId)->get();  
-        $userTid = $ticketsQueue->first()->user_id;
-        $user = $user::find($userTid);
-    
-        foreach ($ticketsQueue as $key => $value) {
-            $value->user_id = $user->name;
-            if($value->status === 0){
-                $value->status = 'Cerrado';
-            } else {
-                $value->status = 'Abierto';
-            };
-        }   
+
+        //lo paso a array para saber si esta vacio o no
+        if( !$ticketsQueue->isEmpty() ) {
             
-        return Datatables::of($ticketsQueue)->make(true);        
+            $userTid = $ticketsQueue->first()->user_id;
+            $user = $user::find($userTid);
+
+            foreach ($ticketsQueue as $key => $value) {
+                $value->user_id = $user->name;
+                if($value->status === 0){
+                    $value->status = 'Cerrado';
+                } else {
+                    $value->status = 'Abierto';
+                };
+            }   
+
+            return Datatables::of($ticketsQueue)->make(true);
+
+        } else {
+
+            return Datatables::of($ticketsQueue)->make(false);
+            
+        }    
 
     }
 }

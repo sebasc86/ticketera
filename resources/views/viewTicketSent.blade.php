@@ -103,7 +103,7 @@
                 { data: 'number', name: 'number' },
                 { data: 'client', name: 'client' },
                 { data: 'title', name: 'title' },
-                { data: 'details', name: 'details' },
+                { data: 'details', name: 'details', visible: false },
                 { data: 'user_id', name: 'user_id' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'updated_at', name: 'updated_at', visible: false  },
