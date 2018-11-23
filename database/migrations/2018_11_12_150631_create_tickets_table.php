@@ -21,7 +21,7 @@ class CreateTicketsTable extends Migration
             $table->string('title')->nullable();
             $table->bigInteger('number');
             $table->integer('client')->nullable();
-            $table->string('details')->nullable();
+            $table->longtext('details')->nullable();
             $table->integer('user_id')->unsigned()->nullable();;
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

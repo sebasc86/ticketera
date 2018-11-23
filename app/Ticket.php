@@ -32,23 +32,23 @@ class Ticket extends Model
 
     public function setOpenStatus() 
     {
-        $this->status = TICKET::OPEN_STATUS;
+        return $this->status = TICKET::OPEN_STATUS;
     }
 
     public function setCloseStatus() 
     {
-        $this->status = TICKET::CLOSE_STATUS;
+        return $this->status = TICKET::CLOSE_STATUS;
     }
 
     public function setInProgress() 
     {
-        $this->status = TICKET::IN_PROGRESS_STATUS;
+        return $this->status = TICKET::IN_PROGRESS_STATUS;
     }
 
 
     public function setUser($userId) 
     {
-        $this->user_id = $userId;
+        return $this->user_id = $userId;
     }
 
     public function setTicketNumber()

@@ -30,7 +30,7 @@ class newTicketController extends Controller
     		};
     	};
 
-		return view('/newTicket')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
+		return view('/new')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
 
     }
 
@@ -78,7 +78,7 @@ class newTicketController extends Controller
            
  
             $img->removeattribute('src');
-            $img->setattribute('src', asset('ticketView/20181123041/download/' . $image_name));
+            $img->setattribute('src', asset('view/20181123041/download/' . $image_name));
         }
 
         $details = $dom->savehtml();
@@ -88,14 +88,13 @@ class newTicketController extends Controller
 		$ticket = new Ticket;
 		
 		
-		$ticket->setOpenStatus();
-		$ticket->sector  = 'chessecake';
+		$ticket->status = $ticket->setOpenStatus();
+		$ticket->sector = 'chessecake';
 		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
 	    $ticket->title = request()->title;
 	    $ticket->details = $details;
-	    $ticket->setUser($userId);
-	    $ticket->setTicketNumber();
+	    $ticket->user_id = $ticket->setUser($userId);
 		$ticket->number = $ticket->setTicketNumber();
 		$ticket->save();          
 		
@@ -120,6 +119,6 @@ class newTicketController extends Controller
 		}
 
 
-        return redirect('ticketView/'. $ticket->number);   
+        return redirect('view/'. $ticket->number);   
     }
 }

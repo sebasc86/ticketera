@@ -155,7 +155,7 @@
 
                   <li class="list-group-item d-flex p-2">
                    <span class="p-1 oi oi-data-transfer-download" title="person" aria-hidden="true"></span>
-                   <a class="" href="{{url('/ticketView/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
+                   <a class="" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
                    </li> 
                 </ul>
 

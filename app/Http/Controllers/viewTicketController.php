@@ -49,7 +49,7 @@ class viewTicketController extends Controller
 			//queue es la cola de usuario osea esta realacionado al id del usuario	
 
 			if($ticketUserId == $userId || $userId == $ticketQueue){
-		 		return view('/ticketView')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files);
+		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files);
 			}else {
 				return abort(403);
 			};
@@ -102,7 +102,6 @@ class viewTicketController extends Controller
 
 	 public function download(Request $request, $ticket, $filename) 
 	 {	
-
 		return Storage::download ("public/uploads/files/$filename");
 	 }
 }

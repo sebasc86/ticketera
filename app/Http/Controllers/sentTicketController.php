@@ -8,7 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Ticket;
 use App\User;
 
-class viewTicketSentController extends Controller
+class sentTicketController extends Controller
 {
 
     public function __construct()
@@ -19,7 +19,7 @@ class viewTicketSentController extends Controller
     
     public function index()
     {
-        return view('viewTicketSent');
+        return view('sent');
     }
 
     public function getTickets()

@@ -92,7 +92,7 @@
             },
             processing: true,
             serverSide: true,
-            "order": [[ 0, 'desc' ], [ 8, 'desc' ]],
+            "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
             },
@@ -109,7 +109,7 @@
                 { data: 'updated_at', name: 'updated_at', visible: false  },
                 { data: 'number', 
                   render: function(data){
-                    return "<a href='http://127.0.0.1:8000/ticketView/"+ data + "' class='ticketView btn btn-primary'>Ver Ticket</button>"
+                    return "<a href='http://127.0.0.1:8000/view/"+ data + "' class='ticketView btn btn-primary'>Ver Ticket</button>"
                   }
                 },
             ],

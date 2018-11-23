@@ -20,21 +20,21 @@ Route::get('/', function () {
 });
 
 
-Route::get('/newTicket', 'newTicketController@index')->name('/newTicket');
-Route::post('/newTicket', 'newTicketController@store');
+Route::get('/new', 'newTicketController@index')->name('/newTicket');
+Route::post('/new', 'newTicketController@store');
 
-Route::get('/ticketView/{ticket}', 'viewTicketController@index')->name('/ticketView');
+Route::get('/view/{ticket}', 'viewTicketController@index')->name('/view');
 
-Route::post('/ticketView/{ticket}/post', 'viewTicketController@store');
-Route::post('/ticketView/{ticket}/close', 'viewTicketController@close');
-Route::get('/ticketView/{ticket}/download/{filename}', 'viewTicketController@download');
+Route::post('/view/{ticket}/post', 'viewTicketController@store');
+Route::post('/view/{ticket}/close', 'viewTicketController@close');
+Route::get('/view/{ticket}/download/{filename}', 'viewTicketController@download');
 
 
-Route::get('/ticketSent', 'viewTicketSentController@index')->name('/viewTicketSent');
-Route::get('/ticketSent/sent', ['as'=>'get.data','uses'=>'viewTicketSentController@getTickets']);
+Route::get('/sent', 'sentTicketController@index')->name('/sent');
+Route::get('/sent/sent', ['as'=>'get.data','uses'=>'sentTicketController@getTickets']);
 
-Route::get('/ticketGet', 'viewTicketGetController@index')->name('/viewTicketGet');
-Route::get('/ticketGet/get', ['as'=>'datas.get','uses'=>'viewTicketGetController@getTickets']);
+Route::get('/get', 'getTicketController@index')->name('/get');
+Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);
 
 Auth::routes();
 
