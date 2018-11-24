@@ -1,38 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-	 <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-        <title>TicketCall</title>
-	<head>
-        
+  
+  
+  @section('content')
 
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
-
-       <!-- include libraries(jQuery, bootstrap) -->
-      <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-      <!-- Popper JS -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-      <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-      <!-- include summernote css/js -->
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
-
-       <meta name="csrf-token" content="{{ csrf_token() }}" />
-  	</head>
-<body>
-	@include('header')
 
   <div class='container mt-5'>
-  
-    
     <div class="row justify-content-between">
       <div class="bg-light col-5 border rounded ">
         <div class='row align-items-center'>
@@ -133,12 +106,15 @@
     </div>
 
     <div class="row justify-content-between">
+      
       <div class="bg-light col-12 border rounded  mt-5 ">
+        
         <div class='row'>
           <div class="col">
             <h1 class='h4 mt-2 border-bottom border-dark text-center'>Detalle Ticket</h1>
           </div>
         </div>
+        
         <div class="row align-items-center">
           <div class="col mt-2">
             {!! $ticket->details !!}
@@ -147,23 +123,23 @@
 
      
             
-            <div class="col mt-2">
-            {{--  <img src="{{ url('storage/uploads/files/'.$files->filename) }}" alt="" title="" /> --}}
-            @foreach ($files as $file)
-               
-                <ul class="list group d-flex mt-2" style="padding: 0px; margin: 0">
+        <div class="col mt-2">
 
-                  <li class="list-group-item d-flex p-2">
-                   <span class="p-1 oi oi-data-transfer-download" title="person" aria-hidden="true"></span>
-                   <a class="" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
-                   </li> 
-                </ul>
-
-            @endforeach
-            </div> 
+          @foreach ($files as $file)
           
-      
+          <ul class="list group d-flex mt-2" style="padding: 0px; margin: 0">
+            <li class="list-group-item d-flex p-2">
+              <span class="p-1 oi oi-data-transfer-download" title="person" aria-hidden="true"></span>
+              <a class="" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
+            </li> 
+          </ul>
+
+          @endforeach
+
+        </div> 
+          
       </div>
+
     </div>  
 
    
@@ -172,33 +148,40 @@
 
 
       
-      @if($ticket->comment)
+    @if($ticket->comment)
       
 
       @foreach($ticket->comment as $dato)
       
         <div class="row justify-content-between">
+
           <div class="bg-light col-12 border rounded  mt-5 ">
+          
             <div class='row'>
               <div class="col">
                 <h1 class='h5 mt-2 border-bottom border-dark text-left'>Comentario:</h1>
               </div>
             </div>
+          
             <div class="row align-items-center">
               <div class="col mt-2">
                 <p class='h6'>{{$dato['comments']}}</p>
               </div>            
             </div>
+          
             <div class="row align-items-center">
               <div class="col mt-2">
                 <p class='text-right' style="margin-bottom: 0px">Creado por: {{($dato->user->name)}}  </p>
               </div>               
+          
             </div>
+          
             <div class="row align-items-center">
                 <div class="col">
                     <p class='small text-right'>A las: {{$dato['created_at']}}hs </p>
                 </div>               
             </div>
+          
           </div>
 
           {{-- boton delete comentario -- por hacer --}}
@@ -213,23 +196,16 @@
 
         
       @endforeach
-      @endif
+    @endif
       
-      <div class="container">
-        
-      </div>  
-      
+     
 
-      <div id="commentsNode">
-
-          
-          
-      </div>
+      <div id="commentsNode"></div>
     
       <div class="row justify-content-between">
           
               <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
-                {{csrf_field()}}
+                
                   
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
@@ -245,7 +221,7 @@
             
             @if($ticket->queue == $userLoginId)
             <form class='bg-light col-5 border rounded  mt-5' action="" name="close" id='closeTicket' method="post" enctype="multipart/form-data">
-                {{csrf_field()}}
+               
               <div class="col-2 mt-5 align-self-end">
                   <input class="btn btn-primary" id='close' type="submit" value="close">
               </div>
@@ -259,18 +235,20 @@
 
     </div>
   </div>
+@endsection
+  
+@push('scripts')
 
-  
-  
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-               crossorigin="anonymous">
-  </script>
+
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+
+  <!-- include summernote css/js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
+
+  <!-- include summernote css/js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
  
 
-</body>
-</html>
+@endpush
