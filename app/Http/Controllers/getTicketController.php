@@ -40,7 +40,7 @@ class getTicketController extends Controller
         $user = Auth::user();
         $userId = $user->id;
 
-        $ticketsQueue= Ticket::where('queue', $userId)->get();  
+        $ticketsQueue= Ticket::where('queue', $userId)->paginate(15);  
 
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsQueue->isEmpty() ) {
