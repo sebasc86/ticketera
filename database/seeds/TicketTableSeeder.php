@@ -12,6 +12,8 @@ class TicketTableSeeder extends Seeder
      */
     public function run()
     {
+
+        for ($i=0; $i<100; $i++){
         DB::table('tickets')->insert([
             'status' => rand(0, 1),
             'queue' => rand(1, 2),
@@ -21,6 +23,7 @@ class TicketTableSeeder extends Seeder
             'user_id' => 2
 
         ]);
+        }
         
     }
 }
