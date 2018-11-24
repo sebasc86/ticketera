@@ -30,7 +30,7 @@ $('#close').click(function(e){
         }
     });
     $.ajax({
-            url: '/ticketView/{{$ticket->number}}/close',
+            url: '/view/{{$ticket->number}}/close',
             method: 'POST',
             data: {
                 close: 0,
@@ -55,7 +55,7 @@ $('#buttonSend').click(function(e){
         }
     });
     $.ajax({
-            url: '/ticketView/{{$ticket->number}}/post',
+            url: '/view/{{$ticket->number}}/post',
             method: 'POST',
             data: {
                 comments: $('#comments').val(),
@@ -64,7 +64,6 @@ $('#buttonSend').click(function(e){
                 console.log(result);
                 success = result.success;
                 userName = result.userName
-                console.log(result)
                 insertComment(success)
                 $('#comments').val('')
     }});
