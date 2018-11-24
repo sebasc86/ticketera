@@ -85,7 +85,7 @@
                     } );
  
                 column.cells('', column[0]).render('display').sort().unique().each( function ( d, j ) {
-                    console.log(d)
+                    console.log(j)
                     select.append( '<option value="'+d+'">'+d+'</option>' )
                 } );
             } );
