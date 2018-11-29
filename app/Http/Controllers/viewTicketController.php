@@ -37,6 +37,7 @@ class viewTicketController extends Controller
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
 			$ticketName = $ticketN->user->name;
+			$userQueueName = USER::find($ticketN->queue);
 			
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
@@ -49,7 +50,7 @@ class viewTicketController extends Controller
 			//queue es la cola de usuario osea esta realacionado al id del usuario	
 
 			if($ticketUserId == $userId || $userId == $ticketQueue){
-		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files);
+		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files)->with('userSent', $userQueueName);
 			}else {
 				return abort(403);
 			};
