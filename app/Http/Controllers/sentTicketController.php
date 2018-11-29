@@ -19,7 +19,7 @@ class sentTicketController extends Controller
     
     public function index()
     {
-        return view('sent');
+         return view('sent');
     }
 
     public function getTickets()
@@ -27,10 +27,12 @@ class sentTicketController extends Controller
         
         $user = Auth::user();
         $userId = $user->id;
-        $userFind = User::find($userId);
+        $userFind = User::find($userId); 
         $tickets = $userFind->ticket;
+        
         foreach ($tickets as $key => $value) {
-            $value->user_id = $userFind->name;
+            $userQueue = User::find($value->queue);
+            $value->queue = $userQueue->name;
             if($value->status === 0){
                 $value->status = 'Cerrado';
             } else {

@@ -2,7 +2,7 @@
 
   
   
-  @section('content')
+@section('content')
 
 
   <div class='container mt-5'>
@@ -40,6 +40,15 @@
           </div>
           <div class="col-6">
             <p class='h6'>{{$ticket->created_at}}</p>
+          </div>      
+        </div>
+
+        <div class="row  align-items-center">
+          <div class="col-6">
+            <h2 class='h5'>Enviado a:</h2>
+          </div>
+          <div class="col-6">
+            <p class='h6'>{{$userSent->name}}</p>
           </div>      
         </div>
 
@@ -200,9 +209,9 @@
       
      
 
-      <div id="commentsNode"></div>
+      <div id="commentsNode" class="mb-2"></div>
     
-      <div class="row justify-content-between">
+      <div class="row justify-content-between mb-5">
           
               <form class='bg-light col-5 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
                 
@@ -235,7 +244,10 @@
 
     </div>
   </div>
+
 @endsection
+
+
   
 @push('scripts')
 

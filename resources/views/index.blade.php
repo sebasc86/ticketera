@@ -1,18 +1,31 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
-	<h1>
-		Welcome to the Support Center
-	</h1>
-	<p>	
-		In order to streamline support requests and better serve you, we utilize a support ticket system. Every support request is assigned a unique ticket number which you can use to track the progress and responses online. For your reference we provide complete archives and history of all your support requests. A valid email address is required to submit a ticket.
-	</p>
+<div class="container flex">
 
-	  <a class="btn btn-success" href="new" role="button">Crear Tickets</a>
-	  <a class="btn btn-warning" href="sent" role="button">Ver Tickets Enviados</a>
-	  <a class="btn btn-warning" href="get" role="button">Ver Tickets Recibidos</a>
-	
+	<h1> Bienvenido a TicketCall	</h1>
+
+	<div class='index'>
+		<a href="new">
+			<img class='imgIndex' src="img/add_document.png" >
+		</a>
+		<a class="button btn btn-dark" href="new" role="button">Crear</a>
+	</div>
+		
+	<div class='index'>
+		<a href="sent">
+			<img class='imgIndex' src="img/enviado.png" >
+		</a>
+		<a class="button btn btn-dark" href="sent" role="button">Enviados</a>
+	</div>
+
+  <div class='index'>
+  	<a href="get">
+  		<img class='imgIndex' src="img/recibido.png" >
+  	</a>
+  	
+  	<a class="button btn btn-dark" href="get" role="button">Recibidos</a>
+	</div>
 	
 </div>
 @endsection

@@ -31,7 +31,7 @@ Route::get('/view/{ticket}/download/{filename}', 'viewTicketController@download'
 
 
 Route::get('/sent', 'sentTicketController@index')->name('/sent');
-Route::get('/sent/sent', ['as'=>'get.data','uses'=>'sentTicketController@getTickets']);
+Route::get('/sent/sent', ['as'=>'sent.data','uses'=>'sentTicketController@getTickets']);
 
 Route::get('/get', 'getTicketController@index')->name('/get');
 Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);

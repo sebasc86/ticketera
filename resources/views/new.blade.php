@@ -1,17 +1,7 @@
 @extends('layouts/master')
 
 	@section('content')
-
-	<body>
-		
-
-		
-		<div class="container mt-4">
-			<h2>Bienvenido a la creacion del ticket usuario: {{ $userLogin->name }}</h2>		
-		</div>
-
-		
-		<div class="container mt-4">
+		<div class="container mt-4 mb-5">
 			<form action="" name="newTicket" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			   <div class="form-group">
@@ -69,5 +59,4 @@
 
 	});
 	</script>
-
 @endpush

@@ -1,4 +1,4 @@
-
+$( document ).ready(function() {
   var tickets = $('#tickets-table').DataTable({
         initComplete: function () {
         this.api().columns().every( function () {
@@ -46,6 +46,7 @@
             },
         ],
     });
+});
 
 
 
