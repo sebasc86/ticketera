@@ -1,3 +1,7 @@
+.py-4 {
+	margin-bottom: 50px;
+}
+
 .container h1 {
 	width: 100%;
 	margin-bottom: 50px;
@@ -47,4 +51,38 @@ div.index:hover {
 	
 }
 
+
+.fondo_modal {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.7);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0px;
+	z-index: 999;
+	cursor: auto;
+}
+
+.newModal {
+	position: relative;
+	clear: both;
+	display: flex;
+}
+
+.newModal img{
+	width: 50px;
+	height: 50px;
+}
+
+
+.fondo_modal .newModal .fa-times {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	z-index: 10;
+	pointer-events: auto;
+}
 

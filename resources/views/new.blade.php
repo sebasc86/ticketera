@@ -2,6 +2,12 @@
 
 	@section('content')
 		<div class="container mt-4 mb-5">
+			<div class="fondo_modal">
+				<div class="newModal">
+					<img src="{{asset('img/loading.gif')}}">
+				</div>
+			</div>	
+
 			<form action="" name="newTicket" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			   <div class="form-group">
@@ -11,9 +17,9 @@
 					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
 			    @endforeach
 			    </select>	
-			    @if($errors->has('name'))
+			    @if($errors->has('queue'))
 			    <div class="alert alert-danger">
-			        {{ $errors->first('name') }}
+			        {{ $errors->first('queue') }}
 			    </div>
 			    @endif
 			  </div>
@@ -28,20 +34,22 @@
 			    <input type="text" class="form-control" id="title" name="title" placeholder="titulo">
 			  </div>
 
-			  <div class="form-group">
-			  	<label for="exampleFormControlInput1">Detalles</label>
-			    <textarea class="summernote" name='details' id="details" rows="3"></textarea>
-			 </div>
-			 <div class="form-group">
-				
-				<input type="file" class="form-control-file" name='file[]' id="file" multiple>
-			</div>
-			  <input class="btn btn-primary" type="submit" value="Submit">
-			</form>
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Detalles</label>
+				  <textarea class="summernote" name='details' id="details" rows="3"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="file" class="form-control-file" name='file[]' id="file" multiple>
+				</div>
+					<input class="btn btn-primary" id="submit" type="submit" value="Enviar">
+				</form>
+
 		</div>
 @endsection
 
 @push('scripts')
+
+	<script type="text/javascript" src="{{ asset('js/view.js') }}"></script>
 
 	<!-- include summernote css/js -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">

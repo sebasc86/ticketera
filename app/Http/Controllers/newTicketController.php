@@ -41,7 +41,7 @@ class newTicketController extends Controller
 		$userId = $user->id;	
         
 		$this->validate(request(), [       
-		/*'name' => 'required|numeric',
+		  /*'name' => 'required|numeric',
 		  'email' => 'unique:users,email,'.$user->id,
 		  'password' => 'required|alpha_num|min:8|max:12',
 		  'password_confirmation' => 'required|same:password',
@@ -49,12 +49,14 @@ class newTicketController extends Controller
 		  'accion.driver' =>  'min:1|max:1',
 		  'accion.co-driver' =>  'min:2|max:2',
 		  'profile_picture' => 'max:2048|mimes:jpg,jpeg,gif,png',*/
-		  /*'email' => 'required|email',*/
+		  /*'queue' => 'required|email|exists:users,email', */
 		]);
 
+
 		$details = request()->details;
-		
-		$dom = new \domdocument();
+
+		if($details) {
+			$dom = new \domdocument();
 		
         $dom->loadHtml($details, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -81,7 +83,10 @@ class newTicketController extends Controller
             $img->setattribute('src', asset('view/20181123041/download/' . $image_name));
         }
 
-        $details = $dom->savehtml();
+        	$details = $dom->savehtml();
+		}
+		
+		
 
 
 
