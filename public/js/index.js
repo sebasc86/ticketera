@@ -18,6 +18,7 @@ $( document ).ready(function() {
             $('#buttonSend').hide()
         } else {
             $('#buttonSend').show()
+            $('#buttonArea').hide()
         }
     })
 
@@ -71,36 +72,60 @@ $( document ).ready(function() {
         
     });
 
+  
+
+    //sin comentarios desde 0
+    var commentsNew = $('#commentsNew')
+    //con comentarios
     var commentsNode = $('#commentsNode')
+    
 
     function insertComment(success) {
         if(success === '1'){
-            commentsNode.append(
-                '<div class="row justify-content-between">' +
-                '<div class="bg-light col-12 border rounded  mt-5 ">' +
-                '<div class="row">' + 
-                '<div class="col">' +
-                '<h1 class="h5 mt-2 border-bottom border-dark text-left">Comentario:</h1>' +
-                '</div></div>'+
-                '<div class="row align-items-center">'+
-                '<div class="col mt-2">' +
-                '<p class="h6">' + detailsNode.val() + '</p>' +
-                '</div></div>' +
-                '<div class="row align-items-center">' +
-                '<div class="col mt-2">' +
-                '<p class="text-right" style="margin-bottom: 0px">Creado por: '+ 
-                userName + 
-                '</p>' +
-                ' </div></div>' +
-                '<div class="row align-items-center">' +
-                '<div class="col">' +
-                '<p class="small text-right"> A las:' + date + '</p>' +
-                '</div></div></div></div>'
+            if(commentsNode.length != 0) {
+               commentsNode.append(
                 
-              )
+                '<div class="col mt-4">' +
+                '<p class="">' + detailsNode.val() + '</p>'+
+                '</div>' +
+                '<div class="col-12 mt-2">' +
+                '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
+                userName + 
+                '</p></div>' +
+                '<div class="col-12 mt-2"">' +
+                '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                '</div>'
+
+                
+              )              
+            }else {
+                commentsNew.append(
+                '<div class="card bg-white mb-3">' +
+                '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
+                '<div class="card-body">' +
+                '<div class="row align-items-center bg-light mt-3">' +
+                '<div class="col mt-4">' +
+                '<p class="">' + detailsNode.val() + '</p>'+
+                '</div>' +
+                '<div class="col-12 mt-2">' +
+                '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
+                userName + 
+                '</p></div>' +
+                '<div class="col-12 mt-2"">' +
+                '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                '</div>' + 
+                '</div></div></div></div>'
+                )
+            }
+           
         }
 
     }
 
+
+
+
 });
+
+
 
