@@ -47,15 +47,15 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-        if ($exception instanceof \Illuminate\Database\QueryException) {
+       /* if ($exception instanceof \Illuminate\Database\QueryException) {
             return abort(500);
             // dd($exception->getMessage());
             //return response()->view('custom_view');
         } elseif ($exception instanceof \PDOException) {
             return abort(500);
-            /*dd($exception->getMessage());*/
+            //dd($exception->getMessage());
             //return response()->view('custom_view');
-        }
+        }*/
         return parent::render($request, $exception);
     }
 }
