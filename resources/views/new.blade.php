@@ -62,7 +62,7 @@
             </span>
        	 	@endif
 				</div>
-					<input class="btn btn-primary" id="submit" type="submit" value="Enviar">
+					<input class="btn btn-primary" id="submit" type="button" value="Enviar">
 				</form>
 
 		</div>
