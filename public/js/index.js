@@ -51,24 +51,35 @@ $( document ).ready(function() {
     var userName = ''
     $('#buttonSend').click(function(e){
         e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-                url: '/view/{{$ticket->number}}/post',
-                method: 'POST',
-                data: {
-                    comments: $('#comments').val(),
-                },
-                success: function(result){
-                    console.log(result);
-                    success = result.success;
-                    userName = result.userName
-                    insertComment(success)
-                    $('#comments').val('')
-        }});
+        var commentsNode = $('#comments').val()
+
+        if(!commentsNode){
+          console.log(!!commentsNode)
+            $("#comments").addClass('is-invalid')
+        } else {
+          $("#comments").removeClass('is-invalid')
+            $("#comments").addClass('is-valid')
+            $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+            $.ajax({
+                    url: '/view/{{$ticket->number}}/post',
+                    method: 'POST',
+                    data: {
+                        comments: $('#comments').val(),
+                    },
+                    success: function(result){
+                        console.log(result);
+                        success = result.success;
+                        userName = result.userName
+                        insertComment(success)
+                        $('#comments').val('')
+                        $("#comments").removeClass('is-valid')
+            }});
+        }
+        
         
     });
 
@@ -84,7 +95,7 @@ $( document ).ready(function() {
         if(success === '1'){
             if(commentsNode.length != 0) {
                commentsNode.append(
-                
+                '<div class="row align-items-center bg-light mt-2 info">' +
                 '<div class="col mt-4">' +
                 '<p class="">' + detailsNode.val() + '</p>'+
                 '</div>' +
@@ -94,16 +105,16 @@ $( document ).ready(function() {
                 '</p></div>' +
                 '<div class="col-12 mt-2"">' +
                 '<p class="small text-right text-muted"> A las:' + date + '</p>' +
-                '</div>'
+                '</div></div>'
 
                 
               )              
             }else {
                 commentsNew.append(
-                '<div class="card bg-white mb-3">' +
+                '<div class="card bg-white mb-3 info">' +
                 '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
                 '<div class="card-body">' +
-                '<div class="row align-items-center bg-light mt-3">' +
+                '<div class="row align-items-center bg-light mt-2">' +
                 '<div class="col mt-4">' +
                 '<p class="">' + detailsNode.val() + '</p>'+
                 '</div>' +

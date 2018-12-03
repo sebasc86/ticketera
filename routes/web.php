@@ -45,6 +45,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 }]);*/
 
 
-Route::get('auth/register', function () {
-    return view('/register');
-})->middleware('auth', 'isAdmin:1');
+/*Route::get('auth/register', function () {
+    dd(Auth::user());
+})->middleware('admin');
+*/

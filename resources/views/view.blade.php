@@ -10,7 +10,7 @@
     
     <div class="row justify-content-between">
       <div class="col-5">
-        <div class="card bg-light mb-3">
+        <div class="card bg-light mb-3 info">
           <div class="card-header h5 bg-primary text-white">Basic Ticket Information</div>
           <div class="card-body">
             <div class="row align-items-center">
@@ -56,7 +56,7 @@
       </div>  
       
       <div class="col-5">
-        <div class="card bg-light mb-3">
+        <div class="card bg-light mb-3 info">
           <div class="card-header h5 bg-primary text-white">User Information</div>
           <div class="card-body">
             <div class="row align-items-center">
@@ -95,7 +95,7 @@
       </div>  
 
       <div class="col-12">
-        <div class="card bg-light mb-3">
+        <div class="card bg-light mb-3 info">
           <div class="card-header h5 bg-dark text-white">Ticket Body</div>
           <div class="card-body">
             <div class="row align-items-center">
@@ -154,14 +154,14 @@
      @if(!$ticket->comment->isEmpty())
       
       <div class="col-12">
-        <div class="card bg-white mb-3">
+        <div class="card bg-white mb-3 info">
           <div class="card-header h6 bg-secondary text-white">Comentarios</div>
           <div class="card-body">
             
       @foreach($ticket->comment as $dato)
       
             
-            <div class="row align-items-center bg-light mt-3">
+            <div class="row align-items-center bg-light mt-2 info">
 
               <div class="col mt-4">
                 <p class=''>{{$dato['comments']}}</p>
@@ -183,7 +183,7 @@
             
       @endforeach
 
-      <div id="commentsNode" class="row align-items-center bg-light mt-3"></div>
+      <div id="commentsNode"></div>
       </div>
       </div>
       </div>

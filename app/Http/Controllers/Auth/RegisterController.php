@@ -41,7 +41,8 @@ class RegisterController extends Controller
     public function __construct()
     {
        /* $this->middleware('guest');*/
-       $this->middleware('auth');    
+       $this->middleware('auth');
+       $this->middleware('admin');    
     }
 
     /**
@@ -68,7 +69,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -81,7 +82,6 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
 
         // $this->guard()->login($user);
