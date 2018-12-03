@@ -8,7 +8,7 @@
 				</div>
 			</div>	
 
-			<form action="" name="newTicket" method="post" enctype="multipart/form-data">
+			<form action="" id="formTarget" name="newTicket" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			   <div class="form-group">
 			    <label for="exampleFormControlInput1">Enviar a:</label>
@@ -16,30 +16,51 @@
 			    @foreach ($usersAll as $user)
 					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
 			    @endforeach
-			    </select>	
+			    </select>
 			    @if($errors->has('queue'))
-			    <div class="alert alert-danger">
-			        {{ $errors->first('queue') }}
-			    </div>
+		    			<span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('queue') }}</strong>
+              </span>
 			    @endif
 			  </div>
 			
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Nro de cliente</label>
-			    <input type="text" class="form-control" id="clientN" name="clientN" placeholder="4301751">
-			  </div>
+			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder='Ej: 454647'">
 
+          @if ($errors->has('clientN'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('clientN') }}</strong>
+              </span>
+          @endif
+			  </div>
+				
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Titulo</label>
-			    <input type="text" class="form-control" id="title" name="title" placeholder="titulo">
+			    <input type="text" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value='{{ old('title') }}' placeholder="titulo">
+			    @if ($errors->has('title'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('title') }}</strong>
+              </span>
+          @endif
 			  </div>
 
 				<div class="form-group">
 					<label for="exampleFormControlInput1">Detalles</label>
-				  <textarea class="summernote" name='details' id="details" rows="3"></textarea>
+				  <textarea class="summernote form-control {{ $errors->has('details') ? ' is-invalid' : '' }}" name='details' id="details" rows="3"></textarea>
+				  @if ($errors->has('details'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('details') }}</strong>
+            </span>
+       	 	@endif
 				</div>
 				<div class="form-group">
-					<input type="file" class="form-control-file" name='file[]' id="file" multiple>
+					<input type="file" class="form-control form-control {{ $errors->has('file') ? ' is-invalid' : '' }}" name='file[]' id="file" multiple>
+					 @if ($errors->has('file'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('file') }}</strong>
+            </span>
+       	 	@endif
 				</div>
 					<input class="btn btn-primary" id="submit" type="submit" value="Enviar">
 				</form>
@@ -49,7 +70,7 @@
 
 @push('scripts')
 
-	<script type="text/javascript" src="{{ asset('js/view.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
 
 	<!-- include summernote css/js -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
