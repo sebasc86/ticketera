@@ -7,7 +7,7 @@
 
 	<div class="row justify-content-between">
         <div class="index card bg-light mb-3 info">
-          <div class="card-header h6 bg-primary text-white">Crear</div>
+          <div class="card-header h6 bg-primary text-white">Crear Ticket</div>
           <a class="card-body"  href="new">
             	<div class="row align-items-center">
 								<img class='imgIndex' src="img/add_document.png" >
@@ -18,7 +18,7 @@
 
 	<div class="row justify-content-between">
         <div class="index card bg-light mb-3 info">
-          <div class="card-header h6 bg-primary text-white">Enviados</div>
+          <div class="card-header h6 bg-primary text-white">Tickets Enviados</div>
           <a class="card-body" href="sent">
             	<div class="a_index row align-items-center" >
 								<img class='imgIndex' src="img/enviado.png" >
@@ -29,7 +29,7 @@
 
 	<div class="row justify-content-between">
         <div class="index card bg-light mb-3 info">
-          <div class="card-header h6 bg-primary text-white">Recibidos</div>
+          <div class="card-header h6 bg-primary text-white">Tickets Recibidos</div>
           <a class="card-body" href="get">
             	<div class=" row align-items-center" >
 								<img class='imgIndex' src="img/recibido.png" >
