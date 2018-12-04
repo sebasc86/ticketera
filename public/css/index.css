@@ -4,17 +4,23 @@
 
 .container h1 {
 	width: 100%;
-	margin-bottom: 50px;
-	text-align: center;
-	text-decoration: underline;
+	margin: 20px 0;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
 }
 
 div.flex{
 	display: flex;
 	width: 100%;
-	justify-content: space-around;
+	justify-content: space-between;
 	margin-top: 2vh;
 	flex-wrap: wrap;
+
+}
+
+.flex .row {
+	padding: 10px;
+	justify-content: center;
 }
 
 div.index {
@@ -22,18 +28,43 @@ div.index {
 	flex-direction: column;
 	line-height: 150%;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: -1px 3px 18px 1px rgba(0,0,0,0.58);
-    -webkit-box-shadow: -1px 3px 18px 1px rgba(0,0,0,0.58);
-	-moz-box-shadow: -1px 3px 18px 1px rgba(0,0,0,0.58);
+    box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+    -webkit-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+	-moz-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
 	background-color: #fff;
+	
 }
 
 div.index:hover {
-	box-shadow: -2px 10px 14px 4px rgba(0,0,0,0.58);
-    -webkit-box-shadow: -2px 10px 14px 4px rgba(0,0,0,0.58);
-	-moz-box-shadow: -2px 10px 14px 4px rgba(0,0,0,0.58);
+	box-shadow: -2px 10px 14px 4px rgba(0, 109, 240, 0.68);
+    -webkit-box-shadow: -2px 10px 14px 4px rgba(0, 109, 240, 0.68);
+	-moz-box-shadow: -2px 10px 14px 4px rgba(0, 109, 240, 0.68);
 	background-color: #fff;
+}
+
+
+
+.index p {
+	display: inline-block;
+    margin-top: 20px;
+    background-color: #006df0;
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 5px;
+    line-height: 1.5;
+    border-radius: 5px;
+}
+
+.imgIndex {
+	width: 50%;
 }
 
 .invalid-input {
@@ -48,7 +79,8 @@ div.index:hover {
 
 .footer {
 	display: flex;
-	background-color: #d3d3d3;
+	background-color: #343a40;
+	color: white;
 	position: fixed;
 	bottom: 0;
 	width: 100%;

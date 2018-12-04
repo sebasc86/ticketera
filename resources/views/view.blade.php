@@ -24,7 +24,7 @@
               </div>
 
               <div class="col-6">
-                <h2 class='h5'>Departamento:</h2>
+                <h2 class='h5'>Sector:</h2>
               </div>
 
               <div class="col-6">
