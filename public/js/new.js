@@ -1,22 +1,77 @@
 $( document ).ready(function() {
     console.log('init.app')
 
-    $('#submit').on('click', validateSelect)
+    $('#queue').on('blur', validateSelect)
 
-    var errorLabel = ''
+    var inputClientNode = $('#clientN')
+    inputClientNode.on('blur', validateInputNumber)
+
+    var inputtitleNode = $('#title')
+    inputtitleNode.on('blur', inputNode)
+
+
 
    
     function validateSelect() {
         var inputSelectNode = $( "#formTarget option:selected" )
         inputSelectNodeVal = inputSelectNode.val()
-        inputSelectNodeVal = parseInt(inputSelectNodeVal)    
-        if((inputSelectNodeVal) != NaN){
+        inputSelectNodeVal = parseInt(inputSelectNodeVal) 
+        var errorLabel = '' 
+        if(isNaN(inputSelectNodeVal)){
             errorLabel = 'No es un numero'
-            console.log(errorLabel)
+            $('#queue').removeClass('is-valid')
+			$('#queue').addClass('is-invalid')
+        } else {
+        	$('#queue').addClass('is-valid')
+        	$('#queue').removeClass('is-invalid')
         }
+        validateSubmitButton()
+    }
+
+    function validateInputNumber(event) {
+        inputNode = $(this)
+        var value = inputNode.val()
+        value = $.trim(value)
+		var errorLabel = ''
+        if(!value){
+        	inputNode.addClass('is-valid')
+        	inputNode.removeClass('is-invalid')
+        } else if(isNaN(value)){
+            inputNode.removeClass('is-valid')
+			inputNode.addClass('is-invalid')
+        } else {
+        	inputNode.addClass('is-valid')
+        	inputNode.removeClass('is-invalid')
+        }
+        
+        validateSubmitButton()
     }
     
-    console.log(errorLabel)
+    function inputNode(event) {
+        var inputNode = $(this)
+        console.log(inputNode)
+	    var value = inputNode.val()
+	    value = $.trim(value)
+	    console.log(value)
+	    var errorLabel = ''
+        if(!value){
+            inputNode.removeClass('is-valid')
+			inputNode.addClass('is-invalid')
+        } else {
+        	inputNode.addClass('is-valid')
+        	inputNode.removeClass('is-invalid')
+        }
+        validateSubmitButton()
+    }
+
+    function validateSubmitButton () {
+	    if ($('.is-valid').length >= 2) {
+	      $('#submitButton').removeAttr('disabled')
+	    } else {
+	      $('#submitButton').attr('disabled', true)
+	    }
+	}
+    
 
     // $('#submit').on('click', function(e){
     //     $('.fondo_modal').css('display', 'flex');       

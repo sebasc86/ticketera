@@ -8,11 +8,11 @@
 				</div>
 			</div>	
 
-			<form action="" id="formTarget" name="newTicket" method="post" enctype="multipart/form-data">
+			<form  id="formTarget" action="" name="newTicket" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			   <div class="form-group">
 			    <label for="exampleFormControlInput1">Enviar a:</label>
-			    <select class="form-control" id="queue" name='queue'>
+			    <select class="form-control is-valid" id="queue" name='queue'>
 			    @foreach ($usersAll as $user)
 					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
 			    @endforeach
@@ -45,7 +45,7 @@
           @endif
 			  </div>
 
-				<div class="form-group">
+				<div id='summernote' class="form-group">
 					<label for="exampleFormControlInput1">Detalles</label>
 				  <textarea class="summernote form-control {{ $errors->has('details') ? ' is-invalid' : '' }}" name='details' id="details" rows="3"></textarea>
 				  @if ($errors->has('details'))
@@ -53,16 +53,21 @@
                 <strong>{{ $errors->first('details') }}</strong>
             </span>
        	 	@endif
+       	 	<div class="none">
+       	 		<span class="invalid-feedback" role="alert">
+                <strong>Su ticket esta vacio</strong>
+          	</span>
+       	 	</div>
 				</div>
 				<div class="form-group">
 					<input type="file" class="form-control form-control {{ $errors->has('file') ? ' is-invalid' : '' }}" name='file[]' id="file" multiple>
-					 @if ($errors->has('file'))
+					@if ($errors->has('file'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('file') }}</strong>
             </span>
        	 	@endif
 				</div>
-					<input class="btn btn-primary" id="submit" type="button" value="Enviar">
+					<input class="btn btn-primary" id="submitButton" type="submit" value="Enviar" disabled>
 				</form>
 
 		</div>
@@ -72,13 +77,9 @@
 
 	<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
 
-	<!-- include summernote css/js -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
 
-	<!-- include summernote css/js -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
+	<link rel="stylesheet" type="text/css" href="dist/summernote-bs4.css">
+	<script src="dist/summernote-bs4.min.js"></script>
 
 	<script>
 	$(document).ready(function() {
@@ -86,6 +87,15 @@
 					height: 300
 				});
 
+	    $('#formTarget').on('submit', function(e) {
+  			$('#error-label').remove()
+			  if($('.summernote').summernote('isEmpty')) {
+			    $('#summernote').append('<span id="error-label"><strong class="invalid-input">El campo es requerido.</strong></span>')
+			    e.preventDefault();
+			  }
+			  else {
+			  }
+			})
 	});
 	</script>
 @endpush
