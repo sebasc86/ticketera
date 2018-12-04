@@ -236,12 +236,8 @@
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
   <!-- include summernote css/js -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
-
-  <!-- include summernote css/js -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.10/summernote-bs4.js"></script>
+  <link rel="stylesheet" type="text/css" href="dist/summernote-bs4.css">
+  <script src="dist/summernote-bs4.min.js"></script>
  
 
 @endpush

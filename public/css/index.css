@@ -36,6 +36,12 @@ div.index:hover {
 	background-color: #fff;
 }
 
+.invalid-input {
+	font-weight: bolder;
+	font-size: 80%;
+	color: #dc3545;
+}
+
 .button {
 	margin-top: 20px;
 }
