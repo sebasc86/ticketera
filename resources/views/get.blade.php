@@ -38,8 +38,8 @@
 @push('scripts')
 
 
-<link rel="stylesheet" type="text/css" href="js/datatables.min.css">
-<script src="js/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('css/datatables.min.css')}}">
+<script src="{{ asset('js/datatables.min.js') }}"></script>
 
 
 <script>

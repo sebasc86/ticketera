@@ -27,6 +27,7 @@ Route::get('/view/{ticket}', 'viewTicketController@index')->name('/view');
 
 Route::post('/view/{ticket}/post', 'viewTicketController@store');
 Route::post('/view/{ticket}/close', 'viewTicketController@close');
+Route::post('/view/{ticket}/mail', 'viewTicketController@sendEmail');
 Route::get('/view/{ticket}/download/{filename}', 'viewTicketController@download');
 
 
