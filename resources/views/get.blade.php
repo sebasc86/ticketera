@@ -3,7 +3,7 @@
 @section('content')
     
   <div class="container mt-5">
-      <table class='table' id='tickets-table'>
+      <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
           <th scope="col">Estado</th>
