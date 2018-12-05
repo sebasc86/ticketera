@@ -1,8 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
+
+  <div class="container ticketOpen" style="padding: 20px; color: red">
+    <p class="h6">Usted tiene sin cerrar: {{ count($ticketsOpen) }} Ticket</p>
+  </div>
     
-  <div class="container mt-5">
+  <div class="container mt-2">
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
@@ -93,6 +97,9 @@ $(document).ready(function() {
             },
         ],
     });
+
+    
+
 });
  
 </script>

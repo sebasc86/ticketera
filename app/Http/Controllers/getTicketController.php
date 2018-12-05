@@ -19,17 +19,21 @@ class getTicketController extends Controller
     public function index()
     {
 
-    	// $user = Auth::user();
-		//  $userId = $user->id;	
-		// $userFind = User::find($userId);
-		// $userN = $userFind->id;
-		
 
-        // $userQueue = Ticket::where('queue', $userN)->get();
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $ticketsQueue= Ticket::where('queue', $userId)->get();
         
+        $ticketsOpen = $ticketsQueue->filter(function($item, $key){
 
-		return view('get');
+            return $item->status === 1;
+            
+        });
+        
+        $ticketsOpen->all();
 
+		return view('get')->with('ticketsOpen', $ticketsOpen);
 
     }
 
