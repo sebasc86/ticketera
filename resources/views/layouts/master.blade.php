@@ -29,10 +29,6 @@
                 
                 
                 {{-- agregado el datatables --}}
-               
-
-                
-
                 <link rel="stylesheet" type="text/css" href="{{asset( 'css/index.css' )}}">
                 <link rel="stylesheet" type="text/css" href="{{asset( 'css/view.css' )}}">
         
