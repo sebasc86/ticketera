@@ -7,6 +7,8 @@ use App\User;
 use App\Ticket;
 use App\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketMail;
 
 class newTicketController extends Controller
 {
@@ -129,6 +131,10 @@ class newTicketController extends Controller
 			    
 		}
 
+		$userQueue = User::find($ticket->queue);
+		Mail::to($userQueue->email)
+		->cc($user->email)
+		->send(new TicketMail($user, $ticket, $userQueue));
 
         return redirect('view/'. $ticket->number);   
     }

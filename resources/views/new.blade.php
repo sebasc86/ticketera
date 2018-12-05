@@ -78,8 +78,8 @@
 	<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
 
 
-	<link rel="stylesheet" type="text/css" href="dist/summernote-bs4.css">
-	<script src="dist/summernote-bs4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('dist/summernote-bs4.css') }}">
+	<script src="{{ asset('dist/summernote-bs4.min.js') }}"></script>
 
 	<script>
 	$(document).ready(function() {

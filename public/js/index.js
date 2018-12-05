@@ -24,7 +24,6 @@ $( document ).ready(function() {
 
 
     $('#close').click(function(e){
-        console.log('prueba')
         e.preventDefault();
         $.ajaxSetup({
             headers: {
@@ -38,7 +37,20 @@ $( document ).ready(function() {
                     close: 0,
                 },
                 success: function(result){
-                    console.log(result);
+                    console.log(result.success);
+                    if(result.success == 0) {
+                        $('#close').hide()
+                        $('#newComment').hide()
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                                url: '/view/{{$ticket->number}}/mail',
+                                method: 'POST',
+                                });
+                    }
                     $('#status').text('Cerrado');
                 
         }});

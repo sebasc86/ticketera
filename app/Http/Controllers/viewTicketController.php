@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use App\Ticket;
 use App\User;
 use App\Comment;
 use App\File;
+use App\Mail\TicketCloseMail;
 
 class viewTicketController extends Controller
 {
@@ -21,7 +23,6 @@ class viewTicketController extends Controller
 
     public function index(Request $request,$ticket)
     {	
-
 
     	$user = Auth::user();
 		$userId = $user->id;
@@ -94,10 +95,22 @@ class viewTicketController extends Controller
 			$ticket = Ticket::find($ticketId);
 			$ticket->status = 0;
 			$ticket->save();
-			
-			
+
 
 			return response()->json(['success'=>'0','ticketId' => $ticketId]);
+
+	 }
+
+	 public function sendEmail(Request $request)
+	 {		
+			$ticketId = $request->session()->get('ticket_id');
+			$ticket = Ticket::find($ticketId);
+			$user = User::find($ticket->user_id);
+			$userQueue = User::find($ticket->queue);
+
+			Mail::to($user->email)
+			->cc($userQueue->email)
+			->send(new TicketCloseMail($user, $ticket, $userQueue));
 
 	 }
 

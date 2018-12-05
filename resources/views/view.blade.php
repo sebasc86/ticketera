@@ -236,8 +236,8 @@
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
   <!-- include summernote css/js -->
-  <link rel="stylesheet" type="text/css" href="dist/summernote-bs4.css">
-  <script src="dist/summernote-bs4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ asset('dist/summernote-bs4.css') }}">
+  <script src="{{ asset('dist/summernote-bs4.min.js') }}"></script>
  
 
 @endpush
