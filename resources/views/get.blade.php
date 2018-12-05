@@ -3,7 +3,7 @@
 @section('content')
 
   <div class="container ticketOpen" style="padding: 20px; color: red">
-    <p class="h6">Usted tiene sin cerrar: {{ count($ticketsOpen) }} Ticket</p>
+    <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
     
   <div class="container mt-2">
@@ -42,8 +42,8 @@
 @push('scripts')
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/datatables.min.css')}}">
-<script src="{{ asset('js/datatables.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('DataTables/datatables.min.css')}}">
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 
 
 <script>
@@ -98,7 +98,7 @@ $(document).ready(function() {
         ],
     });
 
-    
+
 
 });
  
