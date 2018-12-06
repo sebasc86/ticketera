@@ -45,8 +45,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.js"></script> --}}
 
 <link rel="stylesheet" type="text/css" href="{{asset('DataTables/datatables.min.css')}}">
-<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
-
+<script src="{{ asset('Datatables/datatables.min.js') }}"></script>
 <script>
 
  
@@ -73,6 +72,7 @@ $(document).ready(function() {
             } );
         } );
         },
+        responsive: true,
         processing: true,
         serverSide: true,
         "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
@@ -93,7 +93,7 @@ $(document).ready(function() {
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'number', 
               render: function(data){
-                return "<a href='http://127.0.0.1:8000/view/"+ data + "' class='view btn btn-dark'>Ver Ticket</button>"
+                return "<a href={{asset('view')}}"+ "/"+ data + "' class='view btn btn-dark'>Ver Ticket</button>"
               }
             },
         ],
