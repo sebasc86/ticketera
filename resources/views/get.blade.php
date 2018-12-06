@@ -43,7 +43,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="{{asset('DataTables/datatables.min.css')}}">
-<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script src="{{ asset('Datatables/datatables.min.js') }}"></script>
 
 
 <script>
@@ -72,6 +72,7 @@ $(document).ready(function() {
             } );
         } );
         },
+        responsive: true,
         processing: true,
         serverSide: true,
         "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
@@ -92,7 +93,7 @@ $(document).ready(function() {
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'number', 
               render: function(data){
-                return "<a href='http://127.0.0.1:8000/view/"+ data + "' class='view btn btn-dark'>Ver Ticket</button>"
+                return "<a href={{asset('view')}}"+ "/"+ data + "' class='view btn btn-dark'>Ver Ticket</button>"
               }
             },
         ],
