@@ -9,6 +9,8 @@ use App\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketMail;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class newTicketController extends Controller
 {
@@ -55,7 +57,7 @@ class newTicketController extends Controller
 		  'clientN' => 'nullable|numeric',
 		  'title' => 'required|string',
 		  'details' => 'required',
-		  'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',
+		  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
 		]);
 
 		
@@ -73,26 +75,39 @@ class newTicketController extends Controller
 
         foreach($images as $k => $img){
             $data = $img->getattribute('src');
- 
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
- 
+            
+            /*dd(getimagesize($data));*/
+ 			
+            list(, $data) = explode(',', $data);
+ 			
             $data = base64_decode($data);
 
+            $data = Image::make($data);
+            $sizeWidth = $data->width();
+
+ 			if($sizeWidth > 1000){
+ 				$data->resize(600, null, function ($constraint) {
+			    $constraint->aspectRatio();
+				});;
+ 			}
+ 			
+ 			
+           
             $image_name = uniqid().'.png';
-            $folder = 'uploads/files';
             
             $path = storage_path('app/public/uploads/files') .'/' . $image_name;
-           	 			
-            file_put_contents($path, $data);
-           
- 
+
+            $data->save($path, 40);
+
+/*            $file = new File;
+			$file->filename = $image_name;
+			$file->save();*/
+
             $img->removeattribute('src');
             $img->setattribute('src', asset('view/20181123041/download/' . $image_name));
         }
 
-        	$details = $dom->savehtml();
-		}
+	}
 		
 		
 
