@@ -24,14 +24,6 @@
               </div>
 
               <div class="col-6">
-                <h2 class='h5'>Sector:</h2>
-              </div>
-
-              <div class="col-6">
-                <p class='h6'>{{$ticket->sector}}</h2>
-              </div>
-
-              <div class="col-6">
                 <h2 class='h5'>Creado en:</h2>
               </div>
 
@@ -46,6 +38,14 @@
               <div class="col-6">
                <p class='h6'>{{$userSent->name}}</p>
               </div>   
+
+              <div class="col-6">
+                <h2 class='h5'>Sector:</h2>
+              </div>
+
+              <div class="col-6">
+                <p class='h6'>{{$ticket->sector}}</h2>
+              </div>
 
             </div>
 
