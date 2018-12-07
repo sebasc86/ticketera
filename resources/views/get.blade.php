@@ -6,7 +6,7 @@
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
     
-  <div class="container mt-2">
+  <div id="container" class="container mt-2">
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
@@ -50,6 +50,8 @@
 
  
 $(document).ready(function() {
+    
+      
   var tickets = $('#tickets-table').DataTable({
         initComplete: function () {
         this.api().columns().every( function () {
@@ -65,20 +67,32 @@ $(document).ready(function() {
                         .search( val ? '^'+val+'$' : '', true, false )
                         .draw();
                 } );
+           
+            column.data().unique().sort().each(function (d, j) {
 
-            column.cells('', column[0]).render('display').sort().unique().each( function ( d, j ) {
-                
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
         } );
         },
         responsive: true,
         processing: true,
-        serverSide: true,
+        serverSide: false,
         "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
         "language": {
             "emptyTable":     "My Custom Message On Empty Table",
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "informacion no disponible",
+            "infoFiltered": "(filtrado de _MAX_ registros)",
+            "search":         "Buscar:",
+            "processing":     "Cargando...",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Proxima",
+                "previous":   "Anterior"
+            },
         },
         ajax: '{!! route('datas.get') !!}',
         columns: [

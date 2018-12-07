@@ -15,7 +15,7 @@
           <th scope="col">Enviado a:</th>
           <th scope="col">Creado</th>
           <th scope="col">#</th>
-          <th id='href' scope="col">Button</th>
+          <th id='href' scope="col"></th>
           
           
         </tr>
@@ -74,11 +74,23 @@ $(document).ready(function() {
         },
         responsive: true,
         processing: true,
-        serverSide: true,
+        serverSide: false,
         "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
         "language": {
             "emptyTable":     "My Custom Message On Empty Table",
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Informacion no disponible",
+            "infoFiltered": "(filtrado de _MAX_ registros)",
+            "search":         "Buscar:",
+            "processing":     "Cargando...",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Proxima",
+                "previous":   "Anterior"
+            },
         },
         ajax: '{!! route('sent.data') !!}',
         columns: [
