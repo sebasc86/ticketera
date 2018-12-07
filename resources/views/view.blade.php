@@ -11,7 +11,7 @@
     <div class="row justify-content-between">
       <div class="col-5">
         <div class="card bg-light mb-3 info">
-          <div class="card-header h5 bg-primary text-white">Basic Ticket Information</div>
+          <div class="card-header h5 bg-primary text-white">Información del Tickets</div>
           <div class="card-body">
             <div class="row align-items-center">
               
@@ -57,7 +57,7 @@
       
       <div class="col-5">
         <div class="card bg-light mb-3 info">
-          <div class="card-header h5 bg-primary text-white">User Information</div>
+          <div class="card-header h5 bg-primary text-white">Usuario Información</div>
           <div class="card-body">
             <div class="row align-items-center">
               
@@ -96,7 +96,7 @@
 
       <div class="col-12">
         <div class="card bg-light mb-3 info">
-          <div class="card-header h5 bg-dark text-white">Ticket Body</div>
+          <div class="card-header h5 bg-dark text-white">Ticket</div>
           <div class="card-body">
             <div class="row align-items-center">
 
@@ -108,7 +108,7 @@
               </div>   
 
               <div class="col-6">
-                <h2 class='h5'>Titulo:</h2>
+                <h2 class='h5'>Título:</h2>
               </div>
               
               <div class="col-6">
@@ -205,7 +205,9 @@
           <div class="mt-4">
             <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
             <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
+            <input type="file" class="form-control form-control mt-2" name="file[]" id="files" multiple="">
           </div>
+          
          </div>    
         </form> 
                   

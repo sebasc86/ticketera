@@ -16,11 +16,11 @@
 			    @foreach ($usersAll as $user)
 					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
 			    @endforeach
-				</select>
-				@isset($errorEmail)
-				<span class="invalid-input">
-					<strong>{{ $errorEmail }}</strong>
-				</span>
+					</select>
+					@isset($errorEmail)
+					<span class="invalid-input">
+						<strong>{{ $errorEmail }}</strong>
+					</span>
 				@endisset
 			    @if($errors->has('queue'))
 		    	<span class="invalid-feedback" role="alert">
