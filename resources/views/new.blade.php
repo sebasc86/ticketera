@@ -16,18 +16,23 @@
 			    @foreach ($usersAll as $user)
 					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
 			    @endforeach
-			    </select>
+				</select>
+				@isset($errorEmail)
+				<span class="invalid-input">
+					<strong>{{ $errorEmail }}</strong>
+				</span>
+				@endisset
 			    @if($errors->has('queue'))
-		    			<span class="invalid-feedback" role="alert">
+		    	<span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('queue') }}</strong>
-              </span>
+              	</span>
 			    @endif
 			  </div>
 			
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Nro de cliente</label>
-			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder='Ej: 454647'">
-
+			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder="Ej: 454647">
+		  
           @if ($errors->has('clientN'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('clientN') }}</strong>

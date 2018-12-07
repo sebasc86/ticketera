@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketMail;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Swift_SwiftException;
 
 class newTicketController extends Controller
 {
@@ -147,9 +148,20 @@ class newTicketController extends Controller
 		}
 
 		$userQueue = User::find($ticket->queue);
-		Mail::to($userQueue->email)
-		->cc($user->email)
-		->send(new TicketMail($user, $ticket, $userQueue));
+		
+
+		try {
+			Mail::to($userQueue->email)
+			->cc($user->email)
+			->send(new TicketMail($user, $ticket, $userQueue));
+		} catch (Swift_SwiftException $e) {
+			if($e->getCode() === 554) {
+				$errorEmail = 'Destinatario Inválido';
+				return $this->index()->with('errorEmail', $errorEmail);
+			}
+			
+			
+		}
 
         return redirect('view/'. $ticket->number);   
     }
