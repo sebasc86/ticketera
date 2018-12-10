@@ -30,7 +30,7 @@ class viewTicketController extends Controller
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
 		
-		
+		dd($ticketN->comment);
 		
 		if($ticketN) {
 			
@@ -44,6 +44,7 @@ class viewTicketController extends Controller
 			$ticketQueue = $ticketN->queue;
 			$ticketUserId = $ticketN->user_id;
 			$files = File::where('ticket_id', $ticketId)->get()->all();
+			/*$filesComments = File::where('comment_id', )*/
 			
 			/*dd(Storage::response("public/uploads/files/$files->filename"));*/
 			// $contents = Storage::disk('public')->get('uploads/files/'.$files->filename);
@@ -75,17 +76,62 @@ class viewTicketController extends Controller
 
 			$ticketId = $request->session()->get('ticket_id');
 
-					
 
-	        $comment = new Comment();
-	        $comment->user_id = $userId;
-	        $comment->comments = $request->comments;
-	        $comment->ticket_id = $ticketId;        
 
-	        $comment->save();
-	        
 
-	        return response()->json(['success'=>'1','userName' => $userName]);
+
+
+			if($request->TotalFiles > 0 && isset($request->commentsNode))
+			{
+				//Loop for getting files with index like image0, image1
+
+				$comment = new Comment();
+		        $comment->user_id = $userId;
+		        $comment->comments = $request->commentsNode;
+		        $comment->ticket_id = $ticketId;        
+
+		        $comment->save();
+
+		        $commentId = $comment->id;
+
+
+
+				for ($x = 0; $x < $request->TotalFiles; $x++) {
+
+					if ($request->hasFile('imgfiles'.$x)) {
+
+						$file      = $request->file('imgfiles'.$x);
+						$filename  = $file->getClientOriginalName();
+						$extension = $file->getClientOriginalExtension();
+						$files   = uniqid() . "." .$extension;
+
+						//Save files in below folder path, that will make in public folder
+						$file->move(storage_path('app/public/uploads/files'), $files);
+
+
+
+						$newFileDb = new File;
+						$newFileDb->comment_id = $commentId;
+						$newFileDb->filename = $files;
+						$newFileDb->save();
+
+					}
+
+				}
+
+		        return response()->json(['success'=>'1','userName' => $comment->id]);
+
+			} else if (isset($request->commentsNode))	{
+				$comment = new Comment();
+		        $comment->user_id = $userId;
+		        $comment->comments = $request->commentsNode;
+		        $comment->ticket_id = $ticketId;        
+
+		        $comment->save();
+
+			}
+
+
 	 }
 
 	 public function close(Request $request)

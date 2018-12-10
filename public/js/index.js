@@ -76,12 +76,21 @@ $( document ).ready(function() {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   }
               });
+            var files_upload = new FormData();
+            var TotalFiles = $('#file')[0].files.length;  //Total Images
+            var files = $('#file')[0];  
+            for (var i = 0; i < TotalFiles; i++) {
+            files_upload.append('imgfiles' + i, files.files[i]);
+            }
+            files_upload.append('TotalFiles', TotalFiles);
+            files_upload.append('commentsNode', commentsNode);
+
             $.ajax({
-                    url: '/view/{{$ticket->number}}/post',
+                    url: '/view/post',
                     method: 'POST',
-                    data: {
-                        comments: $('#comments').val(),
-                    },
+                    contentType:false,
+                    processData: false,
+                    data: files_upload,
                     success: function(result){
                         console.log(result);
                         success = result.success;

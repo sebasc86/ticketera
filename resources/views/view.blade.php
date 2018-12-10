@@ -205,7 +205,7 @@
           <div class="mt-4">
             <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
             <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
-            <input type="file" class="form-control form-control mt-2" name="file[]" id="files" multiple="">
+            <input type="file" class="form-control form-control mt-2" name="file[]" id="file" multiple="">
           </div>
           
          </div>    

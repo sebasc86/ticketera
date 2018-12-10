@@ -100,9 +100,9 @@ class newTicketController extends Controller
 
             $data->save($path, 40);
 
-/*            $file = new File;
+            $file = new File;
 			$file->filename = $image_name;
-			$file->save();*/
+			$file->save();
 
             $img->removeattribute('src');
             $img->setattribute('src', asset('view/20181123041/download/' . $image_name));
