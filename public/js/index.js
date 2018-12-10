@@ -101,6 +101,7 @@ $( document ).ready(function() {
                         insertComment(success)
                         $('#comments').val('')
                         $("#comments").removeClass('is-valid')
+                        $('#file').val('')
             }});
         }
         
@@ -117,7 +118,7 @@ $( document ).ready(function() {
             //con comentarios
             var commentsNode = $('#commentsNode')
 
-        if(success === '1' && typeof filename != "undefined" && commentsNode.length != 0){
+        if(success === '1' && filename != "null" && commentsNode.length != 0){
                commentsNode.append(
                 '<div class="row align-items-center bg-light mt-2 info">' +
                 '<div class="col mt-4">' +
@@ -139,7 +140,7 @@ $( document ).ready(function() {
                 filename +
                 '</div></div>'
               )              
-        } else if (success === '1' && typeof filename === "undefined" && commentsNode.length != 0){
+        } else if (success === '1' && filename === "null" && commentsNode.length != 0){
                 commentsNode.append(
                     '<div class="row align-items-center bg-light mt-2 info">' +
                     '<div class="col mt-4">' +
@@ -159,7 +160,7 @@ $( document ).ready(function() {
                 commentsNew.append(
                     '<div class="card bg-white mb-3 info">' +
                     '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
-                    '<div class="card-body">' +
+                    '<div class="card-body" id="commentsNode">' +
                     '<div class="row align-items-center bg-light mt-2">' +
                     '<div class="col mt-4">' +
                     '<p class="">' + detailsNode.val() + '</p>'+
@@ -174,14 +175,13 @@ $( document ).ready(function() {
                     '</div></div></div></div>'
                 )
                 
-                $("#commentsNew").attr("id","commentsNode")
 
         } else if (success === '1' && filename != "null" && commentsNode.length === 0){
 
             commentsNew.append(
                 '<div class="card bg-white mb-3 info">' +
                 '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
-                '<div class="card-body">' +
+                '<div class="card-body" id="commentsNode">' +
                 '<div class="row align-items-center bg-light mt-2">' +
                 '<div class="col mt-4">' +
                 '<p class="">' + detailsNode.val() + '</p>'+
@@ -202,7 +202,7 @@ $( document ).ready(function() {
                 filename +
                 '</div></div></div></div></div>'
             )
-             $("#commentsNew").attr("id","commentsNode")
+
         }
 
     }
