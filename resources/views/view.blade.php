@@ -173,7 +173,14 @@
 
               <div class="col-12">
                 <p class='small text-right text-muted'>A las: {{$dato['created_at']}}hs </p>
-              </div>       
+              </div>
+              
+              @foreach ($dato->file as $file)
+                <div class="col-12 mb-3">
+                  <a class="small" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
+                </div>
+              @endforeach  
+  
                              
             </div>
             

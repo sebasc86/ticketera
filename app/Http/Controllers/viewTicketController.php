@@ -30,7 +30,15 @@ class viewTicketController extends Controller
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
 		
-		dd($ticketN->comment);
+		
+
+		/*foreach ($ticketN->comment as $key => $value) {
+			if($value->id == 81){
+				foreach ($value->file as $key => $value3) {
+					dd($value3->filename);
+				}
+			}
+		}*/
 		
 		if($ticketN) {
 			
