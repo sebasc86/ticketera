@@ -93,8 +93,11 @@ $( document ).ready(function() {
                     data: files_upload,
                     success: function(result){
                         console.log(result);
+
                         success = result.success;
                         userName = result.userName
+                        ticketNumber = result.ticketNumber
+                        filename = result.filename
                         insertComment(success)
                         $('#comments').val('')
                         $("#comments").removeClass('is-valid')
@@ -106,15 +109,15 @@ $( document ).ready(function() {
 
   
 
-    //sin comentarios desde 0
-    var commentsNew = $('#commentsNew')
-    //con comentarios
-    var commentsNode = $('#commentsNode')
     
 
     function insertComment(success) {
-        if(success === '1'){
-            if(commentsNode.length != 0) {
+            //sin comentarios desde 0
+            var commentsNew = $('#commentsNew')
+            //con comentarios
+            var commentsNode = $('#commentsNode')
+
+        if(success === '1' && typeof filename != "undefined" && commentsNode.length != 0){
                commentsNode.append(
                 '<div class="row align-items-center bg-light mt-2 info">' +
                 '<div class="col mt-4">' +
@@ -126,12 +129,56 @@ $( document ).ready(function() {
                 '</p></div>' +
                 '<div class="col-12 mt-2"">' +
                 '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                '</div>'+
+                '<div class="col-12 mb-3">' +
+                '<a class="small" href="/view/' + 
+                ticketNumber +
+                '/download/' +
+                filename + 
+                '" download>' +
+                filename +
                 '</div></div>'
-
-                
               )              
-            }else {
+        } else if (success === '1' && typeof filename === "undefined" && commentsNode.length != 0){
+                commentsNode.append(
+                    '<div class="row align-items-center bg-light mt-2 info">' +
+                    '<div class="col mt-4">' +
+                    '<p class="">' + detailsNode.val() + '</p>'+
+                    '</div>' +
+                    '<div class="col-12 mt-2">' +
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
+                    userName + 
+                    '</p></div>' +
+                    '<div class="col-12 mt-2"">' +
+                    '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                    '</div></div>'
+                )
+            
+           
+        } else if (success === '1' && filename === 'null' && commentsNode.length === 0) {
                 commentsNew.append(
+                    '<div class="card bg-white mb-3 info">' +
+                    '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
+                    '<div class="card-body">' +
+                    '<div class="row align-items-center bg-light mt-2">' +
+                    '<div class="col mt-4">' +
+                    '<p class="">' + detailsNode.val() + '</p>'+
+                    '</div>' +
+                    '<div class="col-12 mt-2">' +
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
+                    userName + 
+                    '</p></div>' +
+                    '<div class="col-12 mt-2"">' +
+                    '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                    '</div>' + 
+                    '</div></div></div></div>'
+                )
+                
+                $("#commentsNew").attr("id","commentsNode")
+
+        } else if (success === '1' && filename != "null" && commentsNode.length === 0){
+
+            commentsNew.append(
                 '<div class="card bg-white mb-3 info">' +
                 '<div class="card-header h6 bg-secondary text-white">Comentarios</div>' +
                 '<div class="card-body">' +
@@ -146,10 +193,16 @@ $( document ).ready(function() {
                 '<div class="col-12 mt-2"">' +
                 '<p class="small text-right text-muted"> A las:' + date + '</p>' +
                 '</div>' + 
-                '</div></div></div></div>'
-                )
-            }
-           
+                '<div class="col-12 mb-3">' +
+                '<a class="small" href="/view/' + 
+                ticketNumber +
+                '/download/' +
+                filename + 
+                '" download>' +
+                filename +
+                '</div></div></div></div></div>'
+            )
+             $("#commentsNew").attr("id","commentsNode")
         }
 
     }

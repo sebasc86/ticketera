@@ -86,9 +86,6 @@ class viewTicketController extends Controller
 
 
 
-
-
-
 			if($request->TotalFiles > 0 && isset($request->commentsNode))
 			{
 				//Loop for getting files with index like image0, image1
@@ -99,7 +96,7 @@ class viewTicketController extends Controller
 		        $comment->ticket_id = $ticketId;        
 
 		        $comment->save();
-
+		        $ticketNumber = $comment->ticket->number;
 		        $commentId = $comment->id;
 
 
@@ -127,7 +124,7 @@ class viewTicketController extends Controller
 
 				}
 
-		        return response()->json(['success'=>'1','userName' => $comment->id]);
+		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $files, 'ticketNumber' => $ticketNumber]);
 
 			} else if (isset($request->commentsNode))	{
 				$comment = new Comment();
@@ -136,6 +133,8 @@ class viewTicketController extends Controller
 		        $comment->ticket_id = $ticketId;        
 
 		        $comment->save();
+
+		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => "null", 'ticketNumber' => "null"]);
 
 			}
 
