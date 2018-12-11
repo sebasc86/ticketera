@@ -19,7 +19,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-
 Route::get('/new', 'newTicketController@index')->name('/newTicket');
 Route::post('/new', 'newTicketController@store');
 
