@@ -38,4 +38,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
+    public function sector()
+    {
+        return $this->belongsTo('App\Sector');
+    }
+
 }

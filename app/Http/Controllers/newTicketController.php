@@ -15,9 +15,6 @@ use Swift_SwiftException;
 
 class newTicketController extends Controller
 {
-
-
-
     public function __construct()
     {
         $this->middleware('auth');
