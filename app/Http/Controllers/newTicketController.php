@@ -27,15 +27,22 @@ class newTicketController extends Controller
     {
 
     	$userLogin = Auth::user();
-    	$users =  User::all();
-    	$usersArray;
+		$users =  User::all();
+		$usersArray;
     	foreach ($users as $value) {
     		if($value->id != $userLogin->id){
-    			$usersArray[] = $value;
+				$usersArray[] = $value;
     		};
-    	};
+		};
 
-		return view('/new')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
+		if(isset($usersArray)){
+			return view('/new')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
+		} else {
+			return view('/new')->with('userLogin', $userLogin)->with('usersAll', $users);
+		}
+		
+
+		
 
     }
 

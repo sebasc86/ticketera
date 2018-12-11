@@ -40,14 +40,14 @@
                         </div>
 
                          <div class="form-group row">
-                            <label for="sector" class="col-md-4 col-form-label text-md-right">{{ __('Sector') }}</label>
+                            <label for="sector_id" class="col-md-4 col-form-label text-md-right">{{ __('Sector') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sector" type="sector" class="form-control{{ $errors->has('sector') ? ' is-invalid' : '' }}" name="sector" value="{{ old('sector') }}" required>
+                                <input id="sector_id" type="sector_id" class="form-control{{ $errors->has('sector_id') ? ' is-invalid' : '' }}" name="sector_id" value="{{ old('sector_id') }}" required>
 
-                                @if ($errors->has('sector'))
+                                @if ($errors->has('sector_id'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('sector') }}</strong>
+                                        <strong>{{ $errors->first('sector_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
