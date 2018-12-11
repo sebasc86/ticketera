@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/sector', 'sectorController@index');
+Route::post('/sector', 'sectorController@store');
+
 Route::get('/new', 'newTicketController@index')->name('/newTicket');
 Route::post('/new', 'newTicketController@store');
 

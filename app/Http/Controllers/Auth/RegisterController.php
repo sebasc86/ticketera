@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Sector;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -26,6 +27,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+
+
     /**
      * Where to redirect users after registration.
      *
@@ -40,9 +43,15 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-       /* $this->middleware('guest');*/
+       // $this->middleware('guest');
        $this->middleware('auth');
        $this->middleware('admin');    
+    }
+
+    public function showRegistrationForm()
+    {
+        $sectors = Sector::all();
+        return view('auth.register')->with('sectors', $sectors);
     }
 
     /**

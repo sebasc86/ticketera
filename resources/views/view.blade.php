@@ -44,7 +44,7 @@
               </div>
 
               <div class="col-6">
-                <p class='h6'>{{$ticket->sector}}</h2>
+                <p class='h6'>{{$sectorQueue}}</h2>
               </div>
 
             </div>
@@ -81,7 +81,7 @@
                 <h2 class='h5'>Sector</h2>
               </div>
               <div class="col-6">
-                <p class='h6'>Tecnica</p>
+                <p class='h6'>{{$ticket->sector}}</p>
               </div>    
 
 
