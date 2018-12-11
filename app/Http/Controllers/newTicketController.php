@@ -33,9 +33,13 @@ class newTicketController extends Controller
 		};
 
 		if(isset($usersArray)){
-			return view('/new')->with('userLogin', $userLogin)->with('usersAll', $usersArray);
+			return view('/new')
+			->with('userLogin', $userLogin)
+			->with('usersAll', $usersArray);
 		} else {
-			return view('/new')->with('userLogin', $userLogin)->with('usersAll', $users);
+			return view('/new')
+			->with('userLogin', $userLogin)
+			->with('usersAll', $users);
 		}
 		
 
