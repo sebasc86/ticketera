@@ -11,6 +11,7 @@ use App\Ticket;
 use App\User;
 use App\Comment;
 use App\File;
+use App\Sector;
 use App\Mail\TicketCloseMail;
 
 class viewTicketController extends Controller
@@ -21,7 +22,7 @@ class viewTicketController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request,$ticket)
+    public function index(Request $request, $ticket)
     {	
 
     	$user = Auth::user();
@@ -29,16 +30,8 @@ class viewTicketController extends Controller
 
 		$userQueue = Ticket::where('queue', $userId)->first();
 		$ticketN = Ticket::where('number', $ticket)->first();
-		
-		
-
-		/*foreach ($ticketN->comment as $key => $value) {
-			if($value->id == 81){
-				foreach ($value->file as $key => $value3) {
-					dd($value3->filename);
-				}
-			}
-		}*/
+		$sector = Sector::find($ticketN->sector)->name;
+		$ticketN->sector = $sector;
 		
 		if($ticketN) {
 			
@@ -47,20 +40,17 @@ class viewTicketController extends Controller
 			$ticketNumber = $ticketN->number;
 			$ticketName = $ticketN->user->name;
 			$userQueueName = USER::find($ticketN->queue);
+			$sectorQueueName = Sector::find($userQueueName->sector_id)->name;
+			
 			
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
 			$ticketUserId = $ticketN->user_id;
 			$files = File::where('ticket_id', $ticketId)->get()->all();
-			/*$filesComments = File::where('comment_id', )*/
 			
-			/*dd(Storage::response("public/uploads/files/$files->filename"));*/
-			// $contents = Storage::disk('public')->get('uploads/files/'.$files->filename);
-			// dd($contents);
-			//queue es la cola de usuario osea esta realacionado al id del usuario	
 
 			if($ticketUserId == $userId || $userId == $ticketQueue){
-		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files)->with('userSent', $userQueueName);
+		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files)->with('userSent', $userQueueName)->with('sectorQueue', $sectorQueueName);
 			}else {
 				return abort(403);
 			};
@@ -100,7 +90,6 @@ class viewTicketController extends Controller
 		        $commentId = $comment->id;
 
 
-
 				for ($x = 0; $x < $request->TotalFiles; $x++) {
 
 					if ($request->hasFile('imgfiles'.$x)) {
@@ -108,8 +97,8 @@ class viewTicketController extends Controller
 						$file      = $request->file('imgfiles'.$x);
 						$filename  = $file->getClientOriginalName();
 						$extension = $file->getClientOriginalExtension();
-						$files   = uniqid() . "." .$extension;
-
+						$files     = uniqid() . "." .$extension;
+						$filesArray[] = $files;
 						//Save files in below folder path, that will make in public folder
 						$file->move(storage_path('app/public/uploads/files'), $files);
 
@@ -124,7 +113,7 @@ class viewTicketController extends Controller
 
 				}
 
-		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $files, 'ticketNumber' => $ticketNumber]);
+		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $filesArray, 'ticketNumber' => $ticketNumber]);
 
 			} else if (isset($request->commentsNode))	{
 				$comment = new Comment();

@@ -11,9 +11,10 @@ class Ticket extends Model
     public const CLOSE_STATUS = 0;
     public const OPEN_STATUS = 1;
     public const IN_PROGRESS_STATUS = 2;
-    protected $user;
+    protected $user_id;
     protected $status;
     protected $number;
+    protected $sector;
 
     // Constructor
     public function __construct(){
@@ -49,6 +50,11 @@ class Ticket extends Model
     public function setUser($userId) 
     {
         return $this->user_id = $userId;
+    }
+
+    public function setSectorId($sector) 
+    {
+        return $this->sector = $sector;
     }
 
     public function setTicketNumber()

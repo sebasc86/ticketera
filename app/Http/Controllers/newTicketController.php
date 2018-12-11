@@ -47,6 +47,7 @@ class newTicketController extends Controller
     {
 
 		$user = Auth::user();
+		$sector = $user->sector_id;
 		$userId = $user->id;	
         
 		$this->validate(request(), [    
@@ -114,15 +115,11 @@ class newTicketController extends Controller
 
 	}
 		
-		
-
-
-
 		$ticket = new Ticket;
 		
 		
 		$ticket->status = $ticket->setOpenStatus();
-		$ticket->sector = 'chessecake';
+		$ticket->sector = $ticket->setSectorId($sector);
 		$ticket->queue = request()->queue;
 	    $ticket->client = request()->clientN;
 	    $ticket->title = request()->title;

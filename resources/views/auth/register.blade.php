@@ -43,7 +43,14 @@
                             <label for="sector_id" class="col-md-4 col-form-label text-md-right">{{ __('Sector') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sector_id" type="sector_id" class="form-control{{ $errors->has('sector_id') ? ' is-invalid' : '' }}" name="sector_id" value="{{ old('sector_id') }}" required>
+
+                                <select class="form-control {{ $errors->has('sector_id') ? ' is-invalid' : '' }}" id="sector_id" name='sector_id'>
+
+                                    @foreach ($sectors as $sector)
+                                        <option value="{{$sector->id }}">{{$sector->name}}</option>
+                                    @endforeach
+
+                                </select>   
 
                                 @if ($errors->has('sector_id'))
                                     <span class="invalid-feedback" role="alert">

@@ -98,6 +98,7 @@ $( document ).ready(function() {
                         userName = result.userName
                         ticketNumber = result.ticketNumber
                         filename = result.filename
+                        
                         insertComment(success)
                         $('#comments').val('')
                         $("#comments").removeClass('is-valid')
@@ -118,28 +119,43 @@ $( document ).ready(function() {
             //con comentarios
             var commentsNode = $('#commentsNode')
 
+            if(filename != "null") {
+                var fileMap = filename.map(function(file) {
+                console.log(file)
+                return '<div class="col-12 mb-2">' + 
+                 '<a class="small" href="/view/' +
+                  ticketNumber +
+                  '/download/' +
+                  file +
+                  '" download>' + 
+                  file + 
+                  '</a></div>'
+             })
+            }
+            
+
+        
+
+
         if(success === '1' && filename != "null" && commentsNode.length != 0){
-               commentsNode.append(
-                '<div class="row align-items-center bg-light mt-2 info">' +
-                '<div class="col mt-4">' +
-                '<p class="">' + detailsNode.val() + '</p>'+
-                '</div>' +
-                '<div class="col-12 mt-2">' +
-                '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
-                userName + 
-                '</p></div>' +
-                '<div class="col-12 mt-2"">' +
-                '<p class="small text-right text-muted"> A las:' + date + '</p>' +
-                '</div>'+
-                '<div class="col-12 mb-3">' +
-                '<a class="small" href="/view/' + 
-                ticketNumber +
-                '/download/' +
-                filename + 
-                '" download>' +
-                filename +
-                '</div></div>'
-              )              
+                var filep = ''
+                commentsNode.append(
+                    '<div class="row align-items-center bg-light mt-2 info">' +
+                    '<div class="col mt-4">' +
+                    '<p class="">' + detailsNode.val() + '</p>'+
+                    '</div>' +
+                    '<div class="col-12 mt-2">' +
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
+                    userName + 
+                    '</p></div>' +
+                    '<div class="col-12 mt-2"">' +
+                    '<p class="small text-right text-muted"> A las:' + date + '</p>' +
+                    '</div>'+
+                    '<div id="inner">' + 
+                    '</div>'
+                )
+               $('#inner').html(fileMap)
+
         } else if (success === '1' && filename === "null" && commentsNode.length != 0){
                 commentsNode.append(
                     '<div class="row align-items-center bg-light mt-2 info">' +
@@ -193,15 +209,12 @@ $( document ).ready(function() {
                 '<div class="col-12 mt-2"">' +
                 '<p class="small text-right text-muted"> A las:' + date + '</p>' +
                 '</div>' + 
-                '<div class="col-12 mb-3">' +
-                '<a class="small" href="/view/' + 
-                ticketNumber +
-                '/download/' +
-                filename + 
-                '" download>' +
-                filename +
-                '</div></div></div></div></div>'
+                 '<div id="inner">' + 
+                '</div>' + 
+                '</div></div></div></div>'
             )
+
+            $('#inner').html(fileMap)
 
         }
 
