@@ -105,7 +105,7 @@ $(document).ready(function() {
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'number', 
               render: function(data){
-                return "<a href={{asset('view')}}"+ "/"+ data + "' class='view btn btn-dark'>Ver Ticket</button>"
+                return "<a href={{asset('view')}}"+ "/"+ data + " class='view btn btn-dark'>Ver Ticket</button>"
               }
             },
         ],

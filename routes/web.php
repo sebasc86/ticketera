@@ -39,6 +39,9 @@ Route::get('/sent/sent', ['as'=>'sent.data','uses'=>'sentTicketController@getTic
 Route::get('/get', 'getTicketController@index')->name('/get');
 Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);
 
+Route::get('/get/sector', 'getTicketSectorController@index');
+Route::get('/get/sector/ticket', ['as'=>'datas.get','uses'=>'getTicketSectorController@getTicketsSector']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
