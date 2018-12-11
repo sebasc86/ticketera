@@ -44,7 +44,7 @@
               </div>
 
               <div class="col-6">
-                <p class='h6'>{{$sectorQueue}}</h2>
+                <p class='h6'>{{$sectorQueue->name}}</h2>
               </div>
 
             </div>
@@ -81,15 +81,9 @@
                 <h2 class='h5'>Sector</h2>
               </div>
               <div class="col-6">
-                <p class='h6'>{{$ticket->sector}}</p>
+                <p class='h6'>{{$ticket->user->sector->name}}</p>
               </div>    
-
-
-
             </div>
-
-
-
           </div>
         </div>
       </div>  
@@ -218,7 +212,8 @@
          </div>    
         </form> 
                   
-        @if($ticket->queue == $userLoginId)
+
+        @if($ticket->queue == $userLoginId  || $sectorQueue->id == $userSent->sector_id)
             <form class='mt-5' action="" name="close" id='closeTicket' method="post" enctype="multipart/form-data">
                
               <div class="mt-5 pr-3 align-self-end">

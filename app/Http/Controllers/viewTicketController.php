@@ -39,24 +39,31 @@ class viewTicketController extends Controller
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
 			$ticketName = $ticketN->user->name;
-			$userQueueName = USER::find($ticketN->queue);
-			$sectorQueueName = Sector::find($userQueueName->sector_id)->name;
+			$userQueueName = User::find($ticketN->queue);
+			$sectorQueue = Sector::find($userQueueName->sector_id);
 			
 			
 			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
 			$ticketUserId = $ticketN->user_id;
 			$files = File::where('ticket_id', $ticketId)->get()->all();
+			$ticketSectorId= Sector::where('name', $ticketN->sector)->get()->first()->id;
 			
 
-			if($ticketUserId == $userId || $userId == $ticketQueue){
-		 		return view('/view')->with('ticket', $ticketN)->with('userLoginId', $userId)->with('files', $files)->with('userSent', $userQueueName)->with('sectorQueue', $sectorQueueName);
+			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $ticketSectorId){
+		 		return view('/view')
+		 		->with('ticket', $ticketN)
+		 		->with('userLoginId', $userId)
+		 		->with('files', $files)
+		 		->with('userSent', $userQueueName)
+		 		->with('sectorQueue', $sectorQueue);
+
 			}else {
-				return abort(403);
+				return abort(403, "Usted no tiene permiso para ver este ticket");
 			};
 
 		}else {
-			return abort(403);
+			return abort(403, "Usted no tiene permiso para ver este ticket");
 		}
 		
 		

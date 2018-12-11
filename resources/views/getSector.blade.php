@@ -17,6 +17,7 @@
           <th scope="col">Descripcion</th>
           <th scope="col">Detalles</th>
           <th scope="col">Usuario Creador</th>
+          <th scope="col">Para</th>
           <th scope="col">Creado</th>
           <th scope="col">#</th>
           <th id='href' scope="col">Button</th>
@@ -32,6 +33,7 @@
                 <th>Cliente</th>
                 <th>Descripcion</th>
                 <th>Usuario Creador</th>
+                <th>Para</th>
                 <th>Creado<th>
             </tr>
       </tfoot>
@@ -103,6 +105,7 @@ $(document).ready(function() {
             { data: 'title', name: 'title' },
             { data: 'details', name: 'details', visible: false },
             { data: 'user_id', name: 'user_id' },
+            { data: 'queue', name: 'queue' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'number', 
