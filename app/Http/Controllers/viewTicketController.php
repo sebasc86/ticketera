@@ -26,12 +26,12 @@ class viewTicketController extends Controller
     {	
 
     	$user = Auth::user();
-		$userId = $user->id;
+			$userId = $user->id;
 
-		$userQueue = Ticket::where('queue', $userId)->first();
-		$ticketN = Ticket::where('number', $ticket)->first();
-		$sector = Sector::find($ticketN->sector)->name;
-		$ticketN->sector = $sector;
+			$userQueue = Ticket::where('queue', $userId)->first();
+			$ticketN = Ticket::where('number', $ticket)->first();
+			$sector = Sector::find($ticketN->sector);
+		
 		
 		if($ticketN) {
 			
@@ -39,18 +39,33 @@ class viewTicketController extends Controller
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
 			$ticketName = $ticketN->user->name;
+			//sector - usuario y ticket que esperar recibir el ticket
 			$userQueueName = User::find($ticketN->queue);
 			$sectorQueue = Sector::find($userQueueName->sector_id);
-			
-			
-			$request->session()->put('ticket_id', $ticketId);
 			$ticketQueue = $ticketN->queue;
+			
+			//recupero inserto el ticket en sesion
+			$request->session()->put('ticket_id', $ticketId);
+
+			//Usuario creador del ticket
 			$ticketUserId = $ticketN->user_id;
+			//busco los files subidos vinculados a ese ticket
 			$files = File::where('ticket_id', $ticketId)->get()->all();
-			$ticketSectorId= Sector::where('name', $ticketN->sector)->get()->first()->id;
+
+			// Busco Sector que es propietario de ese ticket. //Sector no contiene el nombre solo el id del sector.
+			$ticketSector =  Sector::find($ticketN->queue);
+			if(isset($ticketSector)){
+							$sectorIdQueue = $ticketSector->id;
 			
 
-			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $ticketSectorId){
+							$sectorName = $ticketSector->name;
+			
+							//renombro el ticket sector que es un numero al nombre asi se lo paso a la vista.
+							$ticketN->sector = $sectorName;
+			}
+
+			
+			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $sectorIdQueue){
 		 		return view('/view')
 		 		->with('ticket', $ticketN)
 		 		->with('userLoginId', $userId)

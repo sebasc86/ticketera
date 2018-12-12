@@ -15,9 +15,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::get('/sector', 'sectorController@index');
 Route::post('/sector', 'sectorController@store');
@@ -40,7 +38,7 @@ Route::get('/get', 'getTicketController@index')->name('/get');
 Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);
 
 Route::get('/get/sector', 'getTicketSectorController@index');
-Route::get('/get/sector/ticket', ['as'=>'datas.get','uses'=>'getTicketSectorController@getTicketsSector']);
+Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
 
 Auth::routes();
 
