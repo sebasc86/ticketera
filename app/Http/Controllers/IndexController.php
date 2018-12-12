@@ -13,9 +13,11 @@ class IndexController extends Controller
 
 
     		$user = Auth::user();
+
     		
     		if(isset($user)){
     			
+    			$sectorAdmin = $user->sector->isAdmin;
     			return view('index')
         	->with('sectorAdmin', $sectorAdmin);
 
