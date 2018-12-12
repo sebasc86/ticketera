@@ -13,13 +13,12 @@ class IndexController extends Controller
 
 
     		$user = Auth::user();
-    		$sector = Sector::All();
     		
     		if(isset($user)){
-    			$sectorAdmin = $user->sector->isAdmin;
+    			
     			return view('index')
-        	->with('sectorAdmin', $sectorAdmin)
-        	->with('sector', $sector);
+        	->with('sectorAdmin', $sectorAdmin);
+
     		}
     		
     		return view('index');
