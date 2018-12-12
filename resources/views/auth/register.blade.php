@@ -42,15 +42,28 @@
                          <div class="form-group row">
                             <label for="sector_id" class="col-md-4 col-form-label text-md-right">{{ __('Sector') }}</label>
 
-                            <div class="col-md-6">
-
-                                <select class="form-control {{ $errors->has('sector_id') ? ' is-invalid' : '' }}" id="sector_id" name='sector_id'>
+                            
+                                
+                                @if(count($sectors) > 0)
+                                <div class="col-md-6">
+                                    <select class="form-control {{ $errors->has('sector_id') ? ' is-invalid' : '' }}" id="sector_id" name='sector_id'>
 
                                     @foreach ($sectors as $sector)
                                         <option value="{{$sector->id }}">{{$sector->name}}</option>
                                     @endforeach
 
-                                </select>   
+                                    </select>
+                                </div>    
+                                @else 
+                                <div class="col-md-6" style="margin-left:5px; padding: 10px;color: #d40000;font-size: 14px;">
+                                    <span class="invalid">
+                                        <strong class="">Debe Crear un sector previamente</strong>
+                                    </span>
+                                </div>
+                                @endif
+                                   
+                                        
+                                    
 
                                 @if ($errors->has('sector_id'))
                                     <span class="invalid-feedback" role="alert">
@@ -58,7 +71,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                        
 
                          
 

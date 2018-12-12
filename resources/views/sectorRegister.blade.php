@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Nuevo Sector') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ asset('sector') }}">name
+                    <form id="form" method="POST" action="{{ asset('sector') }}">name
                         @csrf
 
                         <div class="form-group row">
@@ -24,6 +24,10 @@
                                 @endif
                             </div>
                         </div>
+
+                    
+
+
 
                         <div class="form-group row">
                             <label for="isAdmin" class="col-md-4 col-form-label text-md-right">{{ __('Es Admin') }}
@@ -42,7 +46,28 @@
                                     </span>
                                 @endif
                             </div>
-                      </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="userInclude" class="col-md-4 col-form-label text-md-right">{{ __('Tiene e-mail') }}
+                            </label>
+                            <div class="col-md-6">
+                                <select class="form-control {{ $errors->has('userInclude') ? ' is-invalid' : '' }}" id="userInclude" name='userInclude'>
+
+                                    <option value='0'>No</option>         
+                                    <option value='1'>Si</option>
+
+                                </select>   
+
+                                @if ($errors->has('userInclude'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('userInclude') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div id='hasEmail'></div>
 
 
                         
@@ -61,3 +86,9 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+  
+    <script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
+
+@endpush

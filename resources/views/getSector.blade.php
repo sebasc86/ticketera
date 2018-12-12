@@ -81,7 +81,7 @@ $(document).ready(function() {
         serverSide: false,
         "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
         "language": {
-            "emptyTable":     "My Custom Message On Empty Table",
+            "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "Nothing found - sorry",
             "info": "Mostrando pagina _PAGE_ de _PAGES_",
@@ -96,13 +96,13 @@ $(document).ready(function() {
                 "previous":   "Anterior"
             },
         },
-        ajax: '{!! route('datas.get') !!}',
+        ajax: '{!! route('dataSector.get') !!}',
         columns: [
             { data: 'status', name: 'status' }, 
             { data: 'sector', name: 'sector' },
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
-            { data: 'title', name: 'title' },
+            { data: 'title', name: 'title',  visible: false  },
             { data: 'details', name: 'details', visible: false },
             { data: 'user_id', name: 'user_id' },
             { data: 'queue', name: 'queue' },
