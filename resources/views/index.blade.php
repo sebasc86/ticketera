@@ -52,16 +52,20 @@
 		@isset ($sectorAdmin)
 		    @if($sectorAdmin === 1)
 
-				<div class="row justify-content-between mt-4">
+		    @foreach ($sector as $sector)
+		    {{-- siempre crear los blade los controladores y manejar los web  --}}
+					<div class="row justify-content-between mt-4">
 			        <div class="index card bg-light mb-3 info">
-			          <div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
-			          <a class="card-body" href="get/sector">
+			          <div class="card-header h6 bg-primary text-white">Abiertos {{strtoupper($sector->name)}}</div>
+			          <a class="card-body" href="get/{{$sector->name}}">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/recibido.png" >
 										</div>
 			          </a>
 			        </div>
 				</div>
+
+		    @endforeach
 
 				@endif
 		@endisset
