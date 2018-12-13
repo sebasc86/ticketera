@@ -125,10 +125,10 @@ class newTicketController extends Controller
 			$ticket->status = $ticket->setOpenStatus();
 			$ticket->sector = $ticket->setSectorId($sector);
 			$ticket->queue = request()->queue;
-		  $ticket->client = request()->clientN;
-		  $ticket->title = request()->title;
-		  ticket->details = $details;
-		  $ticket->user_id = $ticket->setUser($userId);
+		  	$ticket->client = request()->clientN;
+		  	$ticket->title = request()->title;
+		  	$ticket->details = $details;
+		  	$ticket->user_id = $ticket->setUser($userId);
 			$ticket->number = $ticket->setTicketNumber();
 			$ticket->save();          
 			

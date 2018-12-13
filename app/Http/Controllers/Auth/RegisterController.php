@@ -43,9 +43,9 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware('guest');
-       $this->middleware('auth');
-       $this->middleware('admin');    
+       $this->middleware('guest');
+    //    $this->middleware('auth');
+    //    $this->middleware('admin');    
     }
 
     public function showRegistrationForm()
@@ -60,6 +60,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
