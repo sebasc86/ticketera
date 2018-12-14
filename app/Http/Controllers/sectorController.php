@@ -29,7 +29,7 @@ class sectorController extends Controller
   		$this->validate(request(), [    		 
   		  'name' => 'required|string|unique:sectors,name',
   		  'isAdmin' => 'required|integer|min:0,max:1',
-        'email' => 'required|string|email|max:255|unique:users'
+          'email' => 'required|string|email|max:255|unique:users'
   		]);
 
       $sector = new Sector;
