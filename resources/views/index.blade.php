@@ -7,7 +7,7 @@
   <div class="container flex">
 		<div class="row justify-content-between mb-3">
 	        <div class="index card bg-light mb-3 info">
-	          <div class="card-header h6 bg-primary text-white">Crear Ticket</div>
+	          <div class="card-header h6 bg-primary text-white">Crear Nuevo Ticket</div>
 	          <a class="card-body link-container"  href="new">
 	            	<div class="row align-items-center">
 									<img class='imgIndex' src="img/add_document.png" alt="Crear Ticket" >
@@ -71,7 +71,7 @@
 			          <div class="card-header h6 bg-dark text-white">Abiertos ContactCom</div>
 			          <a class="card-body link-container" href="get/sector">
 			            	<div class=" row align-items-center" >
-											<img class='contactcomImg' src="img/ContactCom.jpg"  alt="Abiertos ContactCom">
+											<img class='contactcomImg' src="img/ContactCom.png"  alt="Abiertos ContactCom">
 										</div>
 			          </a>
 			        </div>
