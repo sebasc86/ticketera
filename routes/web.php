@@ -40,6 +40,9 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 Route::get('/get/sector', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
 
+Route::get('/get/Atento', 'getAtentoController@index');
+Route::get('/get/atento/ticket', ['as'=>'dataAtento.get','uses'=>'getAtentoController@getTicketsAtento']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

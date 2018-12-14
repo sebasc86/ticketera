@@ -10,16 +10,17 @@
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
-          <th scope="col">Estado</th>
+          
+          <th scope="col">Usuario Creador</th>
           <th scope="col">Sector</th>
           <th scope="col">Nro ticket</th>
           <th scope="col">Cliente</th>
           <th scope="col">Descripcion</th>
           <th scope="col">Detalles</th>
-          <th scope="col">Usuario Creador</th>
           <th scope="col">Para</th>
           <th scope="col">Creado</th>
-          <th scope="col">#</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Estado</th>
           <th id='href' scope="col">Button</th>
           
           
@@ -27,14 +28,15 @@
       </thead>
       <tfoot>
             <tr>
-                <th>Estado</th>
+                
+                <th>Usuario Creador</th>
                 <th>Sector</th>
                 <th>Ticket</th>
                 <th>Cliente</th>
                 <th>Descripcion</th>
-                <th>Usuario Creador</th>
                 <th>Para</th>
                 <th>Creado<th>
+                <th>Estado</th>
             </tr>
       </tfoot>
       </table>
@@ -98,15 +100,16 @@ $(document).ready(function() {
         },
         ajax: '{!! route('dataSector.get') !!}',
         columns: [
-            { data: 'status', name: 'status' }, 
+            
+            { data: 'user_id', name: 'user_id' },
             { data: 'sector', name: 'sector' },
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
             { data: 'title', name: 'title',  visible: false  },
             { data: 'details', name: 'details', visible: false },
-            { data: 'user_id', name: 'user_id' },
             { data: 'queue', name: 'queue' },
             { data: 'created_at', name: 'created_at' },
+            { data: 'status', name: 'status'}, 
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'number', 
               render: function(data){
