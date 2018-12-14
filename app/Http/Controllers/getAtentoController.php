@@ -9,9 +9,9 @@ use App\Ticket;
 use App\User;
 use App\Sector;
 
-class getTicketSectorController extends Controller
-{	
-	public function __construct()
+class getAtentoController extends Controller
+{
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -20,16 +20,11 @@ class getTicketSectorController extends Controller
     {
 
 
-        $user = Auth::user();
-        $sectorId= $user->sector->id;
-        
+        $ticketsAtento = Ticket::where('queue', Sector::ATENTO_TECNICA)->get();
         //busco tickets al usuario 'queue' que coincide con mi sector
-        //dado que mi sector en si tiene un usuario creado.
+        //dado que mi sector en si tiene un usuario creado.       
 
-        $ticketsAll = Ticket::where('queue', $sectorId)->get();
-        
-
-        $ticketsOpen = $ticketsAll->filter(function($item, $key){
+        $ticketsOpen = $ticketsAtento->filter(function($item, $key){
 
             return $item->status === 1;
             
@@ -37,30 +32,25 @@ class getTicketSectorController extends Controller
         
         $ticketsOpen->all();
 
-		return view('getSector')->with('ticketsOpen', $ticketsOpen);
+				return view('getAtento')->with('ticketsOpen', $ticketsOpen);
 
     }
 
-
-	public function getTicketsSector()
+    public function getTicketsAtento()
     {   
         
-        $user = Auth::user();
-        $sectorId= $user->sector->id;
 
-        
-        $ticketsAll = Ticket::where('queue', $sectorId)->get();
-
+    	$ticketsAll = Ticket::where('queue', Sector::ATENTO_TECNICA)->get();
 
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsAll->isEmpty() ) {
 
             foreach ($ticketsAll as $key => $value) {
-            	//para buscar el nombre Creador
-            	$user = $value->user->name;
+            		//para buscar el nombre Creador
+            		$user = $value->user->name;
                 $value->user_id = $user;
-                $sectorName = $value->user->sector->name;
-                $value->sector = $sectorName;
+                $value->sector = $value->user->sector->name;
+
                 //para buscar el nombre a quien enviar
                 $userQueue = $value->queue;
                 $userQueue = User::find($userQueue);

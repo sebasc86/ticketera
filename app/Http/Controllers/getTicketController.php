@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use App\Ticket;
 use App\User;
+use App\Sector;
 
 class getTicketController extends Controller
 {
@@ -19,9 +20,10 @@ class getTicketController extends Controller
     public function index()
     {
 
-
         $user = Auth::user();
-        $userId = $user->id;
+        $userId = $user->id;    
+
+       
 
         $ticketsQueue= Ticket::where('queue', $userId)->get();
         
@@ -50,10 +52,12 @@ class getTicketController extends Controller
         if( !$ticketsQueue->isEmpty() ) {
             
             $userTid = $ticketsQueue->first()->user_id;
-            $user = $user::find($userTid);
 
             foreach ($ticketsQueue as $key => $value) {
-                $value->user_id = $user->name;
+
+                $value->user_id = $value->user->name;
+                $value->sector = Sector::find($value->sector)->name;
+                
                 if($value->status === 0){
                     $value->status = 'Cerrado';
                 } else {
