@@ -25,7 +25,7 @@ class viewTicketController extends Controller
     public function index(Request $request, $ticket)
     {	
 
-    	$user = Auth::user();
+    		$user = Auth::user();
 			$userId = $user->id;
 
 			$userQueue = Ticket::where('queue', $userId)->first();
@@ -65,7 +65,7 @@ class viewTicketController extends Controller
 			}
 
 			
-			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $sectorIdQueue){
+			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $sectorIdQueue || $user->sector->id == Sector::TELECENTRO_TECNICA){
 		 		return view('/view')
 		 		->with('ticket', $ticketN)
 		 		->with('userLoginId', $userId)

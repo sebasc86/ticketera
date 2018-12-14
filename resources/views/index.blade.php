@@ -57,7 +57,7 @@
 			<div class="container flex">
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos Atento</div>
+			          <div class="card-header h6 bg-dark text-white">Tickets Atento</div>
 			          <a class="card-body link-container" href="get/Atento">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/atentoLogo.png" alt="Abiertos Atento" >
@@ -68,10 +68,10 @@
 
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos ContactCom</div>
-			          <a class="card-body link-container" href="get/sector">
+			          <div class="card-header h6 bg-dark text-white">Tickets ContactCom</div>
+			          <a class="card-body link-container" href="get/Contactcom">
 			            	<div class=" row align-items-center" >
-											<img class='contactcomImg' src="img/ContactCom.jpg"  alt="Abiertos ContactCom">
+											<img class='contactcomImg' src="img/ContactCom.png"  alt="Abiertos ContactCom">
 										</div>
 			          </a>
 			        </div>
@@ -79,7 +79,7 @@
 
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos Konecta</div>
+			          <div class="card-header h6 bg-dark text-white">Tickets Konecta</div>
 			          <a class="card-body link-container" href="get/sector">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/konecta.png"  alt="Abiertos Konecta">

@@ -2,7 +2,6 @@
 
 @section('content')
 
-
   <div class="container ticketOpen" style="padding: 20px; color: red">
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
@@ -99,7 +98,7 @@ $(document).ready(function() {
                 "previous":   "Anterior"
             },
         },
-        ajax: '{!! route('dataAtento.get') !!}',
+        ajax: '{!! route('dataContact.get') !!}',
         columns: [
             
             { data: 'queue', name: 'queue' },
