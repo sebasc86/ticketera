@@ -38,22 +38,23 @@
 	        </div>
 		</div>
 
-
-		<div class="row justify-content-between mb-3">
-	        <div class="index card bg-light mb-3 info">
-	          <div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
-	          <a class="card-body link-container" href="get/sector">
-	            	<div class=" row align-items-center" >
-									<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
-								</div>
-	          </a>
-	        </div>
-		</div>
+		
+			<div class="row justify-content-between mb-3">
+						<div class="index card bg-light mb-3 info">
+							<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
+							<a class="card-body link-container" href="get/sector">
+									<div class=" row align-items-center" >
+										<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
+									</div>
+							</a>
+						</div>
+			</div>
+			
 	</div>	
 
 
-		@isset ($sectorAdmin)
-		  @if($sectorAdmin === 1)
+		@isset ($sector->isAdmin)
+		  @if($sector->isAdmin === 1)
 			<div class="container flex">
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
