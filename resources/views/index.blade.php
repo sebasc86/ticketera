@@ -80,7 +80,7 @@
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
 			          <div class="card-header h6 bg-dark text-white">Tickets Konecta</div>
-			          <a class="card-body link-container" href="get/sector">
+			          <a class="card-body link-container" href="get/Konecta">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/konecta.png"  alt="Abiertos Konecta">
 										</div>
