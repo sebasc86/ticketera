@@ -11,7 +11,9 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "yajra/laravel-datatables-oracle": "^8.9"
+        "yajra/laravel-datatables-oracle": "^8.9",
+        "nesbot/carbon": "2.5.1 as 1.36.1",
+        "kylekatarnls/laravel-carbon-2": "^1.0.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

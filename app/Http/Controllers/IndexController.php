@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Sector;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -12,7 +13,8 @@ class IndexController extends Controller
     {		
 
 
-    		$user = Auth::user();
+			$user = Auth::user();
+			
 
     		
     		if(isset($user)){
