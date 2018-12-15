@@ -4,3 +4,7 @@
 	-moz-box-shadow: -1px 3px 18px 1px rgba(0,0,0,0.58);
 	border: 0px;
 }
+
+.details{
+	overflow-y: scroll;
+}
