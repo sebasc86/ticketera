@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Sector;
 use App\Ticket;
 use App\File;
 use Illuminate\Support\Facades\Auth;
@@ -23,14 +24,22 @@ class newTicketController extends Controller
      public function index()
     {
 
-    	$userLogin = Auth::user();
+    		$userLogin = Auth::user();
 			$users =  User::all();
-			$usersArray;
-	    	foreach ($users as $value) {
-	    		if($value->id != $userLogin->id){
-					$usersArray[] = $value;
-	    		};
-			};
+
+			$usersArray = $users->filter(function ($value, $key) {
+				$userLogin = Auth::user();
+				if($userLogin->sector->id === Sector::TELECENTRO_TECNICA){
+					if($value->id != $userLogin->id){
+						return $value;
+					};
+				}else {
+					if($value->id != $userLogin->id && $value->id != Sector::TELECENTRO_TECNICA){
+						return $value;
+					};
+				}
+				
+			});
 
 			if(isset($usersArray)){
 				return view('/new')
@@ -164,7 +173,6 @@ class newTicketController extends Controller
 					$errorEmail = 'Destinatario Inválido';
 					return $this->index()->with('errorEmail', $errorEmail);
 				}
-				
 				
 			}
 

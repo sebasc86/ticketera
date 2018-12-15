@@ -17,9 +17,9 @@ class IndexController extends Controller
     		
     		if(isset($user)){
     			
-    			$sectorAdmin = $user->sector->isAdmin;
-    			return view('index')
-        	->with('sectorAdmin', $sectorAdmin);
+    		$sector = $user->sector;
+    		return view('index')
+        	->with('sector', $sector);
 
     		}
     		
