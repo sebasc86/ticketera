@@ -58,8 +58,17 @@ class sendClaim extends Command
 
             if($diffHours > 72) {
                 // Mail::send('welcome', [], function($message) { $message->to('sebascoscia@gmail.com')->subject('Testing email'); });
+                
+                
+                $message = (new TicketAfter72hs($ticket, $user, $userQueue))
+                ->onConnection('database')
+                ->onQueue('emails');
                 Mail::to('sebascoscia@gmail.com')
-				->send(new TicketAfter72hs($ticket, $user, $userQueue));
+                ->queue($message);
+
+                // execute php artisan queue:work database --queue=emails
+
+
             }
         }
   
