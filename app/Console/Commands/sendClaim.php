@@ -10,7 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\File;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\TicketMail;
+use App\Mail\TicketAfter72hs;
 
 
 class sendClaim extends Command
@@ -48,16 +48,18 @@ class sendClaim extends Command
     {
         $ticketsOpen = Ticket::where('status', Ticket::OPEN_STATUS)->get();
 
-        foreach ($ticketsOpen as $key => $tickets) {
-            $dateCreate = $tickets->created_at;
+        foreach ($ticketsOpen as $key => $ticket) {
+            
+            $dateCreate = $ticket->created_at;
             $datenow = Carbon::now();
             $diffHours = $datenow->diffInHours($dateCreate);
-            
+            $user = $ticket->user;
+            $userQueue = User::find($ticket->queue);
 
             if($diffHours > 72) {
                 // Mail::send('welcome', [], function($message) { $message->to('sebascoscia@gmail.com')->subject('Testing email'); });
                 Mail::to('sebascoscia@gmail.com')
-				->send(new TicketMail());
+				->send(new TicketAfter72hs($ticket, $user, $userQueue));
             }
         }
   
