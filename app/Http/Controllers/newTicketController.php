@@ -65,7 +65,8 @@ class newTicketController extends Controller
 			$user = Auth::user();
 			$sector = $user->sector_id;
 			$userId = $user->id;	
-	        
+
+			
 			$this->validate(request(), [    
 	/*		  'name' => 'required|numeric',
 			  'email' => 'unique:users,email,'.$user->id,
@@ -80,11 +81,13 @@ class newTicketController extends Controller
 			  'title' => 'required|string',
 			  'details' => 'required',
 			  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
+			  'file' => 'array|max:3000',
+    		  'file.*' => 'present|file|max:3000',
 			]);
 
 		
 
-
+			
 			$details = request()->details;
 
 			if($details) {
