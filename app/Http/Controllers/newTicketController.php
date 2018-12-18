@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use App\User;
 use App\Sector;
 use App\Ticket;
 use App\File;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketMail;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use App\Mail\SendMailable;
+use App\Jobs\SendEmailJob;
+
 use Swift_SwiftException;
 
 class newTicketController extends Controller
@@ -165,9 +168,14 @@ class newTicketController extends Controller
 			
 
 			try {
-				Mail::to($userQueue->email)
-				->cc($user->email)
-				->send(new TicketMail($user, $ticket, $userQueue));
+				// Mail::to($userQueue->email)
+				// ->cc($user->email)
+				// ->send(new TicketMail($user, $ticket, $userQueue));
+
+				dispatch(new SendEmailJob($user, $ticket, $userQueue))
+				->onConnection('database');
+				echo 'email sent';
+
 			} catch (Swift_SwiftException $e) {
 				if($e->getCode() === 554) {
 					$errorEmail = 'Destinatario Inválido';

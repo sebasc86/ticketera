@@ -8,8 +8,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use App\Ticket;
+use App\Jobs\SendEmailJob;
 
-class TicketMail extends Mailable implements ShouldQueue
+class SendMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +24,7 @@ class TicketMail extends Mailable implements ShouldQueue
      * @return void
      */
     public function __construct(User $user, Ticket $ticket, User $userQueue)
-    {   
+    {
         $this->user = $user;
         $this->ticket = $ticket;
         $this->userQueue = $userQueue;
@@ -36,10 +37,8 @@ class TicketMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        /*return $this->view('view.name');*/
-         return $this->view('emails.create')
+        return $this->view('emails.create')
          ->from('no-reply@telecentro.net.ar')
          ->subject('Ticket Creado!');
-                
     }
 }
