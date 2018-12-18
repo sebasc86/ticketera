@@ -15,18 +15,18 @@ class TicketCloseMail extends Mailable
 
     public $user;
     public $ticket;
-    public $userQueue;
+    public $userAuth;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user, Ticket $ticket, User $userQueue)
+    public function __construct(User $user, Ticket $ticket, User $userAuth)
     {   
         $this->user = $user;
         $this->ticket = $ticket;
-        $this->userQueue = $userQueue;
+        $this->userAuth = $userAuth;
 
     }
 

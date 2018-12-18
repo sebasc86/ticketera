@@ -13,6 +13,7 @@ use App\Comment;
 use App\File;
 use App\Sector;
 use App\Mail\TicketCloseMail;
+use App\Jobs\SendEmailJobClose;
 
 class viewTicketController extends Controller
 {
@@ -170,12 +171,16 @@ class viewTicketController extends Controller
 			$ticketId = $request->session()->get('ticket_id');
 			$ticket = Ticket::find($ticketId);
 			$user = User::find($ticket->user_id);
-			$userQueue = User::find($ticket->queue);
+			$userAuth = Auth::user();
+			
 
-			Mail::to($user->email)
-			->cc($userQueue->email)
-			->send(new TicketCloseMail($user, $ticket, $userQueue));
+			// Mail::to($user->email)
+			// ->cc($userQueue->email)
+			// ->send(new TicketCloseMail($user, $ticket, $userQueue));
 
+			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
+			->onConnection('database');
+			
 	 }
 
 	 public function download(Request $request, $ticket, $filename) 
