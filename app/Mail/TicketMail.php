@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use App\Ticket;
 
-class TicketMail extends Mailable
+class TicketMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

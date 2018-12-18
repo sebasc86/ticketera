@@ -63,7 +63,9 @@ class sendClaim extends Command
                 $message = (new TicketAfter72hs($ticket, $user, $userQueue))
                 ->onConnection('database')
                 ->onQueue('emails');
+
                 Mail::to('sebascoscia@gmail.com')
+                ->cc('scoscia86@gmail.com')
                 ->queue($message);
 
                 // execute php artisan queue:work database --queue=emails
