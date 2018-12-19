@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command:sendClaim')
-                ->dailyAt('16:40');
+                ->dailyAt('17:00');
 
     }
 
