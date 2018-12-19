@@ -172,11 +172,6 @@ class viewTicketController extends Controller
 			$ticket = Ticket::find($ticketId);
 			$user = User::find($ticket->user_id);
 			$userAuth = Auth::user();
-			
-
-			// Mail::to($user->email)
-			// ->cc($userQueue->email)
-			// ->send(new TicketCloseMail($user, $ticket, $userQueue));
 
 			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
 			->onConnection('database');

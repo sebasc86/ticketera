@@ -3,9 +3,10 @@
 @section('content')
 
 
-  <div class="container ticketOpen" style="padding: 20px; color: red">
-    <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
-  </div>
+    <div class="container justify-content-between d-flex p-2 ticketOpen">
+        <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
+        <img class="atento-img" src="{{asset('img/atentoLogo.png')}}" alt="konecta">
+    </div>
     
   <div id="container" class="container mt-2">
       <table class='table table-striped table-bordered' id='tickets-table'>

@@ -5,6 +5,31 @@
 	border: 0px;
 }
 
+.ticketOpen {
+	padding: 20px !important;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.ticketOpen img {
+	width: 125px;
+	height: 40px;
+}
+
+.ticketOpen .atento-img {
+	width: 125px;
+	height: 100px;
+}
+
+.ticketOpen .konecta-img {
+	width: 125px;
+	height:25px;
+}
+
+.ticketOpen p {
+	align-self: center;
+}
+
 .details{
 	overflow-y: scroll;
 }
