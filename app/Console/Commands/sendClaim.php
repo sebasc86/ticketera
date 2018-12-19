@@ -64,11 +64,11 @@ class sendClaim extends Command
                 ->onConnection('database')
                 ->onQueue('emails');
 
-                Mail::to('sebascoscia@gmail.com')
-                ->cc('scoscia86@gmail.com')
+                Mail::to($userQueue->email)
+                ->cc($userQueue->sector->email_boss)
                 ->queue($message);
 
-                // execute php artisan queue:work database --queue=emails
+                // execute php artisan queue:work database --queue=default
 
 
             }

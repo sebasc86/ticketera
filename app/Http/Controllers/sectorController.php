@@ -21,19 +21,24 @@ class sectorController extends Controller
 
     public function index()
     {
-        return view('sectorRegister');
+
+        $sectors = Sector::all();
+        return view('sectorRegister')->with('sectors', $sectors);
+
     }
 
     public function store(){
         
   		$this->validate(request(), [    		 
   		  'name' => 'required|string|unique:sectors,name',
-  		  'isAdmin' => 'required|integer|min:0,max:1',
-          'email' => 'required|string|email|max:255|unique:users'
+				'isAdmin' => 'required|integer|min:0,max:1',
+				'email_boss' => 'string|email|max:255',
+        'email' => 'string|email|max:255|unique:users'
   		]);
 
       $sector = new Sector;
-      $sector->name = trim(request()->name);
+			$sector->name = trim(request()->name);
+			$sector->email_boss = trim(request()->email_boss);
       $sector->isAdmin = request()->isAdmin;
       $sector->save(); 
   		

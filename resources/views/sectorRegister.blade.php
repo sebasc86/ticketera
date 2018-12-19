@@ -23,6 +23,21 @@
                                     </span>
                                 @endif
                             </div>
+												</div>
+												
+
+												<div class="form-group row">
+                            <label for="sector" class="col-md-4 col-form-label text-md-right">{{ __('Email Jefe sector') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email_boss" type="email" class="form-control{{ $errors->has('email_boss') ? ' is-invalid' : '' }}" name="email_boss" value="{{ old('email_boss') }}" required autofocus>
+
+                                @if ($errors->has('email_boss'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email_boss') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
                     
