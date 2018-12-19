@@ -3,7 +3,7 @@
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
  <tr>
   <td align="center" bgcolor="white" style="padding: 40px 0 30px 0;">
-	<img src="{{ $message->embed('img/tcl_logo_mail.jpg') }}" alt="" width="300" height="100" style="display: block;" />
+	<img src="{{ $message->embed('public/img/tcl_logo_mail.jpg') }}" alt="" width="300" height="100" style="display: block;" />
 	</td>
  </tr>
  <tr>
@@ -20,8 +20,8 @@
 	   <td style="padding: 20px 0 30px 0;">
 	   	<h3>Creado por: {{ $user->email }}</h3>
 	   	<p>Nombre: {{ $user->name }}</p>
-	   	<h3>Cerrado por: {{ $userQueue->email }}</h3>
-	   	<p>Nombre: {{ $userQueue->name }}</p>
+	   	<h3>Cerrado por: {{ $userAuth->email }}</h3>
+	   	<p>Nombre: {{ $userAuth->name }}</p>
 	   </td>
 	  </tr>
 	  <tr>

@@ -116,7 +116,7 @@
               </div>
 
                             
-              <div class="col mt-2">
+              <div class="col mt-2 details">
                 {!! $ticket->details !!}
               </div>      
               

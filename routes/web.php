@@ -43,6 +43,12 @@ Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSecto
 Route::get('/get/Atento', 'getAtentoController@index');
 Route::get('/get/atento/ticket', ['as'=>'dataAtento.get','uses'=>'getAtentoController@getTicketsAtento']);
 
+Route::get('/get/Contactcom', 'getContactcomController@index');
+Route::get('/get/Contactcom/ticket', ['as'=>'dataContact.get','uses'=>'getContactcomController@getTicketsContactcom']);
+
+Route::get('/get/Konecta', 'getKonectaController@index');
+Route::get('/get/Konecta/ticket', ['as'=>'dataKonecta.get','uses'=>'getKonectaController@getTicketsKonecta']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -27,9 +27,9 @@ div.index {
 	display: flex;
 	flex-direction: column;
 	line-height: 150%;
-  border-radius: 10px;
-  box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
-  -webkit-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+  	border-radius: 10px;
+  	box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+  	-webkit-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
 	-moz-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
 	background-color: #fff;
 	
@@ -46,9 +46,9 @@ div.hover {
 	display: flex;
 	flex-direction: column;
 	line-height: 150%;
-  border-radius: 10px;
-  box-shadow: -1px 3px 18px 1px rgba(16, 16, 16, 0.47);
-  -webkit-box-shadow: -1px 3px 18px 1px rgba(16, 16, 16, 0.47);
+  	border-radius: 10px;
+  	box-shadow: -1px 3px 18px 1px rgba(16, 16, 16, 0.47);
+  	-webkit-box-shadow: -1px 3px 18px 1px rgba(16, 16, 16, 0.47);
 	-moz-box-shadow: -1px 3px 18px 1px rgba(16, 16, 16, 0.47);
 	background-color: #fff;
 }

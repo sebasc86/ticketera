@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Ticket;
-use App\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\TicketMail;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\User;
+use App\Sector;
+use App\Ticket;
+use App\File;
+use App\Mail\TicketMail;
+use App\Mail\SendMailable;
+use App\Jobs\SendEmailJob;
+
 use Swift_SwiftException;
 
 class newTicketController extends Controller
@@ -23,14 +27,22 @@ class newTicketController extends Controller
      public function index()
     {
 
-    	$userLogin = Auth::user();
+    		$userLogin = Auth::user();
 			$users =  User::all();
-			$usersArray;
-	    	foreach ($users as $value) {
-	    		if($value->id != $userLogin->id){
-					$usersArray[] = $value;
-	    		};
-			};
+
+			$usersArray = $users->filter(function ($value, $key) {
+				$userLogin = Auth::user();
+				if($userLogin->sector->id === Sector::TELECENTRO_TECNICA){
+					if($value->id != $userLogin->id){
+						return $value;
+					};
+				}else {
+					if($value->id != $userLogin->id && $value->id != Sector::TELECENTRO_TECNICA){
+						return $value;
+					};
+				}
+				
+			});
 
 			if(isset($usersArray)){
 				return view('/new')
@@ -53,69 +65,57 @@ class newTicketController extends Controller
 			$user = Auth::user();
 			$sector = $user->sector_id;
 			$userId = $user->id;	
-	        
+
+			
+
 			$this->validate(request(), [    
-	/*		  'name' => 'required|numeric',
-			  'email' => 'unique:users,email,'.$user->id,
-			  'password' => 'required|alpha_num|min:8|max:12',
-			  'password_confirmation' => 'required|same:password',
-			  'accion' => 'required|array',
-			  'accion.driver' =>  'min:1|max:1',
-			  'accion.co-driver' =>  'min:2|max:2',
-			  'profile_picture' => 'max:2048|mimes:jpg,jpeg,gif,png',*/
 			  'queue' => 'required|numeric|exists:users,id',
 			  'clientN' => 'nullable|numeric',
 			  'title' => 'required|string',
 			  'details' => 'required',
 			  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
+			  'file' => 'array|max:10000',
+    		  'file.*' => 'present|file|max:10000',
 			]);
-
-		
-
-
+			
 			$details = request()->details;
 
 			if($details) {
 				$dom = new \domdocument();
 			
-	        $dom->loadHtml($details, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+	      $dom->loadHtml($details, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-	        $images = $dom->getelementsbytagname('img');
+	      $images = $dom->getelementsbytagname('img');
 
 
-	        foreach($images as $k => $img){
-	            $data = $img->getattribute('src');
-	            
-	            /*dd(getimagesize($data));*/
-	 			
-	            list(, $data) = explode(',', $data);
-	 			
-	            $data = base64_decode($data);
+	      foreach($images as $k => $img){
+					$data = $img->getattribute('src');	
+					list(, $data) = explode(',', $data);
+					
+					$data = base64_decode($data);
 
-	            $data = Image::make($data);
-	            $sizeWidth = $data->width();
+					$data = Image::make($data);
+					$sizeWidth = $data->width();
 
-	 			if($sizeWidth > 1000){
-	 				$data->resize(600, null, function ($constraint) {
-				    $constraint->aspectRatio();
-					});;
-	 			}
-	 			
-	 			
+					if($sizeWidth > 1000){
+						$data->resize(600, null, function ($constraint) {
+						$constraint->aspectRatio();
+						});;
+	 				}			
 	           
-	            $image_name = uniqid().'.png';
-	            
-	            $path = storage_path('app/public/uploads/files') .'/' . $image_name;
+					$image_name = uniqid().'.png';
+					
+					$path = storage_path('app/public/uploads/files') .'/' . $image_name;
 
-	            $data->save($path, 40);
+					$data->save($path, 40);
 
-	            $file = new File;
-				$file->filename = $image_name;
-				$file->save();
+					$file = new File;
+					$file->filename = $image_name;
+					$file->save();
 
-	            $img->removeattribute('src');
-	            $img->setattribute('src', asset('view/20181123041/download/' . $image_name));
-	        }
+					$img->removeattribute('src');
+					$img->setattribute('src', asset('view/20181123041/download/' . $image_name));
+	      }
 
 		}
 			
@@ -125,10 +125,10 @@ class newTicketController extends Controller
 			$ticket->status = $ticket->setOpenStatus();
 			$ticket->sector = $ticket->setSectorId($sector);
 			$ticket->queue = request()->queue;
-		  	$ticket->client = request()->clientN;
-		  	$ticket->title = request()->title;
-		  	$ticket->details = $details;
-		  	$ticket->user_id = $ticket->setUser($userId);
+			$ticket->client = request()->clientN;
+			$ticket->title = request()->title;
+			$ticket->details = $details;
+			$ticket->user_id = $ticket->setUser($userId);
 			$ticket->number = $ticket->setTicketNumber();
 			$ticket->save();          
 			
@@ -156,15 +156,18 @@ class newTicketController extends Controller
 			
 
 			try {
-				Mail::to($userQueue->email)
-				->cc($user->email)
-				->send(new TicketMail($user, $ticket, $userQueue));
+				// Mail::to($userQueue->email)
+				// ->cc($user->email)
+				// ->send(new TicketMail($user, $ticket, $userQueue));
+
+				dispatch(new SendEmailJob($user, $ticket, $userQueue))
+				->onConnection('database');
+
 			} catch (Swift_SwiftException $e) {
 				if($e->getCode() === 554) {
 					$errorEmail = 'Destinatario Inválido';
 					return $this->index()->with('errorEmail', $errorEmail);
 				}
-				
 				
 			}
 
