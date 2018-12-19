@@ -61,8 +61,7 @@ class sendClaim extends Command
                 
                 
                 $message = (new TicketAfter72hs($ticket, $user, $userQueue))
-                ->onConnection('database')
-                ->onQueue('emails');
+                ->onConnection('database');
 
                 Mail::to($userQueue->email)
                 ->cc($userQueue->sector->email_boss)
