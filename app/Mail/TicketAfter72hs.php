@@ -9,12 +9,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use App\Ticket;
 
-class TicketMail extends Mailable
+class TicketAfter72hs extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $user;
+    
     public $ticket;
+    public $user;
     public $userQueue;
 
     /**
@@ -22,11 +22,11 @@ class TicketMail extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, Ticket $ticket, User $userQueue)
-    {   
-        $this->user = $user;
+    public function __construct(Ticket $ticket, User $user, User $userQueue)
+    {
         $this->ticket = $ticket;
-        $this->userQueue = $userQueue;
+        $this->user = $user;
+        $this->userQueue = $userQueue; 
     }
 
     /**
@@ -36,10 +36,8 @@ class TicketMail extends Mailable
      */
     public function build()
     {
-        /*return $this->view('view.name');*/
-         return $this->view('emails.create')
+        return $this->view('emails.ticketAfter')
          ->from('no-reply@telecentro.net.ar')
-         ->subject('Ticket Creado!');
-                
+         ->subject('Ticket Pendiente sin gestionar!');
     }
 }

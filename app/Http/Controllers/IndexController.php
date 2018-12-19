@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Sector;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -12,14 +13,15 @@ class IndexController extends Controller
     {		
 
 
-    		$user = Auth::user();
+			$user = Auth::user();
+			
 
     		
     		if(isset($user)){
     			
-    			$sectorAdmin = $user->sector->isAdmin;
-    			return view('index')
-        	->with('sectorAdmin', $sectorAdmin);
+    		$sector = $user->sector;
+    		return view('index')
+        	->with('sector', $sector);
 
     		}
     		

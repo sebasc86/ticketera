@@ -38,26 +38,27 @@
 	        </div>
 		</div>
 
-
-		<div class="row justify-content-between mb-3">
-	        <div class="index card bg-light mb-3 info">
-	          <div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
-	          <a class="card-body link-container" href="get/sector">
-	            	<div class=" row align-items-center" >
-									<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
-								</div>
-	          </a>
-	        </div>
-		</div>
+		
+			<div class="row justify-content-between mb-3">
+						<div class="index card bg-light mb-3 info">
+							<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
+							<a class="card-body link-container" href="get/sector">
+									<div class=" row align-items-center" >
+										<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
+									</div>
+							</a>
+						</div>
+			</div>
+			
 	</div>	
 
 
-		@isset ($sectorAdmin)
-		  @if($sectorAdmin === 1)
+		@isset ($sector->isAdmin)
+		  @if($sector->isAdmin === 1)
 			<div class="container flex">
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos Atento</div>
+			          <div class="card-header h6 bg-dark text-white">Tickets Atento</div>
 			          <a class="card-body link-container" href="get/Atento">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/atentoLogo.png" alt="Abiertos Atento" >
@@ -68,8 +69,8 @@
 
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos ContactCom</div>
-			          <a class="card-body link-container" href="get/sector">
+			          <div class="card-header h6 bg-dark text-white">Tickets ContactCom</div>
+			          <a class="card-body link-container" href="get/Contactcom">
 			            	<div class=" row align-items-center" >
 											<img class='contactcomImg' src="img/ContactCom.png"  alt="Abiertos ContactCom">
 										</div>
@@ -79,8 +80,8 @@
 
 				<div class="row justify-content-between mt-4">
 			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Abiertos Konecta</div>
-			          <a class="card-body link-container" href="get/sector">
+			          <div class="card-header h6 bg-dark text-white">Tickets Konecta</div>
+			          <a class="card-body link-container" href="get/Konecta">
 			            	<div class=" row align-items-center" >
 											<img class='imgIndex' src="img/konecta.png"  alt="Abiertos Konecta">
 										</div>

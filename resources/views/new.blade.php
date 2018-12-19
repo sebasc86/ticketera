@@ -66,11 +66,13 @@
 				</div>
 				<div class="form-group">
 					<input type="file" class="form-control form-control {{ $errors->has('file') ? ' is-invalid' : '' }}" name='file[]' id="file" multiple>
-					@if ($errors->has('file'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('file') }}</strong>
-            </span>
-       	 	@endif
+					@for ($i = 0; $i < count($errors); $i++)
+						@if ($errors->has('file.'.$i))
+						<span class="invalid-input" role="alert">
+								<strong>{{ $errors->first('file.'.$i) }}</strong>
+						</span>
+						@endif
+					@endfor
 				</div>
 					<input class="btn btn-primary" id="submitButton" type="submit" value="Enviar" disabled>
 				</form>
