@@ -15,7 +15,7 @@ class Sector extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $softCascade = ['users'];
+    protected $softCascade = ['user'];
 
     protected $sector;
 

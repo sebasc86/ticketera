@@ -17,14 +17,33 @@ class ticketAllForSectorsController extends Controller
     }
     
 	public function index(Request $request, $id)
-    {
+    {   
 
+
+        //guardo en session el id que viene desde el get
         $request->session()->put('sector_id', $id);
-        $sector = Sector::find($id);
+        //busco el usuario del ticket vinculado // si o si vinculado osea que no es el sector en si si no l usuario
+        $user = User::find($id);
+   
+
+        //compruebo para que no arroje error el blade.
+        //si no es numero devuelvo error 403
+        if ( !is_numeric($id) || $user === null){
+            return abort('403', 'Usted no tiene permisos para ingresar a esta pagina' );
+        } 
+        
+        //si sector es diferente a admin devuelvo error dado que no quiero que vean los tickets de sectores admin si no se podria hacer get/1 y traer algun tickets de un sector administrador.
+        if($user->sector->isAdmin != 0) {
+            return abort('403', 'Usted no tiene permisos para ingresar a esta pagina' );
+        }
+    
+        //busco el ticket      
 
         $tickets = Ticket::where('queue', $id)->get();
+
         //busco tickets al usuario 'queue' que coincide con mi sector
-        //dado que mi sector en si tiene un usuario creado.       
+        //dado que el sector en si tiene un usuario creado y vinculado.      
+         
         $ticketsOpen = $tickets->filter(function($item, $key){
 
             return $item->status === 1;
@@ -35,7 +54,7 @@ class ticketAllForSectorsController extends Controller
 
         return view('ticketAllForSectors')
                                         ->with('ticketsOpen', $ticketsOpen)
-                                        ->with('sector', $sector);
+                                        ->with('user', $user);
 
     }
 

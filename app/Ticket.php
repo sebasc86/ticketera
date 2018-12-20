@@ -8,19 +8,13 @@ use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class Ticket extends Model
 {
-
-
     use SoftDeletes;
     use SoftCascadeTrait;
 
-
     protected $dates = ['deleted_at'];
+    protected $softCascade = ['comment', 'file'];
 
-    protected $table = 'tickets';
-
-    protected $softCascade = ['comment'];
-
-    
+    protected $table = 'tickets'; 
 
     public const CLOSE_STATUS = 0;
     public const OPEN_STATUS = 1;
@@ -29,11 +23,6 @@ class Ticket extends Model
     protected $status;
     protected $number;
     protected $sector;
-
-    // Constructor
-    public function __construct(){
-        
-    }
 
     public function ticketLast()
     {
@@ -83,7 +72,6 @@ class Ticket extends Model
         return $this->belongsTo('App\User');
     }
 
-    
 
     public function comment()
     {

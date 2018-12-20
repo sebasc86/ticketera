@@ -41,12 +41,14 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');;
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
 
-Route::get('/get/sector', 'getTicketSectorController@index');
+Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('ticket/delete', 'deleteController@index');
 
 /*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
     return "eres mayor de edad y puedes ver este contenido";

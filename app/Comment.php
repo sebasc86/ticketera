@@ -15,7 +15,7 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $softCascade = ['files'];
+    protected $softCascade = ['file'];
 
 	//falta clave foranea en ticket para relacionar con Comment
     public function ticket()

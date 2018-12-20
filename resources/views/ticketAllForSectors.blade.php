@@ -4,7 +4,7 @@
 
     <div class="container justify-content-between d-flex p-2 ticketOpen">
         <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
-        <img src="{{asset("img/$sector->name.png") }}" alt="{{ $sector->name }}" class="img-{{ $sector->name }}">
+        <img src="{{asset("img/$user->name.png") }}" alt="{{ $user->name }}" class="img-{{ $user->name }}">
     </div>
 
 

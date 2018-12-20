@@ -16,7 +16,7 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-    protected $softCascade = ['tickets'];
+    protected $softCascade = ['ticket'];
 
     /**
      * The attributes that are mass assignable.

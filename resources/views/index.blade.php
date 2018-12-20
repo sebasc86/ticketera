@@ -42,7 +42,7 @@
 			<div class="row justify-content-between mb-3">
 						<div class="index card bg-light mb-3 info">
 							<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
-							<a class="card-body link-container" href="get/sector">
+							<a class="card-body link-container" href="get/sector/tickets">
 									<div class=" row align-items-center" >
 										<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
 									</div>
@@ -63,7 +63,7 @@
 							<div class="row justify-content-between mt-4">
 									<div class="hover card bg-light mb-3 info">
 										<div class="card-header h6 bg-dark text-white">Tickets {{$sectorU->name}}</div>
-										<a class="card-body link-container" href="get/{{$sectorU->id}}">
+										<a class="card-body link-container" href="get/{{$sectorU->user->first()->id}}">
 												<div class=" row align-items-center" >
 													<img class='imgIndex' src="img/{{$sectorU->name}}.png"  alt="Abiertos {{$sectorU->name}}">
 												</div>
