@@ -15,17 +15,17 @@ class IndexController extends Controller
 
 			$user = Auth::user();
 			
-
+			$sectors = Sector::all();
     		
     		if(isset($user)){
     			
     		$sector = $user->sector;
     		return view('index')
-        	->with('sector', $sector);
+        	->with('sector', $sector)->with('sectors', $sectors);
 
     		}
     		
-    		return view('index');
+    		return view('index')->with('sectors', $sectors);
        
     }
 }

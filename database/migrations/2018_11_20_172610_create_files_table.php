@@ -20,6 +20,7 @@ class CreateFilesTable extends Migration
             $table->integer('comment_id')->unsigned()->nullable();
             $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
             $table->string('filename')->nullable();
+            $table->softDeletes(); //Columna para soft delete
             $table->timestamps();
 
         });

@@ -18,6 +18,7 @@ class CreateSectorsTable extends Migration
             $table->string('name');
             $table->integer('user_id')->nullable();
             $table->tinyInteger('isAdmin');
+            $table->softDeletes(); //Columna para soft delete
             $table->timestamps();
         });
     }

@@ -9,22 +9,23 @@ use App\Ticket;
 use App\User;
 use App\Sector;
 
-class getAtentoController extends Controller
+class ticketAllForSectorsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
     
-	public function index()
+	public function index(Request $request, $id)
     {
 
+        $request->session()->put('sector_id', $id);
+        $sector = Sector::find($id);
 
-        $ticketsAtento = Ticket::where('queue', Sector::ATENTO_TECNICA)->get();
+        $tickets = Ticket::where('queue', $id)->get();
         //busco tickets al usuario 'queue' que coincide con mi sector
         //dado que mi sector en si tiene un usuario creado.       
-
-        $ticketsOpen = $ticketsAtento->filter(function($item, $key){
+        $ticketsOpen = $tickets->filter(function($item, $key){
 
             return $item->status === 1;
             
@@ -32,22 +33,24 @@ class getAtentoController extends Controller
         
         $ticketsOpen->all();
 
-				return view('getAtento')->with('ticketsOpen', $ticketsOpen);
+        return view('ticketAllForSectors')
+                                        ->with('ticketsOpen', $ticketsOpen)
+                                        ->with('sector', $sector);
 
     }
 
-    public function getTicketsAtento()
-    {   
-        
+    public function getTickets(Request $request)
+    {       
+        $sector_id = $request->session()->get('sector_id');
 
-    	$ticketsAll = Ticket::where('queue', Sector::ATENTO_TECNICA)->get();
+    	$ticketsAll = Ticket::where('queue', $sector_id)->get();
 
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsAll->isEmpty() ) {
 
             foreach ($ticketsAll as $key => $value) {
-            		//para buscar el nombre Creador
-            		$user = $value->user->name;
+            	//para buscar el nombre Creador
+            	$user = $value->user->name;
                 $value->user_id = $user;
                 $value->sector = $value->user->sector->name;
 
@@ -73,5 +76,4 @@ class getAtentoController extends Controller
         }    
 
     }
-
 }

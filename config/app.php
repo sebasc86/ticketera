@@ -161,6 +161,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Askedio\SoftCascade\Providers\GenericServiceProvider::class,
+        Askedio\SoftCascade\Providers\LumenServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -225,6 +227,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        
 
     ],
 

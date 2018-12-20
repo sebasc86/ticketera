@@ -5,10 +5,18 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
+    use SoftCascadeTrait;
+
+    protected $dates = ['deleted_at'];
+
+    protected $softCascade = ['tickets'];
 
     /**
      * The attributes that are mass assignable.

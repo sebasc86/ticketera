@@ -4,7 +4,7 @@
 
     <div class="container justify-content-between d-flex p-2 ticketOpen">
         <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
-        <img src="{{asset('img/ContactCom.png')}}" alt="contactcom">
+        <img src="{{asset("img/$sector->name.png") }}" alt="{{ $sector->name }}" class="img-{{ $sector->name }}">
     </div>
 
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
                 "previous":   "Anterior"
             },
         },
-        ajax: '{!! route('dataContact.get') !!}',
+        ajax: '{!! route('dataTickets.get') !!}',
         columns: [
             
             { data: 'queue', name: 'queue' },
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
 });
  
-</script>
+// </script>
 @endpush
 
 </body>

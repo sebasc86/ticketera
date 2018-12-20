@@ -31,23 +31,18 @@ Route::post('/view/{ticket}/mail', 'viewTicketController@sendEmail');
 Route::get('/view/{ticket}/download/{filename}', 'viewTicketController@download');
 
 
+
 Route::get('/sent', 'sentTicketController@index')->name('/sent');
 Route::get('/sent/sent', ['as'=>'sent.data','uses'=>'sentTicketController@getTickets']);
 
 Route::get('/get', 'getTicketController@index')->name('/get');
 Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);
 
+Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');;
+Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
+
 Route::get('/get/sector', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
-
-Route::get('/get/Atento', 'getAtentoController@index');
-Route::get('/get/atento/ticket', ['as'=>'dataAtento.get','uses'=>'getAtentoController@getTicketsAtento']);
-
-Route::get('/get/Contactcom', 'getContactcomController@index');
-Route::get('/get/Contactcom/ticket', ['as'=>'dataContact.get','uses'=>'getContactcomController@getTicketsContactcom']);
-
-Route::get('/get/Konecta', 'getKonectaController@index');
-Route::get('/get/Konecta/ticket', ['as'=>'dataKonecta.get','uses'=>'getKonectaController@getTicketsKonecta']);
 
 Auth::routes();
 

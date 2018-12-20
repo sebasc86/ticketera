@@ -54,42 +54,28 @@
 
 
 		@isset ($sector->isAdmin)
-		  @if($sector->isAdmin === 1)
-			<div class="container flex">
-				<div class="row justify-content-between mt-4">
-			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Tickets Atento</div>
-			          <a class="card-body link-container" href="get/Atento">
-			            	<div class=" row align-items-center" >
-											<img class='imgIndex' src="img/atentoLogo.png" alt="Abiertos Atento" >
-										</div>
-			          </a>
-			        </div>
-				</div>
+			@if($sector->isAdmin === 1)
+				@isset($sectors)
+					
+						@foreach ($sectors as $sectorU)
+						 @if($sectorU->isAdmin != 1)
 
-				<div class="row justify-content-between mt-4">
-			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Tickets ContactCom</div>
-			          <a class="card-body link-container" href="get/Contactcom">
-			            	<div class=" row align-items-center" >
-											<img class='contactcomImg' src="img/ContactCom.png"  alt="Abiertos ContactCom">
-										</div>
-			          </a>
-			        </div>
-				</div>
+							<div class="row justify-content-between mt-4">
+									<div class="hover card bg-light mb-3 info">
+										<div class="card-header h6 bg-dark text-white">Tickets {{$sectorU->name}}</div>
+										<a class="card-body link-container" href="get/{{$sectorU->id}}">
+												<div class=" row align-items-center" >
+													<img class='imgIndex' src="img/{{$sectorU->name}}.png"  alt="Abiertos {{$sectorU->name}}">
+												</div>
+										</a>
+									</div>
+							</div>
 
-				<div class="row justify-content-between mt-4">
-			        <div class="hover card bg-light mb-3 info">
-			          <div class="card-header h6 bg-dark text-white">Tickets Konecta</div>
-			          <a class="card-body link-container" href="get/Konecta">
-			            	<div class=" row align-items-center" >
-											<img class='imgIndex' src="img/konecta.png"  alt="Abiertos Konecta">
-										</div>
-			          </a>
-			        </div>
-				</div>
-
-				@endif
+						@endif
+						@endforeach
+						
+				@endisset
+			@endif
 		@endisset
 		
 		

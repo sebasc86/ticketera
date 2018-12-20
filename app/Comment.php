@@ -3,9 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
 class Comment extends Model
 {
+
+    use SoftDeletes;
+    use SoftCascadeTrait;
+
+
+    protected $dates = ['deleted_at'];
+
+    protected $softCascade = ['files'];
 
 	//falta clave foranea en ticket para relacionar con Comment
     public function ticket()
