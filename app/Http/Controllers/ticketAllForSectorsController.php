@@ -24,6 +24,8 @@ class ticketAllForSectorsController extends Controller
         $request->session()->put('sector_id', $id);
         //busco el usuario del ticket vinculado // si o si vinculado osea que no es el sector en si si no l usuario
         $user = User::find($id);
+
+        $userLogin = Auth::user();
    
 
         //compruebo para que no arroje error el blade.
@@ -49,12 +51,13 @@ class ticketAllForSectorsController extends Controller
             return $item->status === 1;
             
         });
-        
+         
         $ticketsOpen->all();
 
         return view('ticketAllForSectors')
                                         ->with('ticketsOpen', $ticketsOpen)
-                                        ->with('user', $user);
+                                        ->with('user', $user)
+                                        ->with('userLogin', $userLogin);
 
     }
 
@@ -62,8 +65,9 @@ class ticketAllForSectorsController extends Controller
     {       
         $sector_id = $request->session()->get('sector_id');
 
-    	$ticketsAll = Ticket::where('queue', $sector_id)->get();
 
+        $ticketsAll = Ticket::where('queue', $sector_id)->get();
+        
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsAll->isEmpty() ) {
 

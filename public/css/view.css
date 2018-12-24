@@ -6,7 +6,7 @@
 }
 
 .ticketOpen {
-	padding: 20px !important;
+	padding: 20px 50px!important;
     color: red;
     margin-bottom: 10px;
 }
@@ -24,6 +24,24 @@
 .ticketOpen p {
 	align-self: center;
 }
+
+
+.px200,
+.state {
+	max-width: 40px;
+}
+
+
+.title {
+	max-width: 200px;
+	
+}
+
+.btn-del {
+	display: flex;
+	margin: auto;
+}
+
 
 .details{
 	overflow-y: scroll;

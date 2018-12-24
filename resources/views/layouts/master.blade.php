@@ -38,7 +38,7 @@
 <body>
     
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container">
+        <div class="container-fluid px-5">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ 'Telecentro' }}
             </a>
@@ -70,7 +70,7 @@
                                
 
                                 @if ( Route::has('register') && (Auth::user()->isAdmin == 1) )
-                                    <a class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar Usuarios') }}</a>
+                                    <a id="users_create" class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar Usuarios') }}</a>
                                 @endif
 
                                 @if ( Auth::user()->isAdmin == 1 )
@@ -103,7 +103,7 @@
 
     
     <footer class="footer">
-        <div class="container">
+        <div class="container-fluid px-5">
             <span>Copyrigth 2018</span>
         </div>
     </footer>
