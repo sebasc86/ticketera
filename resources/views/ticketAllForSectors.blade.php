@@ -94,15 +94,39 @@ $(document).ready(function() {
 				$('#ticket').css('display', 'none')
 
 				$('.delete').on('click', function(e){
+					var buttonNode = $(this)
 					if($('#users_create').length){
 						var ticketNumber = $(this).parent().parent().children('td').eq(1).html()
-						console.log(ticketNumber)
-					} else {
-						$('#delete').remove()
-						$('.delete').parent().remove()
-					}
-				})
-					
+
+						$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+						});
+						$.ajax({
+										url: '/ticket/delete',
+										method: 'POST',
+										data: {	
+												ticket: ticketNumber,
+										},
+										success: function(result){
+												if(result.success === "1"){
+													buttonNode.parent().parent().remove()
+												};
+										
+						}});
+
+
+
+
+							} else {
+								$('#delete').remove()
+								$('.delete').parent().remove()
+							}
+						})
+
+				
+
 
         },
         responsive: true,

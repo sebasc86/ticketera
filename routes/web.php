@@ -48,7 +48,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('ticket/delete', 'deleteController@index');
+Route::post('/ticket/delete', 'deleteController@index');
 
 /*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
     return "eres mayor de edad y puedes ver este contenido";
