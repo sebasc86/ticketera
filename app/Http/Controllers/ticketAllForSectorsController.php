@@ -51,8 +51,6 @@ class ticketAllForSectorsController extends Controller
             return $item->status === 1;
             
         });
-         
-        $ticketsOpen->all();
 
         return view('ticketAllForSectors')
                                         ->with('ticketsOpen', $ticketsOpen)

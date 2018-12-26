@@ -87,8 +87,8 @@ class viewTicketController extends Controller
 
     }
 
-     public function store(Request $request)
-	 {		
+    public function store(Request $request)
+	 	{		
 
 	 		$user = Auth::user();
 			$userId = $user->id;
@@ -151,35 +151,35 @@ class viewTicketController extends Controller
 			}
 
 
-	 }
+	}
 
-	 public function close(Request $request)
-	 {		
-			 
-			$ticketId = $request->session()->get('ticket_id');
-			$ticket = Ticket::find($ticketId);
-			$ticket->status = 0;
-			$ticket->save();
-
-
-			return response()->json(['success'=>'0','ticketId' => $ticketId]);
-
-	 }
-
-	 public function sendEmail(Request $request)
-	 {		
-			$ticketId = $request->session()->get('ticket_id');
-			$ticket = Ticket::find($ticketId);
-			$user = User::find($ticket->user_id);
-			$userAuth = Auth::user();
-
-			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
-			->onConnection('database');
+	public function close(Request $request)
+	{		
 			
-	 }
+		$ticketId = $request->session()->get('ticket_id');
+		$ticket = Ticket::find($ticketId);
+		$ticket->status = 0;
+		$ticket->save();
 
-	 public function download(Request $request, $ticket, $filename) 
-	 {	
-		return Storage::download ("public/uploads/files/$filename");
-	 }
+
+		return response()->json(['success'=>'0','ticketId' => $ticketId]);
+
+	}
+
+	public function sendEmail(Request $request)
+	{		
+		$ticketId = $request->session()->get('ticket_id');
+		$ticket = Ticket::find($ticketId);
+		$user = User::find($ticket->user_id);
+		$userAuth = Auth::user();
+
+		dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
+		->onConnection('database');
+		
+	}
+
+	public function download(Request $request, $ticket, $filename) 
+	{	
+	return Storage::download ("public/uploads/files/$filename");
+	}
 }

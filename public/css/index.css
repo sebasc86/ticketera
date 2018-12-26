@@ -155,3 +155,7 @@ div.hover:hover {
 	pointer-events: auto;
 }
 
+.dataTables_filter,
+.dataTables_length {
+	padding: 0 5px;	
+}

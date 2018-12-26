@@ -38,8 +38,6 @@
 	        </div>
 		</div>
 
-	{{-- @isset($sector->isAdmin)
-		@if ($sector->isAdmin != 1) --}}
 		<div class="row justify-content-between mb-3">
 			<div class="index card bg-light mb-3 info">
 				<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
@@ -50,9 +48,6 @@
 				</a>
 			</div>
 		</div>
-		{{-- @endif
-	@endisset --}}
-
 			
 	</div>	
 

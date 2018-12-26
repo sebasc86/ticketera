@@ -1,8 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
+
+	<div class="container-fluid ticketOpen" style="padding: 20px; color: red">
+		<p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
+	</div>
     
-  <div class="container mt-5">
+  <div id="container" class="container-fluid mt-2 px-5">
       <table class='table' id='tickets-table'>
       <thead >
         <tr>

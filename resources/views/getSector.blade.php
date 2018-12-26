@@ -2,11 +2,11 @@
 
 @section('content')
 
-  <div class="container ticketOpen" style="padding: 20px; color: red">
+  <div class="container-fluid ticketOpen" style="padding: 20px; color: red">
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
     
-  <div id="container" class="container mt-2">
+  <div id="container" class="container-fluid mt-2 px-5">
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>

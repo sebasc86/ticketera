@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container-fluid px-5 justify-content-between d-flex p-2 ticketOpen">
-        <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
+        <p id="numberOpen" class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
         <img src="{{asset("img/$user->name.png") }}" alt="{{ $user->name }}" class="img-{{ $user->name }}">
     </div>
 
@@ -26,29 +26,22 @@
           <th scope="col">Estado</th>
           <th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
-					{{-- @isset($userLogin)
-						@if ($userLogin->isAdmin === 1) --}}
-					  	<th id='delete' scope="col">Eliminar</th>
-						{{-- @endif
-					@endisset --}}
-          
-          
-          
+					<th id='delete' scope="col">Eliminar</th>       
         </tr>
       </thead>
       <tfoot>
-            <tr>
-                <th>Para</th>
-                <th>Ticket</th>
-                <th>Cliente</th>
-                <th>Titulo</th>
-                <th>Usuario Creador</th>
-                <th>Sector</th>
-                <th>Creado<th>
-                <th>Estado</th>
-                <th>Ver ticket</th>
-                <th>#</th>               
-            </tr>
+				<tr>
+						<th>Para</th>
+						<th>Ticket</th>
+						<th>Cliente</th>
+						<th>Titulo</th>
+						<th>Usuario Creador</th>
+						<th>Sector</th>
+						<th>Creado<th>
+						<th>Estado</th>
+						<th>Ver ticket</th>
+						<th>#</th>               
+				</tr>
       </tfoot>
       </table>
   </div>
@@ -89,13 +82,20 @@ $(document).ready(function() {
 						} );
 						
 				} );
+
 				var ticket = $('.px200')[2].lastChild
 				ticket.setAttribute('id', 'ticket')
 				$('#ticket').css('display', 'none')
 
+				if($('#users_create').length === 0) {
+					$('.delete').parent().remove()
+					$('#delete').remove()
+				}
+
+				
 				$('.delete').on('click', function(e){
 					var buttonNode = $(this)
-					if($('#users_create').length){
+					
 						var ticketNumber = $(this).parent().parent().children('td').eq(1).html()
 
 						$.ajaxSetup({
@@ -111,22 +111,21 @@ $(document).ready(function() {
 										},
 										success: function(result){
 												if(result.success === "1"){
-													buttonNode.parent().parent().remove()
-												};
+													
+													buttonNode.parent().parent().hide('slow', function(){ 
+														buttonNode.parent().parent().remove()
+														var ticketsOpen = $('tbody').children().length
+														$('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
+													})
+													
+													
+										};
 										
 						}});
-
-
-
-
-							} else {
-								$('#delete').remove()
-								$('.delete').parent().remove()
-							}
 						})
 
 				
-
+				
 
         },
         responsive: true,
@@ -191,7 +190,7 @@ $(document).ready(function() {
 
 
  
-// </script>
+</script>
 @endpush
 
 </body>

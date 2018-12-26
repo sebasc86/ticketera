@@ -20,7 +20,19 @@ class sentTicketController extends Controller
     public function index()
     {   
 
-        return view('sent');
+        $user = Auth::user();
+        $userId = $user->id;    
+
+        $tickets = $user->ticket;
+        
+        $ticketsOpen = $tickets->filter(function($item, $key){
+
+            return $item->status === 1;
+            
+        });
+
+		return view('sent')->with('ticketsOpen', $ticketsOpen);
+
     }
 
     public function getTickets()

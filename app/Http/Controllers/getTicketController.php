@@ -32,8 +32,6 @@ class getTicketController extends Controller
             return $item->status === 1;
             
         });
-        
-        $ticketsOpen->all();
 
 		return view('get')->with('ticketsOpen', $ticketsOpen);
 

@@ -38,8 +38,8 @@
 <body>
     
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid px-5">
-            <a class="navbar-brand" href="{{ url('/') }}">
+        <div class="container-fluid">
+            <a class="navbar-brand px-4" href="{{ url('/') }}">
                 {{ 'Telecentro' }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -53,7 +53,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto px-3">
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
@@ -61,6 +61,7 @@
                         </li>
                         
                     @else
+                        
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -91,6 +92,8 @@
 
                             </div>
                         </li>
+                        
+                        
                     @endguest
                 </ul>
             </div>
