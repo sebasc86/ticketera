@@ -31,7 +31,7 @@
 			
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Nro de cliente</label>
-			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder="Ej: 454647">
+			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder="Ej: 454647 Máximo 10 números">
 		  
           @if ($errors->has('clientN'))
               <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
 				
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Titulo</label>
-			    <input type="text" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value='{{ old('title') }}' placeholder="titulo">
+			    <input type="text" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value='{{ old('title') }}' placeholder="Maximo 10 caraceteres">
 			    @if ($errors->has('title'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('title') }}</strong>

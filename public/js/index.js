@@ -220,8 +220,22 @@ $( document ).ready(function() {
 
     }
 
+		// para hacer!
+    // function changeNumber() {
 
-
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+		// });
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "add.php",
+    //         success: function(data) {
+    //             $('#value').text(data);
+    //         }
+    //     });
+    // }
 
 });
 

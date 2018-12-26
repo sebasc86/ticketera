@@ -39,6 +39,9 @@ $( document ).ready(function() {
         } else if(isNaN(value)){
             inputNode.removeClass('is-valid')
 			inputNode.addClass('is-invalid')
+        } else if(value.length > 10){
+            inputNode.removeClass('is-valid')
+            inputNode.addClass('is-invalid')
         } else {
         	inputNode.addClass('is-valid')
         	inputNode.removeClass('is-invalid')
@@ -49,12 +52,13 @@ $( document ).ready(function() {
     
     function inputNode(event) {
         var inputNode = $(this)
-        console.log(inputNode)
 	    var value = inputNode.val()
 	    value = $.trim(value)
-	    console.log(value)
 	    var errorLabel = ''
         if(!value){
+            inputNode.removeClass('is-valid')
+			inputNode.addClass('is-invalid')
+        } else if(value.length > 10){
             inputNode.removeClass('is-valid')
 			inputNode.addClass('is-invalid')
         } else {
@@ -73,9 +77,6 @@ $( document ).ready(function() {
 	}
     
 
-    // $('#submit').on('click', function(e){
-    //     $('.fondo_modal').css('display', 'flex');       
-    // })
 });
 
 

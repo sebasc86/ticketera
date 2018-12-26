@@ -71,11 +71,11 @@ class newTicketController extends Controller
 			$this->validate(request(), [    
 			  'queue' => 'required|numeric|exists:users,id',
 			  'clientN' => 'nullable|numeric',
-			  'title' => 'required|string',
+			  'title' => 'required|string|max:10',
 			  'details' => 'required',
 			  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
 			  'file' => 'array|max:10000',
-    		  'file.*' => 'present|file|max:10000',
+    		'file.*' => 'present|file|max:10000',
 			]);
 			
 			$details = request()->details;
