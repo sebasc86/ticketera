@@ -20,7 +20,7 @@
           <th scope="col">Creado</th>
           <th scope="col">Estado</th>
           <th scope="col">#</th>
-          <th id='href' scope="col"></th>
+          <th id='href' scope="col">#</th>
           
           
         </tr>
@@ -69,7 +69,10 @@ $(document).ready(function() {
                 
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
-        } );
+				} );
+				
+				$('tfoot').children().children()[2].setAttribute('id', 'selectTitle')
+				$('#selectTitle').empty()
         },
         responsive: true,
         processing: true,
@@ -96,7 +99,11 @@ $(document).ready(function() {
              
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
-            { data: 'title', name: 'title' },
+            { data: 'title', name: 'title', visible: true,
+							render: function(data){
+                return "<p style='word-wrap: break-word; max-width: 140px'>"+ data + "</>"
+              }
+						},
             { data: 'details', name: 'details', visible: false },
             { data: 'queue', name: 'queue'},
             { data: 'sector', name: 'sector' },

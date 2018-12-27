@@ -76,7 +76,7 @@ $(document).ready(function() {
 
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
-        } );
+        });
         },
         responsive: true,
         processing: true,
@@ -114,7 +114,7 @@ $(document).ready(function() {
             { data: 'number', 
               render: function(data){
                 return "<a href={{asset('view')}}"+ "/"+ data + " class='view btn btn-dark'>Ver Ticket</button>"
-              }
+              },
             },
         ],
     });

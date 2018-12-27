@@ -77,7 +77,7 @@ $(document).ready(function() {
 
         });
 
-				$('tfoot').children().children()[2].setAttribute('id', 'selectTitle'))
+				$('tfoot').children().children()[2].setAttribute('id', 'selectTitle')
 				$('#selectTitle').empty()
 
         },

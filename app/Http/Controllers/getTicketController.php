@@ -61,6 +61,7 @@ class getTicketController extends Controller
                 } else {
                     $value->status = 'Abierto';
                 };
+                
             }
 
             return Datatables::of($ticketsQueue)->make(true);

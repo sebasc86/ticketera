@@ -30,7 +30,12 @@
 
 		<div class="row justify-content-between mb-3">
 	        <div class="index card bg-light mb-3 info">
-	          <div class="card-header h6 bg-primary text-white">Mis Tickets Recibidos</div>
+						<div class="card-header h6 bg-primary text-white">Mis Tickets Recibidos</div>
+						<span class="badge badge-warning" style="
+						position: absolute;
+						right: 5%;
+						top: 5%;
+						"></span>	
 	          <a class="card-body link-container" href="get">
 	            	<div class=" row align-items-center" >
 									<img class='imgIndex' src="img/recibido.png" alt="Mis Tickets Recibidos" >
@@ -42,6 +47,13 @@
 		<div class="row justify-content-between mb-3">
 			<div class="index card bg-light mb-3 info">
 				<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
+					@isset($ticketsSector)
+						<span class="badge badge-warning" style="
+						position: absolute;
+						right: 1%;
+						top: 6%;
+						">{{count($ticketsSector)}}</span>	
+					@endisset
 					<a class="card-body link-container" href="get/sector/tickets">
 							<div class=" row align-items-center" >
 								<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
