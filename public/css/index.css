@@ -11,11 +11,11 @@
 
 div.flex{
 	display: flex;
-	width: 100%;
 	justify-content: space-between;
-	margin-top: 2vh;
 	flex-wrap: wrap;
-	border-bottom: 1px solid #eee
+	border-bottom: 1px solid #eee;
+	max-width: 100%;
+	max-height: 40vh;
 
 }
 
@@ -27,9 +27,9 @@ div.index {
 	display: flex;
 	flex-direction: column;
 	line-height: 150%;
-  	border-radius: 10px;
-  	box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
-  	-webkit-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+  border-radius: 10px;
+  box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
+  -webkit-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
 	-moz-box-shadow: -1px 3px 18px 1px rgba(0, 109, 240, 0.47);
 	background-color: #fff;
 	

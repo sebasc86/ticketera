@@ -112,7 +112,7 @@ $(document).ready(function() {
 										success: function(result){
 												if(result.success === "1"){
 													
-													buttonNode.parent().parent().hide('slow', function(){ 
+												  	buttonNode.parent().parent().hide('slow', function(){ 
 														buttonNode.parent().parent().remove()
 														var ticketsOpen = $('tbody').children().length
 														$('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
@@ -131,7 +131,7 @@ $(document).ready(function() {
         responsive: true,
         processing: true,
         serverSide: false,
-        "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
+        "order": [[ 9, 'asc' ], [ 8, 'desc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",

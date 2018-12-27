@@ -18,19 +18,29 @@ class IndexController extends Controller
 			$userAuth = Auth::user();
 			$sectorsAll = Sector::all();
 			
+			
 		
 
 			if(isset($userAuth)){
 				$sectorUser = $userAuth->sector;
-				$sectorId= $userAuth->sector->id;
+				$sectorId = $userAuth->sector->user_id;
+				$userId = $userAuth->id;   
+
+				$ticketsQueueUser= Ticket::where('queue', $userId)->get();
+        
+        $ticketsOpenUser = $ticketsQueueUser->filter(function($item, $key){
+
+            return $item->status === 1;
+            
+        });
         
         //busco tickets al usuario 'queue' que coincide con mi sector
         //dado que mi sector en si tiene un usuario creado.
 
-        $ticketsAll = Ticket::where('queue', $sectorId)->get();
+        $ticketsAllSector = Ticket::where('queue', $sectorId)->get();
         
 
-        $ticketsOpen = $ticketsAll->filter(function($item, $key){
+        $ticketsOpenSector = $ticketsAllSector->filter(function($item, $key){
 
             return $item->status === 1;
             
@@ -49,8 +59,8 @@ class IndexController extends Controller
 								->with('sector', $sectorUser)
 								->with('sectors', $sectorsAll)
 								->with('tickets', $tickets)
-								->with('ticketsSector', $ticketsOpen);
-			
+								->with('ticketsSector', $ticketsOpenSector)
+								->with('ticketsUser', $ticketsOpenUser);
 
 			} 
 			

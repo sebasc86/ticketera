@@ -6,7 +6,7 @@
 
   
   
-  <div class='container-fluid px-5 mt-5'>
+  <div class='container-fluid px-5 mt-2'>
     
     <div class="row justify-content-between">
       <div class="col-5">

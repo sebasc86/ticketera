@@ -17,7 +17,10 @@ class deleteController extends Controller
         $user = Auth::user();
         if($user->isAdmin === 1) {
             $ticket = $request->ticket;
-            $ticketN = Ticket::where('number', $ticket)->first()->delete();
+            $ticketN = Ticket::where('number', $ticket)->first();
+            $ticketN->status = 0;
+            $ticketN->save();
+            $ticketN->delete();
         }
 
         return response()->json(['success'=>'1']);

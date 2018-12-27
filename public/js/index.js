@@ -220,6 +220,16 @@ $( document ).ready(function() {
 
     }
 
+    console.log()
+    
+    if ($('#first').children().length < 2) {
+        $('#first').css({
+            'display': 'flex',
+            'height': '80vh',
+            'align-items': 'center',
+         })
+    }
+
 		// para hacer!
     // function changeNumber() {
 

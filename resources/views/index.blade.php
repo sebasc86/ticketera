@@ -1,10 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-fluid px-5 flex">
-
-	<h1> Bienvenido a TicketCall	</h1>
-  <div class="container-fluid flex">
+<div id="first" class="container-fluid px-5">
+  <div id="second" class="container-fluid flex">
 		
 		<div class="row justify-content-between mb-3">
 	        <div class="index card bg-light mb-3 info">
@@ -31,11 +29,13 @@
 		<div class="row justify-content-between mb-3">
 	        <div class="index card bg-light mb-3 info">
 						<div class="card-header h6 bg-primary text-white">Mis Tickets Recibidos</div>
+						@isset($ticketsUser)
 						<span class="badge badge-warning" style="
 						position: absolute;
-						right: 5%;
-						top: 5%;
-						"></span>	
+						right: 1%;
+						top: 6%;
+						">{{count($ticketsUser)}}</span>									
+						@endisset
 	          <a class="card-body link-container" href="get">
 	            	<div class=" row align-items-center" >
 									<img class='imgIndex' src="img/recibido.png" alt="Mis Tickets Recibidos" >
@@ -78,7 +78,7 @@
 										{{$sectorU->name}}
 										<span id="{{$sectorU->id}}" class="badge badge-warning" style="
 										position: absolute;
-										right: 20px;
+										right: 1%;
 										">{{count($tickets[$sectorU->name])}}</span>
 									</div>
 									<a class="card-body link-container" href="get/{{$sectorU->user->first()->id}}">
@@ -102,6 +102,12 @@
 	
 </div>
 @endsection
+
+@push('scripts')
+
+	<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+
+@endpush	
 
 	
 	
