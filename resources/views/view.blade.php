@@ -89,7 +89,7 @@
       </div>  
 
       <div class="col-12">
-        <div class="card bg-light mb-3 info">
+        <div class="card bg-light mb-5 info">
           <div class="card-header h5 bg-dark text-white">Ticket</div>
           <div class="card-body">
             <div class="row align-items-center">
@@ -197,7 +197,7 @@
     
       <div class="col-9">
         
-        <form class='bg-light col-12 border rounded  mt-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
+        <form class='bg-light col-12 border rounded mt-3 mb-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
 
          <div class="form-group">
           <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>

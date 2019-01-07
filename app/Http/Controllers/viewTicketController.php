@@ -159,6 +159,7 @@ class viewTicketController extends Controller
 		$ticketId = $request->session()->get('ticket_id');
 		$ticket = Ticket::find($ticketId);
 		$ticket->status = 0;
+		$ticket->close_user_id = Auth::user()->id;
 		$ticket->save();
 
 
