@@ -27,7 +27,7 @@ class newTicketController extends Controller
      public function index()
     {
 
-    		$userLogin = Auth::user();
+    	$userLogin = Auth::user();
 			$users =  User::all();
 
 			$usersArray = $users->filter(function ($value, $key) {
@@ -37,21 +37,26 @@ class newTicketController extends Controller
 						return $value;
 					};
 				}else {
-					if($value->id != $userLogin->id && $value->id != Sector::TELECENTRO_TECNICA){
-						return $value;
-					};
+					if(
+							$value->id != $userLogin->id &&
+							$value->id != Sector::TELECENTRO_TECNICA && 
+							$value->sector_id === $userLogin->sector_id
+						)
+							{
+							return $value;
+							};
 				}
 				
 			});
 
 			if(isset($usersArray)){
 				return view('/new')
-				->with('userLogin', $userLogin)
-				->with('usersAll', $usersArray);
+													->with('userLogin', $userLogin)
+													->with('usersAll', $usersArray);
 			} else {
 				return view('/new')
-				->with('userLogin', $userLogin)
-				->with('usersAll', $users);
+													->with('userLogin', $userLogin)
+													->with('usersAll', $users);
 			}
 		
 
@@ -71,7 +76,7 @@ class newTicketController extends Controller
 			$this->validate(request(), [    
 			  'queue' => 'required|numeric|exists:users,id',
 			  'clientN' => 'nullable|numeric',
-			  'title' => 'required|string|max:10',
+			  'title' => 'required|string|max:25',
 			  'details' => 'required',
 			  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
 			  'file' => 'array|max:10000',

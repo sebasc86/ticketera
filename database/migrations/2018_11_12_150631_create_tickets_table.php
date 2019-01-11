@@ -22,7 +22,8 @@ class CreateTicketsTable extends Migration
             $table->bigInteger('number');
             $table->integer('client')->nullable();
             $table->longtext('details')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();;
+            $table->integer('user_id')->unsigned()->nullable();
+             $table->integer('close_user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes(); //Columna para soft delete
             $table->timestamps();

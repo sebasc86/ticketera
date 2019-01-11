@@ -58,7 +58,7 @@ $( document ).ready(function() {
         if(!value){
             inputNode.removeClass('is-valid')
 			inputNode.addClass('is-invalid')
-        } else if(value.length > 10){
+        } else if(value.length > 25){
             inputNode.removeClass('is-valid')
 			inputNode.addClass('is-invalid')
         } else {
