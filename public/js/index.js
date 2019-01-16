@@ -25,35 +25,48 @@ $( document ).ready(function() {
 
     $('#close').click(function(e){
         e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-                url: '/view/{{$ticket->number}}/close',
-                method: 'POST',
-                data: {
-                    close: 0,
-                },
-                success: function(result){
-                    console.log(result.success);
-                    if(result.success == 0) {
-                        $('#close').hide()
-                        $('#newComment').hide()
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                                url: '/view/{{$ticket->number}}/mail',
-                                method: 'POST',
-                                });
-                    }
-                    $('#status').text('Cerrado');
-                
-        }});
+       
+        messageTextNodeValue = $('#message-text').val()
+        if(messageTextNodeValue.length >= 10) {
+
+					$.ajaxSetup({
+							headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							}
+					});
+					$.ajax({
+									url: '/view/{{$ticket->number}}/close',
+									method: 'POST',
+									data: {
+											close: 0,
+											message: messageTextNodeValue,
+									},
+									success: function(result){
+											console.log(result.success);
+											if(result.success == 0) {
+													$('#modalComment').hide('slow')
+													$('body').removeClass()
+													$('.modal-backdrop').hide()
+													$('#newComment').hide()
+													$('#closeButton').hide()
+													$.ajaxSetup({
+															headers: {
+																	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+															}
+													});
+													$.ajax({
+																	url: '/view/{{$ticket->number}}/mail',
+																	method: 'POST',
+																	});
+											}
+											$('#status').text('Cerrado');
+									
+					}});
+        
+
+        } else {
+            $('#message-text').parent().append('<span class="text-danger">Mínimo 10 caracteres<span>')
+        }
         
     });
 

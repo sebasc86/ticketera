@@ -147,7 +147,7 @@
 
      @if(!$ticket->comment->isEmpty())
       
-      <div class="col-12">
+      <div class="col-12 mb-5">
         <div class="card bg-white mb-3 info">
           <div class="card-header h6 bg-secondary text-white">Comentarios</div>
           <div class="card-body">
@@ -217,8 +217,13 @@
             <form class='mt-5' action="" name="close" id='closeTicket' method="post" enctype="multipart/form-data">
                
               <div class="mt-5 pr-3 align-self-end">
-                  <input class="btn btn-primary" id='close' type="submit" value="Cerrar Ticket">
+                  {{-- <input class="btn btn-primary" id='close' type="submit" value="Cerrar Ticket"> --}}
+                    <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" id="closeButton" data-toggle="modal" data-target="#modalComment">
+                Cerrar
+              </button>
               </div>
+              
             </form>
         @endif 
 
@@ -228,6 +233,28 @@
     @endif  
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Comentario de cierre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea class="form-control" id="message-text"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="close" type="button" class="btn btn-primary">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
   
 
 @endsection

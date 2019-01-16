@@ -156,10 +156,20 @@ class viewTicketController extends Controller
 	public function close(Request $request)
 	{		
 			
+		
+
 		$ticketId = $request->session()->get('ticket_id');
 		$ticket = Ticket::find($ticketId);
 		$ticket->status = 0;
 		$ticket->close_user_id = Auth::user()->id;
+
+
+		$comment = new Comment();
+		$comment->user_id = Auth::user()->id;
+		$comment->comments = $request->message;
+		$comment->ticket_id = $ticketId;        
+
+		$comment->save();
 		$ticket->save();
 
 
