@@ -81,7 +81,7 @@ $(document).ready(function() {
         responsive: true,
         processing: true,
         serverSide: false,
-        "order": [[ 0, 'asc' ], [ 8, 'asc' ]],
+        "order": [[ 8, 'asc' ], [ 7, 'desc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",

@@ -74,7 +74,7 @@ class sendClaim extends Command
         }
   
 
-         $this->info('Los mensajes de felicitación de cumpleaños han sido enviados correctamente!');
+         $this->info('Los mensajes han sido enviados correctamente!');
 
     }
 }
