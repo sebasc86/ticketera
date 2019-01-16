@@ -38,8 +38,11 @@ Route::get('/sent/sent', ['as'=>'sent.data','uses'=>'sentTicketController@getTic
 Route::get('/get', 'getTicketController@index')->name('/get');
 Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTickets']);
 
-Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');;
+Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
+
+Route::get('/ticketsAll', 'ticketAll@index')->name('/get');
+Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketAll@getTickets']);
 
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
