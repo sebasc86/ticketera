@@ -76,6 +76,7 @@
 
                                 @if ( Auth::user()->isAdmin == 1 )
                                     <a class="dropdown-item" href="{{ asset ('sector') }}">{{ __('Registrar Sector') }}</a>
+                                    <a class="dropdown-item" href="{{ asset ('ticketsAll') }}">{{ __('Total de Tickets') }}</a>
                                 @endif
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
