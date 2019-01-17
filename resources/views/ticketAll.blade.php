@@ -105,7 +105,7 @@ $(document).ready(function() {
 						});
 						$.ajax({
 										url: '/ticket/delete',
-										method: 'POST',
+										method: 'delete',
 										data: {	
 												ticket: ticketNumber,
 										},

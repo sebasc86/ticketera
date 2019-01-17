@@ -78,6 +78,7 @@
 																		<a class="dropdown-item dropdown-toggle" href="#">Usuarios</a>
 																		<ul class="dropdown-menu submenu">
 																				<li><a id="users_create" class="dropdown-item" href="{{ route('register') }}">{{ __('Alta de Usuarios') }}</a></li>
+																				<li><a id="users_modify" class="dropdown-item" href="{{ asset ('users')  }}">{{ __('Baja y Modificación') }}</a></li>
 																		</ul>  
 
 																@endif

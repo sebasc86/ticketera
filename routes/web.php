@@ -47,11 +47,19 @@ Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllCon
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
 
+Route::get('/users', 'listUsersController@index')->name('/users');
+Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getUsers']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/ticket/delete', 'deleteTicketController@index');
+Route::delete('/ticket/delete', 'deleteTicketController@index');
+
+Route::delete('/users/delete', 'deleteUsersController@delete');
+
+
+
 
 /*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
     return "eres mayor de edad y puedes ver este contenido";

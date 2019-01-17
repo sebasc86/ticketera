@@ -168,3 +168,7 @@ div.hover:hover {
 .submenu a {
 	padding: 0
 }
+
+.submenu li {
+	padding: 5px;
+}
