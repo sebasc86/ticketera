@@ -41,8 +41,8 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
 
-Route::get('/ticketsAll', 'ticketAll@index')->name('/get');
-Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketAll@getTickets']);
+Route::get('/ticketsAll', 'ticketsAllController@index')->name('/get');
+Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllController@getTickets']);
 
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
@@ -51,7 +51,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/ticket/delete', 'deleteController@index');
+Route::post('/ticket/delete', 'deleteTicketController@index');
 
 /*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
     return "eres mayor de edad y puedes ver este contenido";

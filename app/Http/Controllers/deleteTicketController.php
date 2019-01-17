@@ -9,7 +9,7 @@ use App\User;
 use App\Comment;
 
 
-class deleteController extends Controller
+class deleteTicketController extends Controller
 {
     public function index(Request $request)
     {      

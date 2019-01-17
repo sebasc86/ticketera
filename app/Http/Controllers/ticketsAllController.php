@@ -9,7 +9,7 @@ use App\Ticket;
 use App\User;
 use App\Sector;
 
-class ticketAll extends Controller
+class ticketsAllController extends Controller
 {
     public function __construct()
     {

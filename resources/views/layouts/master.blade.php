@@ -77,7 +77,7 @@
 																		
 																		<a class="dropdown-item dropdown-toggle" href="#">Usuarios</a>
 																		<ul class="dropdown-menu submenu">
-																				<li><a id="users_create" class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar Usuarios') }}</a></li>
+																				<li><a id="users_create" class="dropdown-item" href="{{ route('register') }}">{{ __('Alta de Usuarios') }}</a></li>
 																		</ul>  
 
 																@endif
@@ -86,7 +86,7 @@
 
 																<a class="dropdown-item dropdown-toggle" href="#">Sectores</a>
 																<ul class="dropdown-menu submenu">
-																	<li><a class="dropdown-item" href="{{ asset ('sector') }}">{{ __('Registrar Sector') }}</a></li>
+																	<li><a class="dropdown-item" href="{{ asset ('sector') }}">{{ __('Alta de Sectores') }}</a></li>
 																</ul> 
 
 																<a class="dropdown-item" href="{{ asset ('ticketsAll') }}">{{ __('Total de Tickets') }}</a>
