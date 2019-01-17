@@ -155,7 +155,16 @@ div.hover:hover {
 	pointer-events: auto;
 }
 
-.dataTables_filter,
-.dataTables_length {
-	padding: 0 5px;	
+/* nav bar */
+
+.submenu {
+	position: absolute;
+	width: 80px;
+	text-align: center;
+	left: -160px;
+	top: 0px;
+}
+
+.submenu a {
+	padding: 0
 }

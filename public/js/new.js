@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    console.log('init.app')
+    console.log('init.newjs')
 
     $('#queue').on('blur', validateSelect)
 

@@ -105,5 +105,6 @@
 @push('scripts')
   
     <script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/index.js') }}"></script>
 
 @endpush

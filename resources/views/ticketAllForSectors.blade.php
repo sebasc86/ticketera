@@ -52,6 +52,7 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('Datatables/datatables.min.css') }}">
 <script src="{{ asset('Datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('js/index.js') }}"></script>
 
 
 <script>
