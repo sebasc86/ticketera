@@ -172,3 +172,13 @@ div.hover:hover {
 .submenu li {
 	padding: 5px;
 }
+
+/* user modify blade */
+
+.icon {
+		position: absolute;
+    font-size: 24px;
+    color: gray;
+    top: 5px;
+    right: 20px;
+}

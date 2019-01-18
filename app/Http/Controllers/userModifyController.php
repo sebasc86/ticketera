@@ -18,8 +18,22 @@ class userModifyController extends Controller
         $this->middleware('admin'); 
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {   
-        return view('userModify');
+        if(!is_numeric($id)){
+            return abort(403, "Acceso Restringido");
+        }
+
+				$user = User::find($id);
+				$sectors = Sector::All();
+        
+        if(is_null($user)){
+            return abort(403, "Usuario no encontrado");
+        }
+
+        return view('userModify')
+																->with('user', $user)
+																->with('sectors', $sectors);
+
     }
 }
