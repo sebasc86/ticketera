@@ -1,6 +1,7 @@
 $( document ).ready(function() {
   console.log('init.userModify')
 
+
   var name = $('#name')
 
   name.one('blur', validateInput)
@@ -16,6 +17,71 @@ $( document ).ready(function() {
   var confirmPass = $('#password-confirm')
 
   confirmPass.one('blur', validateInputConfirmPass)
+
+
+  var sectorId = $("#sector_id option:selected").attr('value');
+  var isAdmin = $("#isAdmin option:selected").attr('value');
+
+  $(document).on('change', '#sector_id', function(event) {
+    sectorId = $("#sector_id option:selected").attr('value');
+  });
+
+  $(document).on('change', '#isAdmin', function(event) {
+    isAdmin = $("#isAdmin option:selected").attr('value');
+  });
+
+
+ 
+  $("input").prop('disabled', true);
+
+  $(document).on('click', '.col-md-6', function(e) {
+    $(this).children().removeAttr('disabled');
+    $(this).children('.pencil').last().remove()
+  });
+
+
+
+
+  $('#submitButton').on('click', function(e){
+      e.preventDefault()
+      nameValue = $.trim($('#name').val())
+      emailValue = $.trim($('#email').val())
+      passValue = $.trim($('#password').val())
+      $('#errorEmail').html('')
+      $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+      });
+      $.ajax({
+              url: '/users/id/update',
+              method: 'patch',
+              data: { "data" : {	
+                  sector: sectorId,
+                  admin: isAdmin,
+                  name: nameValue,
+                  email: emailValue,
+                  pass: passValue,
+                  }
+              },
+              success: function(result){
+                  if(result.success === "1"){
+                  console.log(result.success)
+
+                  }else {
+                    console.log(result.success)
+                    if(result.errorEmail != null){
+                      $("#email").after('<span id="errorEmail" style="color:red">*'+  result.errorEmail  +'</span>');
+                      inputEmailNode.removeClass('is-valid')
+                      inputEmailNode.addClass('is-invalid')
+
+                    }
+                  };
+              
+      }});
+      })
+
+
 
 
   function isValidEmailAddress(event) {
@@ -44,6 +110,8 @@ $( document ).ready(function() {
     if (event.type === 'blur') {
       inputEmailNode.on('input', isValidEmailAddress)
     }
+
+    validateSubmitButton ()
 }
 
   function validateInput (event) {
@@ -64,7 +132,7 @@ $( document ).ready(function() {
       inputNode.addClass('is-invalid')
       errorLabel = '*Minimo 10 Caracteres'
       inputNode.parent().append('<div style="color:red">' + errorLabel + '</div>')
-    }    else {
+    } else {
       inputNode.removeClass('is-invalid')
       inputNode.addClass('is-valid')
     }
@@ -72,6 +140,8 @@ $( document ).ready(function() {
     if (event.type === 'blur') {
       inputNode.on('input', validateInput)
     }
+
+    validateSubmitButton ()
 
   }
 
@@ -82,12 +152,7 @@ $( document ).ready(function() {
     var errorLabel = ''
     inputNodePass.next().remove()
 
-    if (!value) {
-      inputNodePass.removeClass('is-valid')
-      inputNodePass.addClass('is-invalid')
-      errorLabel = '*El campo es requerido'
-      inputNodePass.parent().append('<div style="color:red">' + errorLabel + '</div>')
-    } else if (value.length < 6) {
+    if (value.length < 6) {
       inputNodePass.removeClass('is-valid')
       inputNodePass.addClass('is-invalid')
       errorLabel = '*Minimo 6 Caracteres'
@@ -106,6 +171,8 @@ $( document ).ready(function() {
       inputNodePass.on('input', validateInputPassword)
     }
 
+    validateSubmitButton ()
+
   }
 
   function validateInputConfirmPass (event) {
@@ -117,12 +184,7 @@ $( document ).ready(function() {
 
     inputNodePass.next().remove()
 
-    if (!value) {
-      inputNodePass.removeClass('is-valid')
-      inputNodePass.addClass('is-invalid')
-      errorLabel = '*El campo es requerido'
-      inputNodePass.parent().append('<div style="color:red">' + errorLabel + '</div>')
-    } else if (value.length < 6) {
+    if (value.length < 6) {
       inputNodePass.removeClass('is-valid')
       inputNodePass.addClass('is-invalid')
       errorLabel = '*Minimo 6 Caracteres'
@@ -144,9 +206,24 @@ $( document ).ready(function() {
       inputNodePass.on('input', validateInputConfirmPass)
     }
 
+    validateSubmitButton ()
+
   }
 
+
+  function validateSubmitButton () {
+    if ($('.is-invalid').length >= 1) {
+      $('#submitButton').attr('disabled', true)
+    } else {
+      $('#submitButton').removeAttr('disabled')
+    }
+  }
   
+
+
+
+
+
 
 
 })

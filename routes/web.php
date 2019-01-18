@@ -51,6 +51,7 @@ Route::get('/users', 'listUsersController@index')->name('/users');
 Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getUsers']);
 
 Route::get('/users/{id}', 'userModifyController@index')->name('/users');
+Route::patch('/users/id/update', 'userModifyController@update')->name('/users');
 
 Auth::routes();
 

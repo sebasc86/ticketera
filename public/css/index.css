@@ -175,10 +175,11 @@ div.hover:hover {
 
 /* user modify blade */
 
-.icon {
+.pencil {
 		position: absolute;
     font-size: 24px;
     color: gray;
     top: 5px;
-    right: 20px;
+		right: 20px;
+		cursor: pointer;
 }
