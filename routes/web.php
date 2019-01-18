@@ -50,6 +50,8 @@ Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSecto
 Route::get('/users', 'listUsersController@index')->name('/users');
 Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getUsers']);
 
+Route::get('/users/{id}', 'userModifyController@index')->name('/users');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
