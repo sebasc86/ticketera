@@ -157,6 +157,10 @@ div.hover:hover {
 
 /* nav bar */
 
+.menudown{
+	left: -10px;
+}
+
 .submenu {
 	position: absolute;
 	width: 80px;
@@ -182,4 +186,9 @@ div.hover:hover {
     top: 5px;
 		right: 20px;
 		cursor: pointer;
+}
+
+.card {
+	height: auto;
+	margin-bottom: 50px;
 }

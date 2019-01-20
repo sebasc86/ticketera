@@ -46,8 +46,11 @@ $( document ).ready(function() {
       e.preventDefault()
       nameValue = $.trim($('#name').val())
       emailValue = $.trim($('#email').val())
-      passValue = $.trim($('#password').val())
-      $('#errorEmail').html('')
+      passValue = $('#password').val()
+      $('#errorName').remove()
+      $('#errorEmail').remove()
+      $('#errorSector').remove()
+      $('#errorAdmin').remove()
       $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -65,11 +68,31 @@ $( document ).ready(function() {
                   }
               },
               success: function(result){
+
                   if(result.success === "1"){
-                  console.log(result.success)
+                    $('#exampleModal').modal({
+                      show: true
+                    })
 
                   }else {
-                    console.log(result.success)
+                    console.log(result.errors.email)
+
+                    if(result.errors.name){
+                      $("#name").after('<span id="errorName" style="color:red">*'+  result.errors.name  +'</span>');
+                    }
+
+                    if(result.errors.email){
+                      $("#email").after('<span id="errorEmail" style="color:red">*'+  result.errors.email  +'</span>');
+                    }
+
+                    if(result.errors.sector){
+                      $("#sector_id").after('<span id="errorSector" style="color:red">*'+  result.errors.sector  +'</span>');
+                    }
+
+                    if(result.errors.admin){
+                      $("#isAdmin").after('<span id="errorAdmin" style="color:red">*'+  result.errors.admin  +'</span>');
+                    }
+
                     if(result.errorEmail != null){
                       $("#email").after('<span id="errorEmail" style="color:red">*'+  result.errorEmail  +'</span>');
                       inputEmailNode.removeClass('is-valid')

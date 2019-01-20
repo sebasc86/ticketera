@@ -42,44 +42,75 @@ class userModifyController extends Controller
 
 			$data = $request->data;			
 			
-    	$rules = [
+    	// $rules = [
+      //   'sector' => 'required|numeric|exists:sectors,id',
+	    //   'admin' => 'required|integer|min:0,max:1',
+	    //   'email' => 'integer|email|max:255',
+			// 	'name' => 'required|integer',
+    	// ];
+			//	$validator = Validator::make($data,$rules)
+
+			$validator = Validator::make($data, [
         'sector' => 'required|numeric|exists:sectors,id',
-	      'admin' => 'required|integer|min:0,max:1',
+	      'admin' => 'required|integer|between:0,1',
 	      'email' => 'string|email|max:255',
 				'name' => 'required|string',
-    	];
-
-			$validator = Validator::make($data, $rules);
+    	],[
+				'admin.required' => 'El nivel de privilegio no puede estar vacio',
+				'admin.integer'=>'El el numero tiene que ser un numero',
+				'admin.between'=> 'Es Admin tiene que estar entre :min y :max.',
+				'sector.required' => 'El sector es requerido',
+				'sector.numeric' => 'El sector es tiene que ser un número',
+				'sector.exists' => 'El sector es tiene que ser válido',
+				'name.required' => 'El nombre es obligatorio',
+				'name.string' => 'Debe ser una cadena de caracteres',
+			]);
+			
+			
 			if ($validator->passes()) {
+						//busco usuario a modificar
 						$user = User::find($userId);
-						//chequeo si existe otro email
+
+						//chequeo si email en DB
 						$existEmail = User::where('email', $data['email'])->first();
-						//si es null pega a la actualiacion del mail si no responde y corta ejecucion
-						
+
+						//si no es null y son diferentes al mail del usuario quiere decir que esta en uso por otro ahi corta ejecucion y devuelve error, si no almacena 
 						if($existEmail != null && $user->email != $data['email']) {
-							return response()->json([
-								'success' => $data['email'],
-								'errorEmail'=> 'El mail esta en uso',				
-								]);
+							return response()
+															->json([
+																		'success' => $data['email'],
+																		'errorEmail'=> 'El mail esta en uso',				
+																]);
 						}	else {
-							$user->email = $request->data['email'];
+							$user->email = $data['email'];
 						}
 						
-						
-						
-						$user->name = $request->data['name'];
-						$user->isAdmin = $request->data['admin'];
-						$user->sector_id = $request->data['sector'];
+						//si password es diferente a null almacena nuevo pass
+						if($data['pass'] != null) {
+							$user->password = bcrypt($data['pass']);
+						}
+
+						//si pasa el validador updetea user
+						$user->name = $data['name'];
+						$user->isAdmin = $data['admin'];
+						$user->sector_id = $data['sector'];
 
 						$user->update();
+
+						return response()->json([
+							'success' => '1',
+						]);
+
 			} else {
-					$validator = $validator->errors()->all();
+					$validator = $validator->errors();
+					return response()->json([
+						'success' => '0',
+						'errors' => $validator,
+					]);
 			}
 		
 
-			return response()->json([
-				'success' => '1',
-				]);
+			
 
 		}
 
