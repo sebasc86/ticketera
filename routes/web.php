@@ -20,6 +20,9 @@ Route::get('/', 'IndexController@index');
 Route::get('/sector', 'sectorController@index');
 Route::post('/sector', 'sectorController@store');
 
+Route::get('/password', 'passwordUserController@index')->name('/password');
+Route::patch('/password/update', ['as'=>'pass.patch','uses'=>'passwordUserController@update']);
+
 Route::get('/new', 'newTicketController@index')->name('/newTicket');
 Route::post('/new', 'newTicketController@store');
 
