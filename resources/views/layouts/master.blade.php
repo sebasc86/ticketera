@@ -9,14 +9,14 @@
 				<!-- Required meta tags -->
 				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+                <meta name="csrf-token" content="{{ csrf_token() }}">
 				
 				<!-- include libraries(jQuery, bootstrap) -->
-				<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+				<script src="{{ asset('js/jquery.js') }}"></script> 
+				
 
 				<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 				<script src="{{ asset('js/app.js') }}"></script>
-
 			
 
 				{{-- agregado el datatables --}}
@@ -25,13 +25,11 @@
 
 				{{-- font-awesome--}}
 				<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-                
-        
-               
+				
+
   </head>
-<div id='app'>
 <body>
-		<div id='app'></div>
+	
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand px-4" href="{{ url('/') }}">
@@ -130,7 +128,7 @@
     
     
 </body>
-</div>
+
 </html>
 
  

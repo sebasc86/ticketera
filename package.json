@@ -18,5 +18,8 @@
         "lodash": "^4.17.5",
         "popper.js": "^1.14.6",
         "vue": "^2.5.17"
+    },
+    "dependencies": {
+        "webpack-dev-server": "^3.1.14"
     }
 }
