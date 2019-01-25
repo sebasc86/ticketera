@@ -56,13 +56,16 @@ Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getU
 Route::get('/users/{id}', 'userModifyController@index')->name('/users');
 Route::patch('/users/id/update', 'userModifyController@update')->name('/users');
 
+Route::get('/sectors', 'listSectorsController@index')->name('/sectors');
+Route::get('/sectors/all', ['as'=>'sectorsAll.get','uses'=>'listSectorsController@getSectors']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::delete('/ticket/delete', 'deleteTicketController@index');
-
 Route::delete('/users/delete', 'deleteUsersController@delete');
+Route::delete('/sectors/delete', 'deleteSectorController@delete');
 
 
 

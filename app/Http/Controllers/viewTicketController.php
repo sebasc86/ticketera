@@ -26,7 +26,7 @@ class viewTicketController extends Controller
     public function index(Request $request, $ticket)
     {	
 
-    		$user = Auth::user();
+    	$user = Auth::user();
 			$userId = $user->id;
 
 			$userQueue = Ticket::where('queue', $userId)->first();
@@ -42,7 +42,22 @@ class viewTicketController extends Controller
 			$ticketName = $ticketN->user->name;
 			//sector - usuario y ticket que esperar recibir el ticket
 			$userQueueName = User::find($ticketN->queue);
-			$sectorQueue = Sector::find($userQueueName->sector_id);
+
+
+			if($userQueueName == null) {
+				$sectorDelete = New Sector;
+				$sectorDelete->name = 'Usuario inexistente o borrado';
+				$sectorQueue = $sectorDelete;
+				$userDelete = new User;
+				$userDelete->name = 'Usuario inexistente o borrado';
+				$userQueueName = $userDelete;
+				$ticket = Ticket::find($ticketN->id)->delete();
+				return redirect('/');
+			} else {
+				$sectorQueue = Sector::find($userQueueName->sector_id);
+			}
+		
+			
 			$ticketQueue = $ticketN->queue;
 			
 			//recupero inserto el ticket en sesion

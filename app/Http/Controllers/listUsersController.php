@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +52,6 @@ class listUsersController extends Controller
             
         }    
 
-        return Datatables::of($usersAll)->make(true);
         
     }
 }

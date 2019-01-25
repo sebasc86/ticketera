@@ -42,13 +42,18 @@ class sentTicketController extends Controller
         $user = Auth::user();
         $userId = $user->id;
         $tickets = $user->ticket;
+       
         
         foreach ($tickets as $key => $value) {
 
             $userQueue = $value->queue;
+            
             $userGet = User::find($userQueue);
-            $value->sector = $userGet->sector->name;
-            $value->queue = $userGet->name;
+
+            // return response()->json(['success'=>$userGet]);
+            if($userGet == null) {
+                $ticket = Ticket::find($value->id)->delete();
+            }
 
             if($value->status === 0){
                 $value->status = 'Cerrado';
