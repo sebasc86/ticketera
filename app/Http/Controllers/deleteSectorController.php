@@ -22,6 +22,11 @@ class deleteSectorController extends Controller
     {      
             $sectorId = $request->id;
             $sector = Sector::find($sectorId);
+            $ticketsQueue = Ticket::where('queue', $sector->user_id)->get();
+            $ticketsQueue->map(function($ticketQueue){
+                $ticketQueue->delete();
+            });
+            
             $sector->delete();
     
 
