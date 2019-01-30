@@ -24,13 +24,26 @@ class deleteUsersController extends Controller
 
             $userId = $request->id;
             $user = User::find($userId);
+            
             if($user->sector->user_id === $user->id){
                 $sector = Sector::find($user->id);
+                
+                $ticketsQueue = Ticket::where('queue', $sector->user_id)->get();
+                    $ticketsQueue->map(function($ticketQueue){
+                    $ticketQueue->delete();
+                });
+
                 $sector->delete();
                 return response()->json(['success'=>'1']);
             }
+
+            $ticketsQueue = Ticket::where('queue', $user->id)->get();
+            
+            $ticketsQueue->map(function($ticketQueue){
+                $ticketQueue->delete();
+            });
+
             $user->delete();
-    
 
         return response()->json(['success'=>'1']);
     }
