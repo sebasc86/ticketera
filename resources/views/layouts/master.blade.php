@@ -81,6 +81,7 @@
 																<a class="dropdown-item dropdown-toggle" href="#">Sectores</a>
 																<ul class="dropdown-menu submenu">
 																	<li><a class="dropdown-item" href="{{ asset ('sector') }}">{{ __('Alta de Sectores') }}</a></li>
+																	<li><a id="users_modify" class="dropdown-item" href="{{ asset ('sectors')  }}">{{ __('Baja y Modificación') }}</a></li>
 																</ul> 
 
 																<a class="dropdown-item" href="{{ asset ('ticketsAll') }}">{{ __('Total de Tickets') }}</a>
