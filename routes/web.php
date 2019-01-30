@@ -59,6 +59,9 @@ Route::patch('/users/id/update', 'userModifyController@update')->name('/users');
 Route::get('/sectors', 'listSectorsController@index')->name('/sectors');
 Route::get('/sectors/all', ['as'=>'sectorsAll.get','uses'=>'listSectorsController@getSectors']);
 
+Route::get('/sectors/{id}', 'sectorModifyController@index')->name('/sectors');
+Route::patch('/sectors/id/update', 'sectorModifyController@update')->name('/users');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
