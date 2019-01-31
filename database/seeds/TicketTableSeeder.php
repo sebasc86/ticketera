@@ -16,11 +16,15 @@ class TicketTableSeeder extends Seeder
         for ($i=0; $i<100; $i++){
         DB::table('tickets')->insert([
             'status' => rand(0, 1),
-            'queue' => rand(1, 2),
-            'sector' => 'prueba',
+            'queue' => 3,
+            'sector' => 1,
             'title' => str_random(10),
             'number' =>20011209,
-            'user_id' => 2
+            'user_id' => 1,
+            'client' => 434343,
+            'details' => 'Prueba',
+            'close_user_id' => 3,
+       
 
         ]);
         }
