@@ -121,7 +121,7 @@
     
     <footer class="footer">
         <div class="container-fluid px-5">
-            <span>© CallCenter 2019</span>
+            <span>© CallCenter {{date('Y')}}</span>
         </div>
     </footer>
 
