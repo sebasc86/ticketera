@@ -22,10 +22,10 @@
           <th scope="col">Titulo</th>
           <th scope="col">Detalles</th>
           <th scope="col">Creador</th>
-          <th scope="col">Sector</th>
           <th scope="col">Cerrado Por:</th>
           <th scope="col">Creado</th>
-          <th scope="col">Estado</th>
+					<th scope="col">Estado</th>
+					<th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
 					<th id='delete' scope="col">Eliminar</th>       
         </tr>
