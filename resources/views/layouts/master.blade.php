@@ -30,7 +30,7 @@
   </head>
 <body>
 	
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand px-4" href="{{ url('/') }}">
                 <img class="imgHeader" src="{{asset('img/telecentroLogo.png')}}" alt="Telecentro Logo">
