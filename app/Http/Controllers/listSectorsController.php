@@ -32,17 +32,14 @@ class listSectorsController extends Controller
           //lo paso a array para saber si esta vacio o no
           if( !$sectorsAll->isEmpty() ) {
 
-            // foreach ($sectorsAll as $key => $value) {
-            // 	//para buscar el nombre Creador
-            //     $sectorName = $value->sector->name;
-            //     $value->sector_id = $sectorName ;
+            foreach ($sectorsAll as $key => $value) {
 
-            //     if($value->isAdmin === 0){
-            //         $value->isAdmin = 'No';
-            //     } else {
-            //         $value->isAdmin = 'Si';
-            //     };
-            // }
+                if($value->isAdmin === 0){
+                    $value->isAdmin = 'No';
+                } else {
+                    $value->isAdmin = 'Si';
+                };
+            }
 
             return Datatables::of($sectorsAll)->make(true);
 

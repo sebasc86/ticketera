@@ -61,6 +61,11 @@ div.hover:hover {
 }
 
 
+.imgHeader {
+	width: 150px;
+	height: 30px;
+	margin-left: -10px;
+}
 
 .index p {
 	display: inline-block;

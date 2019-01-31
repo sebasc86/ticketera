@@ -67,5 +67,9 @@ class IndexController extends Controller
 			return view('index')
 								->with('sectors', $sectorsAll);
        
-    }
+		}
+		
+		public function getTicketsOpen() {
+			//falta hacer
+		}
 }

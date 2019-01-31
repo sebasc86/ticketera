@@ -6,9 +6,11 @@
 }
 
 .ticketOpen {
+	display: flex;
+	justify-content: space-between;
 	padding: 20px 50px!important;
-    color: red;
-    margin-bottom: 10px;
+	color: red;
+	margin-bottom: 10px;
 }
 
 .ticketOpen img {
@@ -21,7 +23,8 @@
 	height:25px;
 }
 
-.ticketOpen p {
+.ticketOpen .h6 {
+	display: flex;
 	align-self: center;
 }
 

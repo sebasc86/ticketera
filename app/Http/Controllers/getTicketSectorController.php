@@ -35,7 +35,9 @@ class getTicketSectorController extends Controller
             
         });
 
-		return view('getSector')->with('ticketsOpen', $ticketsOpen);
+        return view('getSector')
+                                ->with('ticketsOpen', $ticketsOpen)
+                                ->with('user', $user);
 
     }
 

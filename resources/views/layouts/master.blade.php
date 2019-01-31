@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand px-4" href="{{ url('/') }}">
-                {{ 'Telecentro' }}
+                <img class="imgHeader" src="{{asset('img/telecentroLogo.png')}}" alt="Telecentro Logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -121,7 +121,7 @@
     
     <footer class="footer">
         <div class="container-fluid px-5">
-            <span>Copyrigth 2018</span>
+            <span>© CallCenter 2019</span>
         </div>
     </footer>
 

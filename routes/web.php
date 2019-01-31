@@ -60,7 +60,7 @@ Route::get('/sectors', 'listSectorsController@index')->name('/sectors');
 Route::get('/sectors/all', ['as'=>'sectorsAll.get','uses'=>'listSectorsController@getSectors']);
 
 Route::get('/sectors/{id}', 'sectorModifyController@index')->name('/sectors');
-Route::patch('/sectors/id/update', 'sectorModifyController@update')->name('/users');
+Route::post('/sectors/id/update', 'sectorModifyController@update')->name('/sectors');
 
 Auth::routes();
 
