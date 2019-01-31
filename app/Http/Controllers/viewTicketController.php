@@ -119,13 +119,13 @@ class viewTicketController extends Controller
 				//Loop for getting files with index like image0, image1
 
 				$comment = new Comment();
-		        $comment->user_id = $userId;
-		        $comment->comments = $request->commentsNode;
-		        $comment->ticket_id = $ticketId;        
+				$comment->user_id = $userId;
+				$comment->comments = $request->commentsNode;
+				$comment->ticket_id = $ticketId;        
 
-		        $comment->save();
-		        $ticketNumber = $comment->ticket->number;
-		        $commentId = $comment->id;
+				$comment->save();
+				$ticketNumber = $comment->ticket->number;
+				$commentId = $comment->id;
 
 
 				for ($x = 0; $x < $request->TotalFiles; $x++) {
@@ -151,17 +151,17 @@ class viewTicketController extends Controller
 
 				}
 
-		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $filesArray, 'ticketNumber' => $ticketNumber]);
+				return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $filesArray, 'ticketNumber' => $ticketNumber]);
 
 			} else if (isset($request->commentsNode))	{
 				$comment = new Comment();
-		        $comment->user_id = $userId;
-		        $comment->comments = $request->commentsNode;
-		        $comment->ticket_id = $ticketId;        
+				$comment->user_id = $userId;
+				$comment->comments = $request->commentsNode;
+				$comment->ticket_id = $ticketId;        
 
-		        $comment->save();
+				$comment->save();
 
-		        return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => "null", 'ticketNumber' => "null"]);
+				return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => "null", 'ticketNumber' => "null"]);
 
 			}
 

@@ -37,6 +37,9 @@ $( document ).ready(function() {
  
   $("input").prop('disabled', true);
 
+  $("input.file").prop('disabled', false);
+
+
   $(document).on('click', '.col-md-6', function(e) {
     $(this).children().removeAttr('disabled');
     $(this).children('.pencil').last().remove()
@@ -56,24 +59,41 @@ $( document ).ready(function() {
       $('#errorEmail').remove()
       $('#errorAdmin').remove()
       $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
       });
+
+      var formdata = new FormData();
+      var TotalFiles = $('#file')[0].files.length;  //Total Images
+      var files = $('#file')[0];  
+      for (var i = 0; i < TotalFiles; i++) {
+        formdata.append('imgfiles' + i, files.files[i]);
+      }
+      formdata.append('TotalFiles', TotalFiles);
+      formdata.append('name', nameValue);
+      formdata.append('email_boss', emailBossValue);
+      formdata.append('admin', isAdmin);
+      formdata.append('email', emailValue);
+      formdata.append('pass', passValue);
+
       $.ajax({
               url: '/sectors/id/update',
-              method: 'patch',
-              data: { "data" : {	
-                
-                  name: nameValue,
-                  email_boss: emailBossValue,
-                  admin: isAdmin,
-                  email: emailValue,
-                  pass: passValue,
-                  }
-              },
+              method: 'post',
+              contentType:false,
+              processData: false,
+              data: formdata,
+              // data : { "data" : {	
+              //     formdata: formdata,
+              //     name: nameValue,
+              //     email_boss: emailBossValue,
+              //     admin: isAdmin,
+              //     email: emailValue,
+              //     pass: passValue,
+                  
+              // }},
               success: function(result){
-                  console.log(result.success)
+                console.log(result.success);
                   if(result.success === "1"){
                     $('#exampleModal').modal({
                       show: true

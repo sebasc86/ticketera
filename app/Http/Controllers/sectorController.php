@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Sector;
 use App\User;
 
@@ -33,8 +35,30 @@ class sectorController extends Controller
   		  'name' => 'required|string|unique:sectors,name',
 				'isAdmin' => 'required|integer|min:0,max:1',
 				'email_boss' => 'string|email|max:255',
-        'email' => 'string|email|max:255|unique:users'
-  		]);
+        'email' => 'required|string|email|max:255|unique:users',
+        'file.*' => 'max:2048|mimes:png',
+      ]);
+
+     
+      
+      if(request()->file != null) {
+        // Asignamos nombre para la DB.
+          $fileName = trim(request()->name) . "." . 'png';            
+        // Almacenar la imagen en el servidor con el nuevo nombre
+          $path = request()->file->move(public_path('img'), $fileName);     
+
+          $path_photo = 'img/' . $fileName;  
+
+          $img = Image::make($path_photo);
+          
+          if($img->width() > 128){
+            $img->resize(128, 30);
+          }
+
+          $img->save($path_photo);
+      }
+
+   
 
       $sector = new Sector;
 			$sector->name = trim(request()->name);
@@ -42,7 +66,7 @@ class sectorController extends Controller
       $sector->isAdmin = request()->isAdmin;
       $sector->save(); 
   		
-      if(request()->userInclude === '1'){
+      if(request()->email != null){
           $user = new User;
           $user->name = trim(request()->name);
           $user->email = trim(request()->email);

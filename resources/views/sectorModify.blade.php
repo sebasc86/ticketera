@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Modificar Sector') }}</div>
 
                 <div class="card-body">
-                    <form id="form" method="POST" action="{{ url('sectors/{id}') }}">
+                    <form id="form" method="POST" action="{{ url('sectors/{id}') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -87,7 +87,25 @@
                             
                             <i class="fa fa-pencil pencil" style="font-size:28px;color:gray"></i>
                         </div>
-                    </div>
+										</div>
+										
+										<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right" for="file"> Imagen</label>
+												
+												<div>
+														<img class='imgIndex' src="{{ asset("img/" . $user->name . ".png") }}">
+												</div>
+										</div>	
+
+                    <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right" for="file">Cambiar Imagen</label>
+                            
+                            <div class="col-md-6">
+                                
+                                <input type="file" class="file" name="file" id="file">
+                                <span class="small text-muted">128px * 30px recomendado solo PNG</span>
+                            </div>
+                    </div>	
 
 
 

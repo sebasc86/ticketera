@@ -79,7 +79,6 @@ class newTicketController extends Controller
 			  'clientN' => 'nullable|numeric',
 			  'title' => 'required|string|max:25',
 			  'details' => 'required',
-			  /*'file' => 'mimes:pdf,docx,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,zip',*/
 			  'file' => 'array|max:10000',
     		'file.*' => 'present|file|max:10000',
 			]);

@@ -86,7 +86,7 @@
 									</div>
 									<a class="card-body link-container" href="get/{{$sectorU->user->first()->id}}">
 											<div class="row align-items-center" >
-												<img class='imgIndex' src="img/{{$sectorU->name}}.png"  alt="Abiertos {{$sectorU->name}}">
+												<img class='imgIndex' src="img/{!! str_replace(' ', '', $sectorU->name) !!}.png"  alt="Abiertos {{$sectorU->name}}">
 											</div>
 									</a>
 								</div>
