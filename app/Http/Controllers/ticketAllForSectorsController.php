@@ -73,7 +73,7 @@ class ticketAllForSectorsController extends Controller
             	//para buscar el nombre Creador
             	$user = $value->user->name;
                 $value->user_id = $user;
-                $value->sector = $value->user->sector->name;
+                $value->sector = $value->user->sector->name;                
 
                 //para buscar el nombre a quien enviar
                 $userQueue = $value->queue;
@@ -86,6 +86,12 @@ class ticketAllForSectorsController extends Controller
                 } else {
                     $value->status = 'Abierto';
                 };
+
+                $userCloseTicket = User::find($value->close_user_id);
+
+                if($userCloseTicket != null) {
+                    $value->close_user_id = $userCloseTicket->name;
+                }
             }
 
             return Datatables::of($ticketsAll)->make(true);

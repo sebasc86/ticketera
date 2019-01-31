@@ -196,3 +196,15 @@ div.hover:hover {
 	height: auto;
 	margin-bottom: 50px;
 }
+
+.dt-buttons .buttons-page-length{
+	background: #017afe;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+
+.dt-buttons .buttons-excel{
+	background: #d4a414;
+	border: 0px;
+	border-radius: 5px !important;
+}

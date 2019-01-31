@@ -11,6 +11,7 @@
         
     
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
+
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
@@ -20,10 +21,10 @@
           <th scope="col">Cliente</th>
           <th scope="col">Titulo</th>
           <th scope="col">Detalles</th>
-          <th scope="col">Usuario Creador</th>
+          <th scope="col">Creador</th>
           <th scope="col">Sector</th>
+          <th scope="col">Cerrado Por:</th>
           <th scope="col">Creado</th>
-          <th scope="col">Estado</th>
           <th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
 					<th id='delete' scope="col">Eliminar</th>       
@@ -40,7 +41,7 @@
 						<th>Creado<th>
 						<th>Estado</th>
 						<th>Ver ticket</th>
-						<th>#</th>               
+						         
 				</tr>
       </tfoot>
       </table>
@@ -54,7 +55,6 @@
 <script src="{{ asset('Datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/index.js') }}"></script>
 
-
 <script>
 
  
@@ -62,6 +62,20 @@ $(document).ready(function() {
     
       
   var tickets = $('#tickets-table').DataTable({
+
+				dom: 'Bfrtip',
+				lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10', '25 ', '50 ', 'Mostrar todos' ]
+        ],
+				buttons: {
+					buttons: [
+							'pageLength',
+							{ extend: 'excel', text: 'Save as Excel', title: 'Data' }
+					]
+    		},
+					
+        
         initComplete: function () {
         this.api().columns().every( function () {
             var column = this;
@@ -83,11 +97,11 @@ $(document).ready(function() {
 						} );
 						
 				} );
+				
 
 				var ticket = $('.px200')[2].lastChild
 				ticket.setAttribute('id', 'ticket')
-				$('#ticket').css('display', 'none')
-
+			
 				if($('#users_create').length === 0) {
 					$('.delete').parent().remove()
 					$('#delete').remove()
@@ -124,15 +138,11 @@ $(document).ready(function() {
 										
 						}});
 						})
-
-				
-				
-
-        },
+				},	
         responsive: true,
         processing: true,
         serverSide: false,
-        "order": [[ 9, 'asc' ], [ 8, 'desc' ]],
+        "order": [[ 10, 'asc' ], [ 8, 'desc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -161,9 +171,9 @@ $(document).ready(function() {
               }
 						
 						},
-            { data: 'details', name: 'details', visible: false },
             { data: 'user_id', className:'user_id', name: 'user_id',  },
             { data: 'sector', name: 'sector' },
+            { data: 'close_user_id', name: 'close_user_id' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'status',className: 'status', name: 'status' },
@@ -177,16 +187,18 @@ $(document).ready(function() {
 
 						{ data: 'number',
 							className: 'px200',
-							"orderable": false,
+							"orderable": true,
               render: function(data){
                 return '<button class="delete view btn btn-danger btn-del" style="margin:auto">X</a>'
               }
             },
-        ],
-    });
+				],
+		});
+		
 
+ 
 
-
+		
 });
 
 
