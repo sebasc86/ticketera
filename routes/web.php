@@ -20,6 +20,9 @@ Route::get('/', 'IndexController@index');
 Route::get('/sector', 'sectorController@index');
 Route::post('/sector', 'sectorController@store');
 
+Route::get('/password', 'passwordUserController@index')->name('/password');
+Route::patch('/password/update', ['as'=>'pass.patch','uses'=>'passwordUserController@update']);
+
 Route::get('/new', 'newTicketController@index')->name('/newTicket');
 Route::post('/new', 'newTicketController@store');
 
@@ -41,17 +44,34 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
 
-Route::get('/ticketsAll', 'ticketAll@index')->name('/get');
-Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketAll@getTickets']);
+Route::get('/ticketsAll', 'ticketsAllController@index')->name('/get');
+Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllController@getTickets']);
 
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
+
+Route::get('/users', 'listUsersController@index')->name('/users');
+Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getUsers']);
+
+Route::get('/users/{id}', 'userModifyController@index')->name('/users');
+Route::patch('/users/id/update', 'userModifyController@update')->name('/users');
+
+Route::get('/sectors', 'listSectorsController@index')->name('/sectors');
+Route::get('/sectors/all', ['as'=>'sectorsAll.get','uses'=>'listSectorsController@getSectors']);
+
+Route::get('/sectors/{id}', 'sectorModifyController@index')->name('/sectors');
+Route::patch('/sectors/id/update', 'sectorModifyController@update')->name('/users');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/ticket/delete', 'deleteController@index');
+Route::delete('/ticket/delete', 'deleteTicketController@index');
+Route::delete('/users/delete', 'deleteUsersController@delete');
+Route::delete('/sectors/delete', 'deleteSectorController@delete');
+
+
+
 
 /*Route::get('/register', ['middleware' => 'isAdmin:1', function () {
     return "eres mayor de edad y puedes ver este contenido";

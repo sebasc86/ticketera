@@ -83,7 +83,7 @@
 @push('scripts')
 
 	<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
-
+	
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('dist/summernote-bs4.css') }}">
 	<script src="{{ asset('dist/summernote-bs4.min.js') }}"></script>

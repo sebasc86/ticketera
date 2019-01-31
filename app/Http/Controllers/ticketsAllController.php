@@ -9,7 +9,7 @@ use App\Ticket;
 use App\User;
 use App\Sector;
 
-class ticketAll extends Controller
+class ticketsAllController extends Controller
 {
     public function __construct()
     {
@@ -52,20 +52,25 @@ class ticketAll extends Controller
 
         $ticketsAll = Ticket::all();
         
+        
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsAll->isEmpty() ) {
 
             foreach ($ticketsAll as $key => $value) {
             	//para buscar el nombre Creador
-            		$user = $value->user->name;
+            	$user = $value->user->name;
                 $value->user_id = $user;
                 $value->sector = $value->user->sector->name;
 
                 //para buscar el nombre a quien enviar
                 $userQueue = $value->queue;
                 $userQueue = User::find($userQueue);
-                $userQueueName = $userQueue->name;
-                $value->queue = $userQueueName; 
+
+                if($userQueue != null) {
+                    $userQueueName = $userQueue->name;
+                    $value->queue = $userQueueName; 
+                }
+               
 
                 if($value->status === 0){
                     $value->status = 'Cerrado';

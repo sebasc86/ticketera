@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    console.log('init.app')
+    console.log('init.indexjs')
 
 
     var detailsNode = $('#comments')
@@ -233,7 +233,6 @@ $( document ).ready(function() {
 
     }
 
-    console.log()
     
     if ($('#first').children().length < 2) {
         $('#first').css({
@@ -242,6 +241,28 @@ $( document ).ready(function() {
             'align-items': 'center',
          })
     }
+
+    if ($('#second').children().length <= 2) {
+        $('#second').css({
+            'justify-content': 'space-around',
+        })
+    }
+    //drop menu navbar
+    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+        if (!$(this).next().hasClass('show')) {
+          $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+        var $subMenu = $(this).next(".dropdown-menu");
+        $subMenu.toggleClass('show');
+      
+      
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+          $('.dropdown-submenu .show').removeClass("show");
+        });
+      
+      
+        return false;
+      });
 
 		// para hacer!
     // function changeNumber() {
@@ -259,6 +280,8 @@ $( document ).ready(function() {
     //         }
     //     });
     // }
+
+    
 
 });
 
