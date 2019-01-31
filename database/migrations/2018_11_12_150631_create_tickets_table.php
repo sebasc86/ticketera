@@ -17,7 +17,7 @@ class CreateTicketsTable extends Migration
             $table->increments('id');
             $table->integer('status')->nullable();
             $table->string('queue')->nullable();
-            $table->string('sector')->nullable();
+            $table->integer('sector')->nullable();
             $table->string('title')->nullable();
             $table->bigInteger('number');
             $table->integer('client')->nullable();
