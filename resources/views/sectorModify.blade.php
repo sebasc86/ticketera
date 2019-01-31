@@ -93,7 +93,7 @@
 												<label class="col-md-4 col-form-label text-md-right" for="file"> Imagen</label>
 												
 												<div>
-														<img class='imgIndex' src="{{ asset("img/" . $user->name . ".png") }}">
+														<img class='imgIndex ml-3' src="{{ asset("img/" . $user->name . ".png") }}">
 												</div>
 										</div>	
 

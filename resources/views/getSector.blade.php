@@ -4,6 +4,17 @@
 
   <div class="container-fluid ticketOpen" style="padding: 20px; color: red">
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
+    
+    @if($user->sector->name == 'Telecentro')
+        <img src="{{asset("img/". $user->sector->name .".png") }}" alt="{{ $user->sector->name }}" class="img-{{ $user->sector->name }}" style="
+        padding: 5px;">
+    
+    @else 
+
+    <img src="{{asset("img/". $user->sector->name .".png") }}" alt="{{ $user->sector->name }}" class="img-{{ $user->sector->name }}">
+    
+    @endif
+    
   </div>
     
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
