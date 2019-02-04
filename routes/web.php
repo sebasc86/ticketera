@@ -43,9 +43,11 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
+Route::get('/get/id/users', 'ticketAllForSectorsController@getUsers');
 
 Route::get('/ticketsAll', 'ticketsAllController@index')->name('/get');
 Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllController@getTickets']);
+
 
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
@@ -65,6 +67,9 @@ Route::post('/sectors/id/update', 'sectorModifyController@update')->name('/secto
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/sector/export', 'TicketsExportController@export');
 
 Route::delete('/ticket/delete', 'deleteTicketController@index');
 Route::delete('/users/delete', 'deleteUsersController@delete');

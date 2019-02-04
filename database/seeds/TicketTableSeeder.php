@@ -13,7 +13,7 @@ class TicketTableSeeder extends Seeder
     public function run()
     {
 
-        for ($i=0; $i<100; $i++){
+        for ($i=0; $i<10000; $i++){
         DB::table('tickets')->insert([
             'status' => rand(0, 1),
             'queue' => 3,

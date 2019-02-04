@@ -85,4 +85,11 @@ class Ticket extends Model
 
 
 
+    public function ticket()
+    {
+        return $this->belongsTo('App\Ticket');
+    }
+
+
+
 }

@@ -22,6 +22,10 @@ $( document ).ready(function() {
         }
     })
 
+    $('#toExcel').on('click', function () {
+        window.location.href = '/sector/export'
+    })
+
 
     $('#close').click(function(e){
         e.preventDefault();
