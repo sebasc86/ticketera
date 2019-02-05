@@ -159,8 +159,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\DataTables\DatatablesServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         // Askedio\SoftCascade\Providers\GenericServiceProvider::class,
         // Askedio\SoftCascade\Providers\LumenServiceProvider::class,
 
@@ -225,8 +227,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         
 
     ],

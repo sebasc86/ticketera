@@ -19,11 +19,10 @@
           <th scope="col">Para</th>
           <th scope="col">Nro ticket</th>
           <th scope="col">Cliente</th>
-          <th scope="col">Titulo</th>
-          <th scope="col">Detalles</th>
           <th scope="col">Creador</th>
-          <th scope="col">Cerrado Por:</th>
+          {{-- <th scope="col">Sector</th> --}}
           <th scope="col">Creado</th>
+          <th scope="col">Cerrado Por:</th>
 					<th scope="col">Estado</th>
 					<th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
@@ -35,16 +34,19 @@
 						<th>Para</th>
 						<th>Ticket</th>
 						<th>Cliente</th>
-						<th>Titulo</th>
-						<th>Usuario Creador</th>
-						<th>Sector</th>
+            <th>Usuario Creador</th>
+            <th>Cerrado Por:</th>
+						{{-- <th>Sector</th> --}}
 						<th>Creado<th>
 						<th>Estado</th>
-						<th>Ver ticket</th>
+						
 						         
 				</tr>
       </tfoot>
       </table>
+
+      <button id="toExcel" type="button" class="btn btn-success">
+        <i class="fa fa-file-excel-o" style="font-size:24px"></i> Excel</button>
   </div>
 @endsection
 
@@ -59,21 +61,15 @@
 
  
 $(document).ready(function() {
-    
+
+
       
   var tickets = $('#tickets-table').DataTable({
 
-				dom: 'Bfrtip',
-				lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10', '25 ', '50 ', 'Mostrar todos' ]
-        ],
-				buttons: {
-					buttons: [
-							'pageLength',
-							{ extend: 'excel', text: 'Save as Excel', title: 'Data' }
-					]
-    		},
+        responsive: false,
+        processing: true,
+        serverSide: false,
+					
 					
         
         initComplete: function () {
@@ -99,8 +95,8 @@ $(document).ready(function() {
 				} );
 				
 
-				var ticket = $('.px200')[2].lastChild
-				ticket.setAttribute('id', 'ticket')
+				// var ticket = $('.px200')[2].lastChild
+				// ticket.setAttribute('id', 'ticket')
 			
 				if($('#users_create').length === 0) {
 					$('.delete').parent().remove()
@@ -139,10 +135,8 @@ $(document).ready(function() {
 						}});
 						})
 				},	
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        "order": [[ 9, 'asc' ], [ 8, 'desc' ]],
+
+        "order": [[ 4, 'asc' ], [ 7, 'desc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -159,47 +153,79 @@ $(document).ready(function() {
                 "previous":   "Anterior"
             },
         },
-        ajax: '{!! route('dataTickets.get') !!}',
+        "ajax": {
+                "url": "{!! route('dataTickets.get') !!}",
+                "type": "get",
+                dataFilter: function(data){
+                var json =  data ;
+                json.recordsTotal = json.total;
+                json.recordsFiltered = json.total;
+                json.data = json.list;
+                
+                jsonParse = JSON.parse(json)
+                var users = jsonParse.users
+
+                for (let index = 0; index < jsonParse.data.length; index++) {
+                
+                for (let x = 0; x < users.length; x++) {
+                  if(users[x].id == jsonParse.data[index].queue){
+                    jsonParse.data[index].queue = users[x].name
+                  }
+                  if(users[x].id == jsonParse.data[index].user_id){
+                    jsonParse.data[index].user_id = users[x].name
+                  }
+
+                  if(users[x].id == jsonParse.data[index].close_user_id){
+                    jsonParse.data[index].close_user_id = users[x].name
+                  }
+
+                  if(jsonParse.data[index].status == 1){
+                    jsonParse.data[index].status = 'Abierto'
+                  } else if(jsonParse.data[index].status == 0) {
+                    jsonParse.data[index].status = 'Cerrado'
+                  }
+                }
+                
+              
+              
+            }
+
+                return JSON.stringify(jsonParse)  // return JSON string
+              },
+          },
         columns: [
 						
             { data: 'queue', name: 'queue' },
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
-						{ data: 'title', name: 'title', visible: false,
-						render: function(data){
-                return "<p style='word-wrap: break-word; '>"+ data + "</>"
-              }
-						
-						},
             { data: 'user_id', className:'user_id', name: 'user_id',  },
-            { data: 'sector', name: 'sector' },
-            { data: 'close_user_id', name: 'close_user_id' },
+            // { data: 'sector', name: 'sector', visible: false },
             { data: 'created_at', name: 'created_at' },
+            { data: 'close_user_id', name: 'close_user_id' },
+            
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'status',className: 'status', name: 'status' },
 						{ data: 'number',
 							className: 'px200',
-							"orderable": false,
-              render: function(data){
+              "orderable": false,
+              render: function(data){             
                 return "<a href={{asset('view')}}"+ "/"+ data + " class='view btn btn-dark'>Ver</a>"
               }
 						},
 
 						{ data: 'number',
 							className: 'px200',
-							"orderable": true,
+							"orderable": false,
               render: function(data){
                 return '<button class="delete view btn btn-danger btn-del" style="margin:auto">X</a>'
               }
             },
 				],
 		});
-		
+    
 
- 
-
-		
 });
+
 
 
  
