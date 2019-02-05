@@ -136,7 +136,7 @@ $(document).ready(function() {
 						})
 				},	
 
-        "order": [[ 4, 'asc' ], [ 7, 'asc' ]],
+        "order": [[ 7, 'asc' ], [ 4, 'desc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
