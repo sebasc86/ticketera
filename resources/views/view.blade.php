@@ -197,16 +197,16 @@
     
       <div class="col-9">
         
-        <form class='bg-light col-12 border rounded mt-3 mb-5' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
+        <form class='bg-light col-12 border rounded mt-3 mb-5 info' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
 
          <div class="form-group">
           <label for="exampleFormControlTextarea1" class='mt-2'>Comentario</label>
           <textarea class="form-control" name='comments' id="comments" rows="3"></textarea>
           </div>
-          <div class="mt-4">
+          <div class="mtb-4">
             <input class="btn btn-primary" id='buttonSend' type="submit" value="Enviar">
             <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
-            <input type="file" class="form-control form-control mt-2" name="file[]" id="file" multiple="">
+            <input type="file" class="form-control form-control mt-2 mb-2" name="file[]" id="file" multiple="">
           </div>
           
          </div>    
@@ -219,7 +219,7 @@
               <div class="mt-5 pr-3 align-self-end">
                   {{-- <input class="btn btn-primary" id='close' type="submit" value="Cerrar Ticket"> --}}
                     <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" id="closeButton" data-toggle="modal" data-target="#modalComment">
+              <button type="button" class="btn btn-primary info" id="closeButton" data-toggle="modal" data-target="#modalComment">
                 Cerrar
               </button>
               </div>
