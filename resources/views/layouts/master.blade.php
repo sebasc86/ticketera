@@ -11,13 +11,12 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
 				
-				<!-- include libraries(jQuery, bootstrap) -->
-				{{-- <script src="{{ asset('js/jquery.js') }}"></script>  --}}
+				
+				
+				<script src="{{ asset('js/app.js') }}"></script>
 				
 
-				<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-				<script src="{{ asset('js/app.js') }}"></script>
-			
+				<link href="{{ asset('css/app.css') }}" rel="stylesheet">		
 
 				{{-- agregado el datatables --}}
 				<link rel="stylesheet" type="text/css" href="{{asset( 'css/index.css' )}}">
@@ -25,7 +24,8 @@
 
 				{{-- font-awesome--}}
 				<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-				
+				<!-- include libraries(jQuery, bootstrap) -->
+				<script src="{{ asset('js/jquery.js') }}"></script> 
 
   </head>
 <body>
