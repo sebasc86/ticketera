@@ -20,7 +20,7 @@ class TicketsExportController extends Controller
     public function export()
     {
         // return Excel::download(new TicketsExport(), 'tickets.xlsx');
-        $date = date('Ymd-hms');
+        $date = date('Ymd-h-i-s');
 
 
         return (new TicketsExport())->download($date . '_tickets_sector.xlsx');

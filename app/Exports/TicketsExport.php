@@ -34,22 +34,27 @@ class TicketsExport implements FromQuery, WithMapping, WithHeadings
     }
 
 
-    public function map($row): array
+    public function map($ticket): array
     {
 
         //para buscar el usuario que cerro el ticket
-        $userClose = $row->close_user_id;
-        $userClose = User::find($userClose);
-        $userCloseName = $userClose->name;
+        if(isset($ticket->close_user_id)){
+            $userClose = $ticket->close_user_id;
+            $userClose = User::find($userClose);
+        		$userCloseName = $userClose->name;
+        } else {
+					$userCloseName = null;
+				}
+        
 
         return [
-            $row->status = ($row->status === 0) ? "Cerrado" : "Abierto",
-            $row->sector = $row->user->sector->name,
-            $row->number,
-            $row->client,
-            $row->user_id = $row->user->name,
-            $row->close_user_id = $userCloseName,
-            $row->created_at,
+            $ticket->status = ($ticket->status === 0) ? "Cerrado" : "Abierto",
+            $ticket->sector = $ticket->user->sector->name,
+            $ticket->number,
+            $ticket->client,
+            $ticket->user_id = $ticket->user->name,
+            $ticket->close_user_id = $userCloseName,
+            $ticket->created_at,
         ];
     }
 
