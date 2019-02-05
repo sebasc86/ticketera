@@ -46,7 +46,7 @@
       </table>
 
       <button id="toExcel" type="button" class="btn btn-success">
-        <i class="fa fa-file-excel-o" style="font-size:24px"></i> Excel</button>
+        <i class="fa fa-file-excel-o" style="font-size:24px"></i> Exportar a Excel</button>
   </div>
 @endsection
 
@@ -136,7 +136,7 @@ $(document).ready(function() {
 						})
 				},	
 
-        "order": [[ 4, 'asc' ], [ 7, 'desc' ]],
+        "order": [[ 4, 'asc' ], [ 7, 'asc' ]],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
