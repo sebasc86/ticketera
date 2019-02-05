@@ -137,5 +137,3 @@ $(document).ready(function() {
 </script>
 @endpush
 
-</body>
-</html>  

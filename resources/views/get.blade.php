@@ -6,6 +6,7 @@
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
     
+
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
@@ -133,5 +134,3 @@ $(document).ready(function() {
 </script>
 @endpush
 
-</body>
-</html>  

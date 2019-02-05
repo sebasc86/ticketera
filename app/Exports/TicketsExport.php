@@ -13,9 +13,12 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 
-class TicketsExport implements FromQuery, WithMapping, WithHeadings
+
+class TicketsExport implements FromQuery, WithMapping, WithHeadings, WithBatchInserts, WithChunkReading
 {
     use Exportable;
     /**
@@ -68,6 +71,15 @@ class TicketsExport implements FromQuery, WithMapping, WithHeadings
             'Ticket Creado', 
         ];
 
+		}
+		
+		public function batchSize(): int
+    {
+        return 750;
+    }
+		public function chunkSize(): int
+    {
+        return 750;
     }
 
 
