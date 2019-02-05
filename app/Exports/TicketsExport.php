@@ -49,7 +49,6 @@ class TicketsExport implements FromQuery, WithMapping, WithHeadings
 
         return [
             $ticket->status = ($ticket->status === 0) ? "Cerrado" : "Abierto",
-            $ticket->sector = $ticket->user->sector->name,
             $ticket->number,
             $ticket->client,
             $ticket->user_id = $ticket->user->name,
@@ -62,7 +61,6 @@ class TicketsExport implements FromQuery, WithMapping, WithHeadings
     {
         return [
             'Estado',
-            'Sector',
             'Numero',
             'Cliente',
             'Usuario Creador', 
