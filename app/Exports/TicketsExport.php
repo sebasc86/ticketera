@@ -15,14 +15,15 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 
 
-class TicketsExport implements FromQuery, WithMapping, WithHeadings, WithBatchInserts, WithChunkReading
+class TicketsExport implements FromQuery, WithMapping, WithHeadings, WithBatchInserts, WithChunkReading, ShouldQueue
 {
     use Exportable;
     /**
-    * @return Collection
+    * @return FromQuery
     */
 
 
@@ -32,7 +33,7 @@ class TicketsExport implements FromQuery, WithMapping, WithHeadings, WithBatchIn
 
         $ticketsAll = Ticket::query()->where('queue', $sector_id);
 
-            return $ticketsAll;
+        return $ticketsAll;
         
     }
 
