@@ -31,8 +31,13 @@ class viewTicketController extends Controller
 
 			$userQueue = Ticket::where('queue', $userId)->first();
 			$ticketN = Ticket::where('number', $ticket)->first();
+			
+			if($ticketN == null) {
+			 	return abort(403, "Este ticket esta con problemas avise al sector");
+			}
+
 			$sector = Sector::find($ticketN->sector);
-		
+	
 		
 		if($ticketN) {
 			
