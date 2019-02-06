@@ -61,8 +61,10 @@ class ticketsAllController extends Controller
 				
                 
 								$ticketsAll = DB::table('tickets')
+										->whereNull('tickets.deleted_at')
                     ->join('users', 'users.id', '=', 'tickets.user_id')
 										->leftjoin('sectors', 'sectors.user_id', '=', 'users.id')
+										
                     ->select(['tickets.queue',
 															'tickets.number',
 															'tickets.client',
@@ -70,6 +72,7 @@ class ticketsAllController extends Controller
 															'tickets.close_user_id',
 															'tickets.status',
 															'users.name as user_name', 'sectors.name as sector_name'])
+										
 										->get();
 
 
