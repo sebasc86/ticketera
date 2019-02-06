@@ -33,7 +33,7 @@ class viewTicketController extends Controller
 			$ticketN = Ticket::where('number', $ticket)->first();
 			
 			if($ticketN == null) {
-			 	return abort(403, "Este ticket esta con problemas avise al sector");
+			 	return abort(403, "Ticket eliminado con anterioridad");
 			}
 
 			$sector = Sector::find($ticketN->sector);
