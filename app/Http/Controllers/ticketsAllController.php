@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use App\Ticket;
 use App\User;
@@ -50,42 +51,33 @@ class ticketsAllController extends Controller
     public function getTickets(Request $request)
     {       
 
-        $ticketsAll = Ticket::all();
-        
-        
-        //lo paso a array para saber si esta vacio o no
-        if( !$ticketsAll->isEmpty() ) {
+				// $ticketsAll = Ticket::all();
+				//para buscar el nombre a quien enviar
+				$users = User::All(['id', 'name', 'email']);		
+						
+				foreach ($users as $key => $value) {
+					$usersArray[$value->id] = $value;
+				}
+				
+                
+								$ticketsAll = DB::table('tickets')
+                    ->join('users', 'users.id', '=', 'tickets.user_id')
+										->leftjoin('sectors', 'sectors.user_id', '=', 'users.id')
+                    ->select(['tickets.queue',
+															'tickets.number',
+															'tickets.client',
+															'tickets.created_at',
+															'tickets.close_user_id',
+															'tickets.status',
+															'users.name as user_name', 'sectors.name as sector_name'])
+										->get();
 
-            foreach ($ticketsAll as $key => $value) {
-            	//para buscar el nombre Creador
-            	$user = $value->user->name;
-                $value->user_id = $user;
-                $value->sector = $value->user->sector->name;
 
-                //para buscar el nombre a quien enviar
-                $userQueue = $value->queue;
-                $userQueue = User::find($userQueue);
-
-                if($userQueue != null) {
-                    $userQueueName = $userQueue->name;
-                    $value->queue = $userQueueName; 
-                }
-               
-
-                if($value->status === 0){
-                    $value->status = 'Cerrado';
-                } else {
-                    $value->status = 'Abierto';
-                };
-            }
-
-            return Datatables::of($ticketsAll)->make(true);
-
-        } else {
-
-            return Datatables::of($ticketsAll)->make(false);
-            
-        }    
+						return Datatables::of($ticketsAll)
+						->with([
+										'users' => $usersArray,
+									])
+									->toJson();
 
     }
 }

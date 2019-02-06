@@ -18,31 +18,15 @@
           <th scope="col">Para</th>
           <th scope="col">Nro ticket</th>
           <th scope="col">Cliente</th>
-          <th scope="col">Titulo</th>
-          <th scope="col">Detalles</th>
-          <th scope="col">Usuario Creador</th>
+          <th scope="col">Creador</th>
           <th scope="col">Sector</th>
           <th scope="col">Creado</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Estado</th>
+          <th scope="col">Cerrado Por:</th>
+					<th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
-					<th id='delete' scope="col">Eliminar</th>       
+					<th id='delete' scope="col">Eliminar</th>
         </tr>
       </thead>
-      <tfoot>
-				<tr>
-						<th>Para</th>
-						<th>Ticket</th>
-						<th>Cliente</th>
-						<th>Titulo</th>
-						<th>Usuario Creador</th>
-						<th>Sector</th>
-						<th>Creado<th>
-						<th>Estado</th>
-						<th>Ver ticket</th>
-						<th>#</th>               
-				</tr>
-      </tfoot>
       </table>
   </div>
 @endsection
@@ -58,35 +42,16 @@
 
  
 $(document).ready(function() {
-    
+		
+	
+
       
   var tickets = $('#tickets-table').DataTable({
+
+				responsive: false,
+        processing: true,
+        serverSide: false,
         initComplete: function () {
-        this.api().columns().every( function () {
-            var column = this;
-            var select = $('<select><option value=""></option></select>')
-                .appendTo( $(column.footer()).empty() )
-                .on( 'change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-
-                    column
-                        .search( val ? '^'+val+'$' : '', true, false )
-                        .draw();
-                } );
-           
-            column.data().unique().sort().each(function (d, j) {
-
-                select.append( '<option value="'+d+'">'+d+'</option>' )
-						} );
-						
-				} );
-
-				var ticket = $('.px200')[2].lastChild
-				ticket.setAttribute('id', 'ticket')
-				$('#ticket').css('display', 'none')
-
 				if($('#users_create').length === 0) {
 					$('.delete').parent().remove()
 					$('#delete').remove()
@@ -95,7 +60,6 @@ $(document).ready(function() {
 				
 				$('.delete').on('click', function(e){
 					var buttonNode = $(this)
-					
 						var ticketNumber = $(this).parent().parent().children('td').eq(1).html()
 
 						$.ajaxSetup({
@@ -123,15 +87,8 @@ $(document).ready(function() {
 										
 						}});
 						})
-
-				
-				
-
         },
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        "order": [[ 9, 'asc' ], [ 8, 'desc' ]],
+        "order": [[ 7, 'asc' ], [5, 'desc']],
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -148,28 +105,53 @@ $(document).ready(function() {
                 "previous":   "Anterior"
             },
         },
-        ajax: '{!! route('ticketsAll.get') !!}',
+				"ajax": {
+                "url": "{!! route('ticketsAll.get') !!}",
+                "type": "get",
+                dataFilter: function(data){
+                var json =  data ;
+                json.recordsTotal = json.total;
+                json.recordsFiltered = json.total;
+                json.data = json.list;
+                
+                jsonParse = JSON.parse(json)            
+               
+                return JSON.stringify(jsonParse)  // return JSON string
+              },
+        },
         columns: [
 						
-            { data: 'queue', name: 'queue' },
+            { data: 'queue',
+              render: function(data){
+                if(jsonParse.users[data]){
+                  return(jsonParse.users[data].name)
+                }
+              }
+						},
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
-						{ data: 'title', name: 'title', visible: false,
-						render: function(data){
-                return "<p style='word-wrap: break-word; '>"+ data + "</>"
-              }
-						
-						},
-            { data: 'details', name: 'details', visible: false },
-            { data: 'user_id', className:'user_id', name: 'user_id',  },
-            { data: 'sector', name: 'sector' },
+            { data: 'user_name', className:'user_id', name: 'user_name'  },
+            { data: 'sector_name', name: 'sector_name' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'updated_at', name: 'updated_at', visible: false  },
-            { data: 'status',className: 'status', name: 'status' },
+
+            { data: 'close_user_id',
+              render: function(data){
+                if(jsonParse.users[data]){
+                  return(jsonParse.users[data].name)
+                } else {
+                  return data
+                }
+              }
+						},
+            { data: 'status',
+              render: function(data){
+                return data == '1' ? 'Abierto' : 'Cerrado' 
+              }
+						},
 						{ data: 'number',
 							className: 'px200',
-							"orderable": false,
-              render: function(data){
+              "orderable": false,
+              render: function(data){             
                 return "<a href={{asset('view')}}"+ "/"+ data + " class='view btn btn-dark'>Ver</a>"
               }
 						},
@@ -181,7 +163,7 @@ $(document).ready(function() {
                 return '<button class="delete view btn btn-danger btn-del" style="margin:auto">X</a>'
               }
             },
-        ],
+				],
     });
 
 

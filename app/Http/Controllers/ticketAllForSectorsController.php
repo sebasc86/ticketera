@@ -66,9 +66,23 @@ class ticketAllForSectorsController extends Controller
     {       
         $sector_id = $request->session()->get('sector_id');
 				$users = User::All(['id', 'name', 'email']);
+				foreach ($users as $key => $value) {
+					$usersArray[$value->id] = $value;
+				}
         
         //busco tickets al usuario 'queue' que coincide con mi sector
-				$ticketsAll = Ticket::select('queue','number', 'client', 'user_id', 'sector', 'close_user_id', 'created_at', 'updated_at', 'status')->where('queue', $sector_id)->get();
+				// $ticketsAll = Ticket::select('queue','number', 'client', 'user_id', 'sector', 'close_user_id', 'created_at', 'updated_at', 'status')->where('queue', $sector_id)->get();
+
+				$ticketsAll = DB::table('tickets')
+				->join('users', 'users.id', '=', 'tickets.queue')
+				->select(['tickets.queue',
+									'tickets.number',
+									'tickets.client',
+									'tickets.created_at',
+									'tickets.close_user_id',
+									'tickets.status',
+									'users.name as user_name'])
+				->get();
 				
 				
 				// $tickets = DB::table('tickets')
@@ -110,7 +124,7 @@ class ticketAllForSectorsController extends Controller
 						
 						return DataTables::of($ticketsAll)
                 ->with([
-                    'users' => $users,
+                    'users' => $usersArray,
                 ])
                 ->toJson();
 

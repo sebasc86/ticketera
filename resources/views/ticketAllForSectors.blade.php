@@ -24,7 +24,6 @@
           <th scope="col">Creado</th>
           <th scope="col">Cerrado Por:</th>
 					<th scope="col">Estado</th>
-					<th scope="col">Estado</th>
 					<th id='href' scope="col">Ticket</th>
 					<th id='delete' scope="col">Eliminar</th>       
         </tr>
@@ -136,23 +135,7 @@ $(document).ready(function() {
 						})
 				},	
 
-        "order": [[ 7, 'asc' ], [ 4, 'desc' ]],
-        "language": {
-            "emptyTable":     "Sin Registros",
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "zeroRecords": "Nothing found - sorry",
-            "info": "Mostrando pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "informacion no disponible",
-            "infoFiltered": "(filtrado de _MAX_ registros)",
-            "search":         "Buscar:",
-            "processing":     "Cargando...",
-            "paginate": {
-                "first":      "Primero",
-                "last":       "Ultimo",
-                "next":       "Proxima",
-                "previous":   "Anterior"
-            },
-        },
+        
         "ajax": {
                 "url": "{!! route('dataTickets.get') !!}",
                 "type": "get",
@@ -165,46 +148,66 @@ $(document).ready(function() {
                 jsonParse = JSON.parse(json)
                 var users = jsonParse.users
 
-                for (let index = 0; index < jsonParse.data.length; index++) {
+            //     for (let index = 0; index < jsonParse.data.length; index++) {
                 
-                for (let x = 0; x < users.length; x++) {
-                  if(users[x].id == jsonParse.data[index].queue){
-                    jsonParse.data[index].queue = users[x].name
-                  }
-                  if(users[x].id == jsonParse.data[index].user_id){
-                    jsonParse.data[index].user_id = users[x].name
-                  }
+            //     for (let x = 0; x < users.length; x++) {
+            //       if(users[x].id == jsonParse.data[index].queue){
+            //         jsonParse.data[index].queue = users[x].name
+            //       }
+            //       if(users[x].id == jsonParse.data[index].user_id){
+            //         jsonParse.data[index].user_id = users[x].name
+            //       }
 
-                  if(users[x].id == jsonParse.data[index].close_user_id){
-                    jsonParse.data[index].close_user_id = users[x].name
-                  }
+            //       if(users[x].id == jsonParse.data[index].close_user_id){
+            //         jsonParse.data[index].close_user_id = users[x].name
+            //       }
 
-                  if(jsonParse.data[index].status == 1){
-                    jsonParse.data[index].status = 'Abierto'
-                  } else if(jsonParse.data[index].status == 0) {
-                    jsonParse.data[index].status = 'Cerrado'
-                  }
-                }
+            //       if(jsonParse.data[index].status == 1){
+            //         jsonParse.data[index].status = 'Abierto'
+            //       } else if(jsonParse.data[index].status == 0) {
+            //         jsonParse.data[index].status = 'Cerrado'
+            //       }
+            //     }
                 
               
               
-            }
+            // }
 
                 return JSON.stringify(jsonParse)  // return JSON string
               },
           },
         columns: [
 						
-            { data: 'queue', name: 'queue' },
+            { data: 'queue',
+              render: function(data){
+                if(jsonParse.users[data]){
+                  return(jsonParse.users[data].name)
+                }
+              }
+						},
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
-            { data: 'user_id', className:'user_id', name: 'user_id',  },
-            // { data: 'sector', name: 'sector', visible: false },
+            { data: 'user_name', name: 'user_name',  },
             { data: 'created_at', name: 'created_at' },
-            { data: 'close_user_id', name: 'close_user_id' },
-            
-            { data: 'updated_at', name: 'updated_at', visible: false  },
-            { data: 'status',className: 'status', name: 'status' },
+            { data: 'close_user_id',
+              render: function(data){
+                if(jsonParse.users[data]){
+                  return(jsonParse.users[data].name)
+                } else {
+                  return data
+                }
+              }
+						},            
+            { data: 'status',
+              render: function(data){
+                console.log(data)
+                if(data == 1){
+                  return 'Abierto'
+                } else {
+                  return 'Cerrado'
+                }
+              }
+						},
 						{ data: 'number',
 							className: 'px200',
               "orderable": false,
@@ -221,6 +224,23 @@ $(document).ready(function() {
               }
             },
 				],
+        "order": [[ 6, 'asc' ], [ 4, 'desc' ]],
+        "language": {
+            "emptyTable":     "Sin Registros",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "informacion no disponible",
+            "infoFiltered": "(filtrado de _MAX_ registros)",
+            "search":         "Buscar:",
+            "processing":     "Cargando...",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Proxima",
+                "previous":   "Anterior"
+            },
+        },
 		});
     
 
