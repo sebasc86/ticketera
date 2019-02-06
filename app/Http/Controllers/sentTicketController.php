@@ -53,7 +53,11 @@ class sentTicketController extends Controller
             // return response()->json(['success'=>$userGet]);
             if($userGet == null) {
                 $ticket = Ticket::find($value->id)->delete();
-            }
+            } 
+        
+            $value->queue = $userGet->name;
+            $value->sector =  $userGet->sector->name;
+
 
             if($value->status === 0){
                 $value->status = 'Cerrado';
