@@ -28,20 +28,20 @@
 					<th id='delete' scope="col">Eliminar</th>       
         </tr>
       </thead>
-      <tfoot>
+      {{-- <tfoot>
 				<tr>
 						<th>Para</th>
 						<th>Ticket</th>
 						<th>Cliente</th>
             <th>Usuario Creador</th>
             <th>Cerrado Por:</th>
-						{{-- <th>Sector</th> --}}
+						<th>Sector</th> 
 						<th>Creado<th>
 						<th>Estado</th>
 						
 						         
 				</tr>
-      </tfoot>
+      </tfoot> --}}
       </table>
 
       <button id="toExcel" type="button" class="btn btn-success">
@@ -72,26 +72,26 @@ $(document).ready(function() {
 					
         
         initComplete: function () {
-        this.api().columns().every( function () {
-            var column = this;
-            var select = $('<select><option value=""></option></select>')
-                .appendTo( $(column.footer()).empty() )
-                .on( 'change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
+        // this.api().columns().every( function () {
+        //     var column = this;
+        //     var select = $('<select><option value=""></option></select>')
+        //         .appendTo( $(column.footer()).empty() )
+        //         .on( 'change', function () {
+        //             var val = $.fn.dataTable.util.escapeRegex(
+        //                 $(this).val()
+        //             );
 
-                    column
-                        .search( val ? '^'+val+'$' : '', true, false )
-                        .draw();
-                } );
+        //             column
+        //                 .search( val ? '^'+val+'$' : '', true, false )
+        //                 .draw();
+        //         } );
            
-            column.data().unique().sort().each(function (d, j) {
+        //     column.data().unique().sort().each(function (d, j) {
 
-                select.append( '<option value="'+d+'">'+d+'</option>' )
-						} );
+        //         select.append( '<option value="'+d+'">'+d+'</option>' )
+				// 		} );
 						
-				} );
+				// } );
 				
 
 				// var ticket = $('.px200')[2].lastChild

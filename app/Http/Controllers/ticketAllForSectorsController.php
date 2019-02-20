@@ -73,8 +73,9 @@ class ticketAllForSectorsController extends Controller
         //busco tickets al usuario 'queue' que coincide con mi sector
 				// $ticketsAll = Ticket::select('queue','number', 'client', 'user_id', 'sector', 'close_user_id', 'created_at', 'updated_at', 'status')->where('queue', $sector_id)->get();
 
-                $ticketsAll = DB::table('tickets')
-                ->whereNull('tickets.deleted_at')
+				$ticketsAll = DB::table('tickets')
+				->where('queue', $sector_id)
+				->whereNull('tickets.deleted_at')
 				->join('users', 'users.id', '=', 'tickets.queue')
 				->select(['tickets.queue',
 									'tickets.number',
