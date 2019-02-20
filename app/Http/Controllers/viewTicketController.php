@@ -29,6 +29,8 @@ class viewTicketController extends Controller
     	$user = Auth::user();
 			$userId = $user->id;
 
+
+
 			$userQueue = Ticket::where('queue', $userId)->first();
 			$ticketN = Ticket::where('number', $ticket)->first();
 			
@@ -41,10 +43,23 @@ class viewTicketController extends Controller
 		
 		if($ticketN) {
 			
-
+			
+			
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
-			$ticketName = $ticketN->user->name;
+
+			if($ticketN->user){
+				$ticketName = $ticketN->user->name;
+			
+			}else {
+				//por si el usuario creador esta borrado muestre el ticket
+				$userDelete = User::withTrashed()->find($ticketN->user_id);
+				$ticketName = $userDelete->name;
+				$ticketN->user = $userDelete;
+			}
+			
+			
+			
 			//sector - usuario y ticket que esperar recibir el ticket
 			$userQueueName = User::find($ticketN->queue);
 
@@ -204,8 +219,15 @@ class viewTicketController extends Controller
 		$user = User::find($ticket->user_id);
 		$userAuth = Auth::user();
 
-		dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
-		->onConnection('database');
+
+		if($user != null) {
+			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
+			->onConnection('database');
+		} else {
+			$user = User::withTrashed()->find($ticket->user_id);
+			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
+			->onConnection('database');
+		}
 		
 	}
 

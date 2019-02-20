@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketCloseMail;
+use App\Sector;
 use App\User;
 use App\Ticket;
 
@@ -40,6 +41,14 @@ class SendEmailJobClose implements ShouldQueue
      */
     public function handle()
     {
+        if($this->user->deleted_at != null) {
+            $sector= Sector::find($this->user->sector_id);
+
+            Mail::to($sector->email_boss)
+            ->cc($this->userAuth->email)
+            ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
+        }
+
         Mail::to($this->user->email)
         ->cc($this->userAuth->email)
         ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
