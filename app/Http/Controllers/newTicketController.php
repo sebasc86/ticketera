@@ -72,7 +72,18 @@ class newTicketController extends Controller
 			$sector = $user->sector_id;
 			$userId = $user->id;	
 
+			$ticket = new Ticket;
 			
+			
+			$ticket->status = $ticket->setOpenStatus();
+			$ticket->sector = $ticket->setSectorId($sector);
+			$ticket->queue = request()->queue;
+			$ticket->client = request()->clientN;
+			$ticket->title = request()->title;
+			$ticket->user_id = $ticket->setUser($userId);
+			$ticket->number = $ticket->setTicketNumber();
+			$ticket->save();          
+
 
 			$this->validate(request(), [    
 			  'queue' => 'required|numeric|exists:users,id',
@@ -109,6 +120,14 @@ class newTicketController extends Controller
 	 				}			
 	           
 					$image_name = uniqid().'.png';
+
+					$ticketSearch = Ticket::where('number', $ticket->number)->first();
+			
+					$file = new File;
+					$file->filename = $image_name;
+					$file->ticket_id =  $ticketSearch->id;
+					$file->save();
+					
 					
 					$path = storage_path('app/public/uploads/files') .'/' . $image_name;
 
@@ -119,26 +138,12 @@ class newTicketController extends Controller
 	      }
 
 		}
-			
-			$ticket = new Ticket;
-			
-			
-			$ticket->status = $ticket->setOpenStatus();
-			$ticket->sector = $ticket->setSectorId($sector);
-			$ticket->queue = request()->queue;
-			$ticket->client = request()->clientN;
-			$ticket->title = request()->title;
-			$ticket->details = $details;
-			$ticket->user_id = $ticket->setUser($userId);
-			$ticket->number = $ticket->setTicketNumber();
-			$ticket->save();          
+		
+		$ticket->details = $details;
+		$ticket->update();
 
-			$ticketSearch = Ticket::where('number', $ticket->number)->first();
 			
-			$file = new File;
-			$file->filename = $image_name;
-			$file->ticket_id =  $ticketSearch->id;
-			$file->save();
+			
 			
 			
 			
