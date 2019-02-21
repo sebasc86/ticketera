@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Sector;
 
-class isTlcMiddleware
+class isSectorAdminMiddleware
 {
     /**
      * Handle an incoming request.
