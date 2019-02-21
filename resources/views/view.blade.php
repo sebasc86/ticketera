@@ -120,7 +120,7 @@
                 {!! $ticket->details !!}
               </div>      
               
-              <div class="col-12 mt-2">
+              <div class="col-12 mt-2 d-flex flex-wrap">
 
               @foreach ($files as $file)
               
