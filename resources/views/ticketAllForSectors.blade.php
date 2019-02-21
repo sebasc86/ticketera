@@ -200,7 +200,6 @@ $(document).ready(function() {
 						},            
             { data: 'status',
               render: function(data){
-                console.log(data)
                 if(data == 1){
                   return 'Abierto'
                 } else {
