@@ -12,8 +12,8 @@ class TicketsExportController extends Controller
 
     public function __construct()
     {
-				$this->middleware('auth');
-				$this->middleware('admin');
+                $this->middleware('auth');
+                $this->middleware('tlc');
     }
 
 
@@ -23,7 +23,7 @@ class TicketsExportController extends Controller
         $date = date('Ymd-h-i-s');
 
 
-				return (new TicketsExport())->download($date . '_tickets_sector.xlsx');
+		return (new TicketsExport())->download($date . '_tickets_sector.xlsx');
 				
         // (new InvoicesExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV);
     }
