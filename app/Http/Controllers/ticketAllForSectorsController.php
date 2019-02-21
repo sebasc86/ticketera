@@ -16,7 +16,8 @@ class ticketAllForSectorsController extends Controller
 
     public function __construct()
     {
-				$this->middleware('auth');
+        $this->middleware('auth');
+        $this->middleware('sectorAdmin');
     }
     
 	public function index(Request $request, $id)
