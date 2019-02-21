@@ -26,7 +26,7 @@ class Ticket extends Model
 
     public function ticketLast()
     {
-        $tickets =  Ticket::all()->last();
+        $tickets =  Ticket::withTrashed()->get()->last();
 		if($tickets) {
 			return $ticketLastId = $tickets->id;
 		} else {
@@ -63,6 +63,7 @@ class Ticket extends Model
     public function setTicketNumber()
     {
         $date = date('Ymd');
+        
         return $this->number = $date . 0 . $this->ticketLast() + 1;
     }
 

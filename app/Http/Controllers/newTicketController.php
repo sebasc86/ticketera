@@ -114,10 +114,6 @@ class newTicketController extends Controller
 
 					$data->save($path, 40);
 
-					$file = new File;
-					$file->filename = $image_name;
-					$file->save();
-
 					$img->removeattribute('src');
 					$img->setattribute('src', asset('view/20181123041/download/' . $image_name));
 	      }
@@ -136,6 +132,13 @@ class newTicketController extends Controller
 			$ticket->user_id = $ticket->setUser($userId);
 			$ticket->number = $ticket->setTicketNumber();
 			$ticket->save();          
+
+			$ticketSearch = Ticket::where('number', $ticket->number)->first();
+			
+			$file = new File;
+			$file->filename = $image_name;
+			$file->ticket_id =  $ticketSearch->id;
+			$file->save();
 			
 			
 			
@@ -143,7 +146,7 @@ class newTicketController extends Controller
 
 					foreach (request()->file as $key => $value) {
 						// Asignamos nombre para la DB	
-						$fileName = uniqid() . "." . $value->extension(); 
+						$fileName = uniqid() . "." . $value->getClientOriginalExtension(); 
 						// Defino la carpeta en la que voy a guardar la imagen
 						$folder =  'uploads/files';
 						// Almacenar la imagen en el servidor con el nuevo nombre
