@@ -19,9 +19,9 @@ class isTlcMiddleware
     {   
         $sectorId = Auth::user()->sector_id;
         $sector =  Sector::find($sectorId);
-        $sectorName = $sector->name;
-        
-        if (Auth::user() &&  $sectorName == 'Telecentro') {
+        $sectorAdmin = $sector->isAdmin;
+
+        if (Auth::user() &&  $sectorAdmin == 1 ) {
             return $next($request);
         }
 
