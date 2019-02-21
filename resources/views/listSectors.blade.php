@@ -13,8 +13,8 @@
           <th scope="col">Email</th>
           <th scope="col">Creado</th>
           <th scope="col">Actualizado</th>
-          <th scope="col">Eliminar</th>
-          <th id='href' scope="col">Button</th>
+          <th scope="col">Ver</th>
+          <th id='href' scope="col">Eliminar</th>
         </tr>
       </thead>
       <tfoot>
