@@ -233,6 +233,7 @@ class viewTicketController extends Controller
 
 	public function download(Request $request, $ticket, $filename) 
 	{	
-	return Storage::download ("public/uploads/files/$filename");
+		return response()->download(storage_path("app/public/uploads/files/{$filename}"));
+	// return Storage::download ("public/uploads/files/$filename");
 	}
 }
