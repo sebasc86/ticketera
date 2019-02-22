@@ -40,13 +40,25 @@ class SendEmailJobClose implements ShouldQueue
      * @return void
      */
     public function handle()
-    {
+    {   
+        $sector= Sector::find($this->user->sector_id);
+        $sectorUserId = $sector->user_id;
+        $userSector = User::find($sectorUserId);
+        
         if($this->user->deleted_at != null) {
-            $sector= Sector::find($this->user->sector_id);
 
             Mail::to($sector->email_boss)
             ->cc($this->userAuth->email)
             ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
+        }
+
+        if($this->ticket->queue == $this->user->sector_id){
+
+            Mail::to($this->user->email)
+            ->cc($userSector->email)
+            ->cc($this->userAuth->email)
+            ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
+
         }
 
         Mail::to($this->user->email)
