@@ -90,7 +90,9 @@
 
       <div class="col-12">
         <div class="card bg-light mb-5 info">
-          <div class="card-header h5 bg-dark text-white">Ticket</div>
+          <div class="card-header h5 bg-dark text-white">Ticket Nro:
+            <span id="ticketNumberField">{{$ticket->number}}</span> 
+          </div>
           <div class="card-body">
             <div class="row align-items-center">
 

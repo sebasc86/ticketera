@@ -31,6 +31,8 @@ $( document ).ready(function() {
         e.preventDefault();
        
         messageTextNodeValue = $('#message-text').val()
+        ticketNumberNodeValue = $('#ticketNumberField').text()
+
         if(messageTextNodeValue.length >= 10) {
 
 					$.ajaxSetup({
@@ -43,11 +45,13 @@ $( document ).ready(function() {
 									method: 'POST',
 									data: {
 											close: 0,
-											message: messageTextNodeValue,
+                                            message: messageTextNodeValue,
+                                            ticketNumber: ticketNumberNodeValue
 									},
 									success: function(result){
-											console.log(result.success);
+											
 											if(result.success == 0) {
+                                                    
 													$('#modalComment').hide('slow')
 													$('body').removeClass()
 													$('.modal-backdrop').hide()
