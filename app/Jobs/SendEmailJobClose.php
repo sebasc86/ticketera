@@ -58,10 +58,12 @@ class SendEmailJobClose implements ShouldQueue
             ->cc([$userSector->email, $this->userAuth->email])
             ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
 
+        }else{
+            Mail::to($this->user->email)
+            ->cc($this->userAuth->email)
+            ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
         }
 
-        Mail::to($this->user->email)
-        ->cc($this->userAuth->email)
-        ->queue(new TicketCloseMail($this->user, $this->ticket, $this->userAuth));
+        
     }
 }
