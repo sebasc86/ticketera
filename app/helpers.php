@@ -100,6 +100,7 @@ function saveEnvEmail($array, $data = array())
     // file_put_contents($envFile, $newContent)
     
     $email =  explode("=", $newLines[28]);
+    //array viene de la variable de arriba es un array con clave 0 = email y 1 = pass
     $email[1] = $array[0];
     $implodeEmail = implode('=',$email);
     $newLines[28] = $implodeEmail . "\n";
