@@ -23,10 +23,36 @@ class smtpDatosEmail extends Controller
     public function index()
     {
 			$emailEnv =	readEmailinEnv();
-			$emailEnv =	readPassEmailinEnv();
+			$emailPassEnv =	readPassEmailinEnv();
 			
+			return view('smtpDatosEmail')
+																	->with('emailPassEnv', $emailPassEnv)
+																	->with('emailEnv', $emailEnv);
+				
+        
+		}
+		
+		public function update()
+    {
 			
-			return view('smtpDatosEmail');
+			$email = [];
+			$email[] = request()->email;
+			$email[] = request()->pass;
+
+			$save = saveEnvEmail($email);
+
+			$emailEnv =	readEmailinEnv();
+			$emailPassEnv =	readPassEmailinEnv();
+
+			if($save == 1) {
+				$ok = 1;
+			} else {
+				$ok = 0;
+			}
+			
+			return view('smtpDatosEmail')->with('ok', $ok)
+																	->with('emailPassEnv', $emailPassEnv)
+																	->with('emailEnv', $emailEnv);
 				
         
     }

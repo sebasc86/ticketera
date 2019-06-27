@@ -84,6 +84,7 @@
 																</ul> 
 
 																<a class="dropdown-item" href="{{ asset ('ticketsAll') }}">{{ __('Total de Tickets') }}</a>
+																<a class="dropdown-item" href="{{ asset ('smtpDatosEmail') }}">{{ __('Smtp Email System') }}</a>
 														
 															
 																@endif
