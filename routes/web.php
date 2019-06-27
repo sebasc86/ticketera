@@ -68,6 +68,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/smtpDatosEmail', 'smtpDatosEmail@index')->name('smtpDatosEmail');
+
 
 Route::get('/sector/export', 'TicketsExportController@export');
 
