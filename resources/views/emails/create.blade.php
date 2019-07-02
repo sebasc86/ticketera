@@ -1,11 +1,7 @@
 
 
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
- <tr>
-  <td align="center" bgcolor="white" style="padding: 40px 0 30px 0;">
-	<img src="{{ $message->embed('public/img/tcl_logo_2.jpg') }}" alt="" width="600" style="display: block;" />
-	</td>
- </tr>
+ 
  <tr>
   <td  bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
 	 <table border="0" cellpadding="0" cellspacing="0" width="100%">

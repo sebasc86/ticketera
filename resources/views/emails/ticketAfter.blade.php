@@ -11,11 +11,6 @@ Thanks,<br>
 
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
     <tr>
-     <td align="center" bgcolor="white" style="padding: 40px 0 30px 0;">
-       <img src="{{ $message->embed('public/img/tcl_logo_mail.jpg') }}" alt="" width="300" height="100" style="display: block;" />
-       </td>
-    </tr>
-    <tr>
      <td  bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
          <tr>
