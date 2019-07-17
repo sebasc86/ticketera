@@ -40,14 +40,14 @@ class newTicketController extends Controller
 				}else {
 					if(
 							$value->id != $userLogin->id &&
-							$value->id != Sector::TELECENTRO_TECNICA && 
+							$value->id != Sector::TELECENTRO_TECNICA &&
 							$value->sector_id === $userLogin->sector_id
 						)
 							{
 							return $value;
 							};
 				}
-				
+
 			});
 
 			if(isset($usersArray)){
@@ -59,9 +59,9 @@ class newTicketController extends Controller
 													->with('userLogin', $userLogin)
 													->with('usersAll', $users);
 			}
-		
 
-		
+
+
 
     }
 
@@ -70,11 +70,20 @@ class newTicketController extends Controller
 
 			$user = Auth::user();
 			$sector = $user->sector_id;
-			$userId = $user->id;	
+			$userId = $user->id;
+
+
+
+			$this->validate(request(), [
+					'queue' => 'required|numeric|exists:users,id',
+					'clientN' => 'nullable|numeric',
+					'title' => 'required|string|max:25',
+					'details' => 'required',
+					'file' => 'array|max:10000',
+					'file.*' => 'present|file|max:10000',
+			]);
 
 			$ticket = new Ticket;
-			
-			
 			$ticket->status = $ticket->setOpenStatus();
 			$ticket->sector = $ticket->setSectorId($sector);
 			$ticket->queue = request()->queue;
@@ -82,32 +91,25 @@ class newTicketController extends Controller
 			$ticket->title = request()->title;
 			$ticket->user_id = $ticket->setUser($userId);
 			$ticket->number = $ticket->setTicketNumber();
-			$ticket->save();          
+			$ticket->save();
 
 
-			$this->validate(request(), [    
-			  'queue' => 'required|numeric|exists:users,id',
-			  'clientN' => 'nullable|numeric',
-			  'title' => 'required|string|max:25',
-			  'details' => 'required',
-			  'file' => 'array|max:10000',
-    		'file.*' => 'present|file|max:10000',
-			]);
-			
+
+
 			$details = request()->details;
 
 			if($details) {
 				$dom = new \domdocument();
-			
+
 	      $dom->loadHtml($details, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
 	      $images = $dom->getelementsbytagname('img');
 
 
 	      foreach($images as $k => $img){
-					$data = $img->getattribute('src');	
+					$data = $img->getattribute('src');
 					list(, $data) = explode(',', $data);
-					
+
 					$data = base64_decode($data);
 
 					$data = Image::make($data);
@@ -117,18 +119,18 @@ class newTicketController extends Controller
 						$data->resize(600, null, function ($constraint) {
 						$constraint->aspectRatio();
 						});;
-	 				}			
-	           
+	 				}
+
 					$image_name = uniqid().'.png';
 
 					$ticketSearch = Ticket::where('number', $ticket->number)->first();
-			
+
 					$file = new File;
 					$file->filename = $image_name;
 					$file->ticket_id =  $ticketSearch->id;
 					$file->save();
-					
-					
+
+
 					$path = storage_path('app/public/uploads/files') .'/' . $image_name;
 
 					$data->save($path, 40);
@@ -138,20 +140,20 @@ class newTicketController extends Controller
 	      }
 
 		}
-		
+
 		$ticket->details = $details;
 		$ticket->update();
 
-			
-			
-			
-			
-			
+
+
+
+
+
 			if(request()->file != null) {
 
 					foreach (request()->file as $key => $value) {
-						// Asignamos nombre para la DB	
-						$fileName = uniqid() . "." . $value->getClientOriginalExtension(); 
+						// Asignamos nombre para la DB
+						$fileName = uniqid() . "." . $value->getClientOriginalExtension();
 						// Defino la carpeta en la que voy a guardar la imagen
 						$folder =  'uploads/files';
 						// Almacenar la imagen en el servidor con el nuevo nombre
@@ -162,11 +164,11 @@ class newTicketController extends Controller
 						$file->filename = $fileName;
 						$file->save();
 					}
-				    
+
 			}
 
 			$userQueue = User::find($ticket->queue);
-			
+
 
 			try {
 				// Mail::to($userQueue->email)
@@ -181,9 +183,9 @@ class newTicketController extends Controller
 					$errorEmail = 'Destinatario Inválido';
 					return $this->index()->with('errorEmail', $errorEmail);
 				}
-				
+
 			}
 
-	        return redirect('view/'. $ticket->number);   
+	        return redirect('view/'. $ticket->number);
 	    }
 }
