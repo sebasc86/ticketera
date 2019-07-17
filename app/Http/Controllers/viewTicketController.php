@@ -24,7 +24,7 @@ class viewTicketController extends Controller
     }
 
     public function index(Request $request, $ticket)
-    {	
+    {
 
     	$user = Auth::user();
 			$userId = $user->id;
@@ -33,33 +33,33 @@ class viewTicketController extends Controller
 
 			$userQueue = Ticket::where('queue', $userId)->first();
 			$ticketN = Ticket::where('number', $ticket)->first();
-			
+
 			if($ticketN == null) {
 			 	return abort(403, "Ticket eliminado con anterioridad");
 			}
 
 			$sector = Sector::find($ticketN->sector);
-	
-		
+
+
 		if($ticketN) {
-			
-			
-			
+
+
+
 			$ticketId = $ticketN->id;
 			$ticketNumber = $ticketN->number;
 
 			if($ticketN->user){
 				$ticketName = $ticketN->user->name;
-			
+
 			}else {
 				//por si el usuario creador esta borrado muestre el ticket
 				$userDelete = User::withTrashed()->find($ticketN->user_id);
 				$ticketName = $userDelete->name;
 				$ticketN->user = $userDelete;
 			}
-			
-			
-			
+
+
+
 			//sector - usuario y ticket que esperar recibir el ticket
 			$userQueueName = User::find($ticketN->queue);
 
@@ -76,10 +76,10 @@ class viewTicketController extends Controller
 			} else {
 				$sectorQueue = Sector::find($userQueueName->sector_id);
 			}
-		
-			
+
+
 			$ticketQueue = $ticketN->queue;
-			
+
 			//recupero inserto el ticket en sesion
 			$request->session()->put('ticket_id', $ticketId);
 
@@ -92,15 +92,15 @@ class viewTicketController extends Controller
 			$ticketSector =  Sector::find($ticketN->queue);
 			if(isset($ticketSector)){
 							$sectorIdQueue = $ticketSector->id;
-			
+
 
 							$sectorName = $ticketSector->name;
-			
+
 							//renombro el ticket sector que es un numero al nombre asi se lo paso a la vista.
 							$ticketN->sector = $sectorName;
 			}
 
-			
+
 			if($ticketUserId == $userId || $userId == $ticketQueue || $user->sector_id == $sectorIdQueue || $user->sector->id == Sector::TELECENTRO_TECNICA){
 		 		return view('/view')
 		 		->with('ticket', $ticketN)
@@ -116,19 +116,19 @@ class viewTicketController extends Controller
 		}else {
 			return abort(403, "Usted no tiene permiso para ver este ticket");
 		}
-		
-		
-		
+
+
+
 
     }
 
     public function store(Request $request)
-	 	{		
+	 	{
 
 	 		$user = Auth::user();
 			$userId = $user->id;
 			$userName = $user->name;
-			
+
 
 			$ticketId = $request->session()->get('ticket_id');
 
@@ -136,12 +136,25 @@ class viewTicketController extends Controller
 
 			if($request->TotalFiles > 0 && isset($request->commentsNode))
 			{
-				//Loop for getting files with index like image0, image1
+                //Loop for getting files with index like image0, image1
+
+                for ($x = 0; $x < $request->TotalFiles; $x++) {
+
+					if ($request->hasFile('imgfiles'.$x)) {
+
+                        $file = $request->file('imgfiles'.$x);
+                        $fileSize = $file->getSize();
+                        if($fileSize > 10485760 ) {
+                            return response()->json(['errorSize'=> '1' ]);
+                        }
+					}
+
+				}
 
 				$comment = new Comment();
 				$comment->user_id = $userId;
 				$comment->comments = $request->commentsNode;
-				$comment->ticket_id = $ticketId;        
+				$comment->ticket_id = $ticketId;
 
 				$comment->save();
 				$ticketNumber = $comment->ticket->number;
@@ -152,7 +165,8 @@ class viewTicketController extends Controller
 
 					if ($request->hasFile('imgfiles'.$x)) {
 
-						$file      = $request->file('imgfiles'.$x);
+                        $file      = $request->file('imgfiles'.$x);
+                        $fileSize = $file->getSize();
 						$filename  = $file->getClientOriginalName();
 						$extension = $file->getClientOriginalExtension();
 						$files     = uniqid() . "." .$extension;
@@ -171,17 +185,17 @@ class viewTicketController extends Controller
 
 				}
 
-				return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => $filesArray, 'ticketNumber' => $ticketNumber]);
+				return response()->json(['errorSize' => '0', 'success'=>'1','userName' =>  $userName, 'filename' => $filesArray, 'ticketNumber' => $ticketNumber]);
 
 			} else if (isset($request->commentsNode))	{
 				$comment = new Comment();
 				$comment->user_id = $userId;
 				$comment->comments = $request->commentsNode;
-				$comment->ticket_id = $ticketId;        
+				$comment->ticket_id = $ticketId;
 
 				$comment->save();
 
-				return response()->json(['success'=>'1','userName' =>  $userName, 'filename' => "null", 'ticketNumber' => "null"]);
+				return response()->json(['errorSize' => '0', 'success'=>'1','userName' =>  $userName, 'filename' => "null", 'ticketNumber' => "null"]);
 
 			}
 
@@ -189,12 +203,12 @@ class viewTicketController extends Controller
 	}
 
 	public function close(Request $request)
-	{		
-		
-		
+	{
+
+
 		$ticketRequest = $request->ticketNumber;
 		// $ticketId = $request->session()->get('ticket_id');
-		
+
 		$ticketFind= Ticket::where('number', $ticketRequest)->first();
 		$ticketId = $ticketFind->id;
 
@@ -206,7 +220,7 @@ class viewTicketController extends Controller
 		$comment = new Comment();
 		$comment->user_id = Auth::user()->id;
 		$comment->comments = $request->message;
-		$comment->ticket_id = $ticketId;        
+		$comment->ticket_id = $ticketId;
 
 		$comment->save();
 		$ticket->save();
@@ -217,7 +231,7 @@ class viewTicketController extends Controller
 	}
 
 	public function sendEmail(Request $request)
-	{		
+	{
 		$ticketId = $request->session()->get('ticket_id');
 		$ticket = Ticket::find($ticketId);
 		$user = User::find($ticket->user_id);
@@ -232,11 +246,11 @@ class viewTicketController extends Controller
 			dispatch(new SendEmailJobClose($user, $ticket, $userAuth))
 			->onConnection('database');
 		}
-		
+
 	}
 
-	public function download(Request $request, $ticket, $filename) 
-	{	
+	public function download(Request $request, $ticket, $filename)
+	{
 		return response()->download(storage_path("app/public/uploads/files/{$filename}"));
 	// return Storage::download ("public/uploads/files/$filename");
 	}

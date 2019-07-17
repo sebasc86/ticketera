@@ -29,7 +29,7 @@ $( document ).ready(function() {
 
     $('#close').click(function(e){
         e.preventDefault();
-       
+
         messageTextNodeValue = $('#message-text').val()
         ticketNumberNodeValue = $('#ticketNumberField').text()
 
@@ -49,9 +49,9 @@ $( document ).ready(function() {
                                             ticketNumber: ticketNumberNodeValue
 									},
 									success: function(result){
-											
+
 											if(result.success == 0) {
-                                                    
+
 													$('#modalComment').hide('slow')
 													$('body').removeClass()
 													$('.modal-backdrop').hide()
@@ -68,30 +68,56 @@ $( document ).ready(function() {
 																	});
 											}
 											$('#status').text('Cerrado');
-									
+
 					}});
-        
+
 
         } else {
             $('#message-text').parent().append('<span class="text-danger">Mínimo 10 caracteres<span>')
         }
-        
+
     });
 
 
-
+    var file = ''
     var success = ''
     var userName = ''
+    var isErrorFile;
+    var isErrorComment;
     $('#buttonSend').click(function(e){
         e.preventDefault();
         var commentsNode = $('#comments').val()
+        var TotalFiles = $('#file')[0].files.length;  //Total Images
+        var files = $('#file')[0];
+        for (var i = 0; i < TotalFiles; i++) {
+            var sizeFile = files.files[i].size;
+            //10 Megas
+            if(sizeFile > 10485760 ) {
+                $('input[type="file"]').addClass('is-invalid')
+                $('input[type="file"]').after("<span id='fileError' class='small font-weight-bold text-danger h6'>El tamaño maximo es 10mb por archivo</span>")
+                isErrorFile = 1
+            } else {
+                $('input[type="file"]').removeClass('is-invalid')
+                $('#fileError').remove()
+                $('input[type="file"]').addClass('is-valid')
+                isErrorFile = 0
+
+            }
+        }
+
 
         if(!commentsNode){
-          console.log(!!commentsNode)
             $("#comments").addClass('is-invalid')
+            isErrorComment = 1
         } else {
-          $("#comments").removeClass('is-invalid')
+            $("#comments").removeClass('is-invalid')
             $("#comments").addClass('is-valid')
+            isErrorComment = 0
+        }
+
+
+        if(isErrorFile == 0 && isErrorComment ==0) {
+
             $.ajaxSetup({
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -99,7 +125,7 @@ $( document ).ready(function() {
               });
             var files_upload = new FormData();
             var TotalFiles = $('#file')[0].files.length;  //Total Images
-            var files = $('#file')[0];  
+            var files = $('#file')[0];
             for (var i = 0; i < TotalFiles; i++) {
             files_upload.append('imgfiles' + i, files.files[i]);
             }
@@ -113,26 +139,36 @@ $( document ).ready(function() {
                     processData: false,
                     data: files_upload,
                     success: function(result){
-                        console.log(result);
+                        //console.log(result)
+                        //console.log(result.errorSize)
+                        errorSize = result.errorSize
+                        if(errorSize != '1'){
+                            success = result.success
+                            userName = result.userName
+                            ticketNumber = result.ticketNumber
+                            filename = result.filename
 
-                        success = result.success;
-                        userName = result.userName
-                        ticketNumber = result.ticketNumber
-                        filename = result.filename
-                        
-                        insertComment(success)
-                        $('#comments').val('')
-                        $("#comments").removeClass('is-valid')
-                        $('#file').val('')
+                            insertComment(success)
+                            $('#comments').val('')
+                            $("#comments").removeClass('is-valid')
+                            $('#file').val('')
+                            $('input[type="file"]').removeClass('is-valid')
+                            $('#fileError').remove()
+                            $('input[type="file"]').removeClass('is-invalid')
+                        } else {
+                            $('input[type="file"]').addClass('is-invalid')
+                            $('input[type="file"]').after("<span id='fileError' class='small font-weight-bold text-danger h6'>El tamaño maximo es 10mb por archivo</span>")
+                        }
+
             }});
+
         }
-        
-        
+
     });
 
-  
 
-    
+
+
 
     function insertComment(success) {
             //sin comentarios desde 0
@@ -143,19 +179,19 @@ $( document ).ready(function() {
             if(filename != "null") {
                 var fileMap = filename.map(function(file) {
                 console.log(file)
-                return '<div class="col-12 mb-2">' + 
+                return '<div class="col-12 mb-2">' +
                  '<a class="small" href="/view/' +
                   ticketNumber +
                   '/download/' +
                   file +
-                  '" download>' + 
-                  file + 
+                  '" download>' +
+                  file +
                   '</a></div>'
              })
             }
-            
 
-        
+
+
 
 
         if(success === '1' && filename != "null" && commentsNode.length != 0){
@@ -166,13 +202,13 @@ $( document ).ready(function() {
                     '<p class="">' + detailsNode.val() + '</p>'+
                     '</div>' +
                     '<div class="col-12 mt-2">' +
-                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
-                    userName + 
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+
+                    userName +
                     '</p></div>' +
                     '<div class="col-12 mt-2"">' +
                     '<p class="small text-right text-muted"> A las:' + date + '</p>' +
                     '</div>'+
-                    '<div id="inner">' + 
+                    '<div id="inner">' +
                     '</div>'
                 )
                $('#inner').html(fileMap)
@@ -184,15 +220,15 @@ $( document ).ready(function() {
                     '<p class="">' + detailsNode.val() + '</p>'+
                     '</div>' +
                     '<div class="col-12 mt-2">' +
-                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
-                    userName + 
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+
+                    userName +
                     '</p></div>' +
                     '<div class="col-12 mt-2"">' +
                     '<p class="small text-right text-muted"> A las:' + date + '</p>' +
                     '</div></div>'
                 )
-            
-           
+
+
         } else if (success === '1' && filename === 'null' && commentsNode.length === 0) {
                 commentsNew.append(
                     '<div class="card bg-white mb-3 info">' +
@@ -203,15 +239,15 @@ $( document ).ready(function() {
                     '<p class="">' + detailsNode.val() + '</p>'+
                     '</div>' +
                     '<div class="col-12 mt-2">' +
-                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
-                    userName + 
+                    '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+
+                    userName +
                     '</p></div>' +
                     '<div class="col-12 mt-2"">' +
                     '<p class="small text-right text-muted"> A las:' + date + '</p>' +
-                    '</div>' + 
+                    '</div>' +
                     '</div></div></div></div>'
                 )
-                
+
 
         } else if (success === '1' && filename != "null" && commentsNode.length === 0){
 
@@ -224,14 +260,14 @@ $( document ).ready(function() {
                 '<p class="">' + detailsNode.val() + '</p>'+
                 '</div>' +
                 '<div class="col-12 mt-2">' +
-                '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+ 
-                userName + 
+                '<p class="text-right text-muted" style="margin-bottom: 0px">Creado por: '+
+                userName +
                 '</p></div>' +
                 '<div class="col-12 mt-2"">' +
                 '<p class="small text-right text-muted"> A las:' + date + '</p>' +
-                '</div>' + 
-                 '<div id="inner">' + 
-                '</div>' + 
+                '</div>' +
+                 '<div id="inner">' +
+                '</div>' +
                 '</div></div></div></div>'
             )
 
@@ -241,7 +277,7 @@ $( document ).ready(function() {
 
     }
 
-    
+
     if ($('#first').children().length < 2) {
         $('#first').css({
             'display': 'flex',
@@ -262,13 +298,13 @@ $( document ).ready(function() {
         }
         var $subMenu = $(this).next(".dropdown-menu");
         $subMenu.toggleClass('show');
-      
-      
+
+
         $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
           $('.dropdown-submenu .show').removeClass("show");
         });
-      
-      
+
+
         return false;
       });
 
@@ -289,7 +325,7 @@ $( document ).ready(function() {
     //     });
     // }
 
-    
+
 
 });
 
