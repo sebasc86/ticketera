@@ -72,6 +72,9 @@ class newTicketController extends Controller
 			$sector = $user->sector_id;
 			$userId = $user->id;
 
+            $customMessages = [
+                'max' => 'Lo maximo de subida es 10MB'
+            ];
 
 
 			$this->validate(request(), [
@@ -81,7 +84,7 @@ class newTicketController extends Controller
 					'details' => 'required',
 					'file' => 'array|max:10000',
 					'file.*' => 'present|file|max:10000',
-			]);
+            ], $customMessages);
 
 			$ticket = new Ticket;
 			$ticket->status = $ticket->setOpenStatus();
