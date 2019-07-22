@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
-@section('content')     
-    
+@section('content')
+
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
       <table class='table table-striped table-bordered' id='sectors-table'>
       <thead >
@@ -21,11 +21,11 @@
 				<tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>User ID</th>    
+            <th>User ID</th>
 						<th>Email</th>
 						<th>Es Admin</th>
 						<th>Creado</th>
-            <th>Actualizado</th>					         
+            <th>Actualizado</th>
 				</tr>
       </tfoot>
       </table>
@@ -42,11 +42,11 @@
 
 <script>
 
- 
+
 $(document).ready(function() {
-    
-      
-  var sectors = $('#sectors-table').DataTable({
+
+
+  var table = $('#sectors-table').DataTable({
         initComplete: function () {
         this.api().columns().every( function () {
             var column = this;
@@ -61,7 +61,7 @@ $(document).ready(function() {
                         .search( val ? '^'+val+'$' : '', true, false )
                         .draw();
                 } );
-           
+
             column.data().unique().sort().each(function (d, j) {
 
                 select.append( '<option value="'+d+'">'+d+'</option>' )
@@ -71,45 +71,17 @@ $(document).ready(function() {
 
 
 
-				
-				$('.delete').on('click', function(e){
-					var buttonNode = $(this)
-					
-          var sectorId = $(this).parent().parent().children('td').eq(0).html()
-          
-          
-              $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-              });
-              $.ajax({
-                      url: '/sectors/delete',
-                      method: 'delete',
-                      data: {	
-                          id: sectorId,
-                      },
-                      success: function(result){
-                          if(result.success === "1"){
-                            
-                              buttonNode.parent().parent().hide('slow', function(){ 
-                              buttonNode.parent().parent().remove()
-                            })
-                            
-                            
-                      };
-                      
-              }});
-			})
 
-				
-				
+
+
+
+
 
         },
         responsive: true,
         processing: true,
         serverSide: false,
-        
+
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -131,7 +103,7 @@ $(document).ready(function() {
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
             { data: 'user_id', name: 'user_id' },
-            { data: 'isAdmin', name: 'isAdmin' },	
+            { data: 'isAdmin', name: 'isAdmin' },
             { data: 'email_boss', name: 'email_boss' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at', visible: false  },
@@ -142,7 +114,7 @@ $(document).ready(function() {
                 return "<a href={{asset('sectors')}}"+ "/"+ data + " class='view btn btn-dark'>Ver</a>"
               }
 						},
-            
+
 
 						{ data: 'user_id',
 							className: 'px200',
@@ -156,12 +128,44 @@ $(document).ready(function() {
 
 
 
+	const currentURL = document.URL.toString();
+  const promise = fetch(currentURL);
+  promise.then(result => {
+
+    $('#sectors-table').on('click', '.delete', function(e){
+			let sectorId = table.row( $(this).parents('tr') ).data().id;
+			let tableRow = (table.row( $(this).parents('tr') ));
+						$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+						});
+            $.ajax({
+										url: '/sectors/delete',
+										method: 'delete',
+										data: {
+											id: sectorId,
+										},
+                    success: function(result){
+
+												if(result.success === "1"){
+                          tableRow.remove().draw(false);
+                          var ticketsOpen = $('tbody').children().length
+                          $('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
+                        }
+										}
+
+            });
+		  })
+  },
+  e => console.log($(`Error capturado:  ${e}`)));
+
 });
 
 
- 
+
 </script>
 @endpush
 
 </body>
-</html>  
+</html>

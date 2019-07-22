@@ -6,15 +6,11 @@ $( document ).ready(function() {
 
   name.one('blur', validateInput)
 
-  var inputEmailNode = $('#email_boss')
+  var inputEmailBossNode = $('#email_boss')
 
-  inputEmailNode.on('blur', isValidEmailAddress)
+  inputEmailBossNode.on('blur', isValidEmailAddress)
 
   var inputEmailNode = $('#email')
-
-  inputEmailNode.on('blur', isValidEmailAddress)
-
-  var inputEmailNode = $('#email_boss')
 
   inputEmailNode.on('blur', isValidEmailAddress)
 
@@ -34,7 +30,7 @@ $( document ).ready(function() {
   });
 
 
- 
+
   $("input").prop('disabled', true);
 
   $("input.file").prop('disabled', false);
@@ -66,7 +62,7 @@ $( document ).ready(function() {
 
       var formdata = new FormData();
       var TotalFiles = $('#file')[0].files.length;  //Total Images
-      var files = $('#file')[0];  
+      var files = $('#file')[0];
       for (var i = 0; i < TotalFiles; i++) {
         formdata.append('imgfiles' + i, files.files[i]);
       }
@@ -83,14 +79,14 @@ $( document ).ready(function() {
               contentType:false,
               processData: false,
               data: formdata,
-              // data : { "data" : {	
+              // data : { "data" : {
               //     formdata: formdata,
               //     name: nameValue,
               //     email_boss: emailBossValue,
               //     admin: isAdmin,
               //     email: emailValue,
               //     pass: passValue,
-                  
+
               // }},
               success: function(result){
                 console.log(result.success);
@@ -100,24 +96,24 @@ $( document ).ready(function() {
                     })
 
                   }else {
-                    console.log(result.errors)
 
-                    if(result.errors.name){
-                      $("#name").after('<span id="errorName" style="color:red">*'+  result.errors.name  +'</span>');
-                    }
+                      if (result.errors) {
+                          if (typeof result.errors.name != 'undefined') {
+                              $("#name").after('<span id="errorName" style="color:red">*' + result.errors.name + '</span>');
+                          }
 
-                    if(result.errors.email_boss){
-                      $("#email").after('<span id="errorEmailBoss" style="color:red">*'+  result.errors.email_boss  +'</span>');
-                    }
+                          if (result.errors.email_boss != null) {
+                              $("#email").after('<span id="errorEmailBoss" style="color:red">*' + result.errors.email_boss + '</span>');
+                          }
 
-                    if(result.errors.admin){
-                      $("#isAdmin").after('<span id="errorAdmin" style="color:red">*'+  result.errors.admin  +'</span>');
-                    }
+                          if (result.errors.admin != null) {
+                              $("#isAdmin").after('<span id="errorAdmin" style="color:red">*' + result.errors.admin + '</span>');
+                          }
 
-                    if(result.errors.email){
-                      $("#email").after('<span id="errorEmail" style="color:red">*'+  result.errors.email  +'</span>');
-                    }
-
+                          if (result.errors.email != null) {
+                              $("#email").after('<span id="errorEmail" style="color:red">*' + result.errors.email + '</span>');
+                          }
+                      }
 
                     if(result.errorEmail != null){
                       $("#email").after('<span id="errorEmail" style="color:red">*'+  result.errorEmail  +'</span>');
@@ -126,7 +122,7 @@ $( document ).ready(function() {
 
                     }
                   };
-              
+
       }});
       })
 
@@ -267,7 +263,7 @@ $( document ).ready(function() {
       $('#submitButton').removeAttr('disabled')
     }
   }
-  
+
 
 
     //drop menu navbar
@@ -277,13 +273,13 @@ $( document ).ready(function() {
       }
       var $subMenu = $(this).next(".dropdown-menu");
       $subMenu.toggleClass('show');
-    
-    
+
+
       $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
         $('.dropdown-submenu .show').removeClass("show");
       });
-    
-    
+
+
       return false;
     });
 
