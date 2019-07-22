@@ -14,8 +14,16 @@ use App\File;
 
 class deleteTicketController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('sectorAdmin');
+        $this->middleware('admin');
+    }
+
     public function index(Request $request)
-    {      
+    {
 
         $user = Auth::user();
         if($user->isAdmin === 1) {
@@ -27,10 +35,10 @@ class deleteTicketController extends Controller
                 foreach ($comments as $key => $comment) {
                     $fileComments = File::where('comment_id', $comment->id)->get();
                     foreach ($fileComments as $key => $fileComment) {
-                        $fileNameComment = $fileComment->filename; 
+                        $fileNameComment = $fileComment->filename;
                         Storage::delete('public/uploads/files/'.$fileNameComment);
                     }
-                    
+
                 }
             }
 
@@ -41,11 +49,11 @@ class deleteTicketController extends Controller
                     $fileName = $file->filename;
                     Storage::delete('public/uploads/files/'.$fileName);
                 }
-               
+
             }
 
 
-        
+
             $ticketN->status = 0;
             $ticketN->save();
             $ticketN->delete();

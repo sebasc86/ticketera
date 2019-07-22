@@ -43,7 +43,7 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
-Route::get('/get/id/users', 'ticketAllForSectorsController@getUsers');
+//Route::get('/get/id/users', 'ticketAllForSectorsController@getUsers');
 
 Route::get('/ticketsAll', 'ticketsAllController@index')->name('/get');
 Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllController@getTickets']);
