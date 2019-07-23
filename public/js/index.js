@@ -87,36 +87,44 @@ $( document ).ready(function() {
     $('#buttonSend').click(function(e){
         e.preventDefault();
         var commentsNode = $('#comments').val()
-        var TotalFiles = $('#file')[0].files.length;  //Total Images
-        var files = $('#file')[0];
-        for (var i = 0; i < TotalFiles; i++) {
-            var sizeFile = files.files[i].size;
-            //10 Megas
-            if(sizeFile > 10485760 ) {
-                $('input[type="file"]').addClass('is-invalid')
-                $('input[type="file"]').after("<span id='fileError' class='small font-weight-bold text-danger h6'>El tamaño maximo es 10mb por archivo</span>")
-                isErrorFile = 1
-            } else {
-                $('input[type="file"]').removeClass('is-invalid')
-                $('#fileError').remove()
-                $('input[type="file"]').addClass('is-valid')
-                isErrorFile = 0
 
+        var TotalFiles = $('#file')[0].files.length;  //Total Images
+        console.log(TotalFiles)
+        var files = $('#file')[0];
+        if (TotalFiles != 0) {
+            for (var i = 0; i < TotalFiles; i++) {
+                var sizeFile = files.files[i].size;
+                console.log(sizeFile)
+                //10 Megas
+                if(sizeFile > 10485760 ) {
+                    $('input[type="file"]').addClass('is-invalid')
+                    $('input[type="file"]').after("<span id='fileError' class='small font-weight-bold text-danger h6'>El tamaño maximo es 10mb por archivo</span>")
+                    isErrorFile = 1
+                } else {
+                    $('input[type="file"]').removeClass('is-invalid')
+                    $('#fileError').remove()
+                    $('input[type="file"]').addClass('is-valid')
+
+                    isErrorFile = 0
+                }
             }
+        } else {
+            isErrorFile = 0
         }
+
 
 
         if(!commentsNode){
             $("#comments").addClass('is-invalid')
             isErrorComment = 1
         } else {
+
             $("#comments").removeClass('is-invalid')
             $("#comments").addClass('is-valid')
             isErrorComment = 0
         }
 
-
-        if(isErrorFile == 0 && isErrorComment ==0) {
+        if(isErrorFile == 0 && isErrorComment == 0) {
 
             $.ajaxSetup({
               headers: {
