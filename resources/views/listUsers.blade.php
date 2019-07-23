@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
-@section('content')     
-    
+@section('content')
+
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
       <table class='table table-striped table-bordered' id='users-table'>
       <thead >
@@ -25,7 +25,7 @@
 						<th>Es Admin</th>
 						<th>Creado</th>
 						<th>Actualizado</th>
-					  <th>Sector</th>           
+					  <th>Sector</th>
 				</tr>
       </tfoot>
       </table>
@@ -42,10 +42,10 @@
 
 <script>
 
- 
+
 $(document).ready(function() {
-    
-      
+
+
   var users = $('#users-table').DataTable({
         initComplete: function () {
         this.api().columns().every( function () {
@@ -61,7 +61,7 @@ $(document).ready(function() {
                         .search( val ? '^'+val+'$' : '', true, false )
                         .draw();
                 } );
-           
+
             column.data().unique().sort().each(function (d, j) {
 
                 select.append( '<option value="'+d+'">'+d+'</option>' )
@@ -69,46 +69,11 @@ $(document).ready(function() {
 
         });
 
-
-
-				
-				$('.delete').on('click', function(e){
-					var buttonNode = $(this)
-					
-					var userId = $(this).parent().parent().children('td').eq(0).html()
-          
-              $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-              });
-              $.ajax({
-                      url: '/users/delete',
-                      method: 'delete',
-                      data: {	
-                          id: userId,
-                      },
-                      success: function(result){
-                          if(result.success === "1"){
-                            
-                              buttonNode.parent().parent().hide('slow', function(){ 
-                              buttonNode.parent().parent().remove()
-                            })
-                            
-                            
-                      };
-                      
-              }});
-			})
-
-				
-				
-
         },
         responsive: true,
         processing: true,
         serverSide: false,
-        
+
         "language": {
             "emptyTable":     "Sin Registros",
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -130,7 +95,7 @@ $(document).ready(function() {
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
             { data: 'email', name: 'email' },
-            { data: 'isAdmin', name: 'isAdmin' },			
+            { data: 'isAdmin', name: 'isAdmin' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at', visible: false  },
             { data: 'sector_id', name: 'sector_id' },
@@ -142,7 +107,7 @@ $(document).ready(function() {
                 return "<a href={{asset('users')}}"+ "/"+ data + " class='view btn btn-dark'>Ver</a>"
               }
 						},
-            
+
 
 						{ data: 'email',
 							className: 'px200',
@@ -155,13 +120,43 @@ $(document).ready(function() {
     });
 
 
+    const currentURL = document.URL.toString();
+  const promise = fetch(currentURL);
+  promise.then(result => {
+    $('#users-table').on('click',  '.delete', function(e){
+
+            let userId =  (users.row( $(this).parents('tr') )).data().id
+            tableRow = (users.row( $(this).parents('tr') ));
+            var data = {id: userId};
+
+            fetch('/users/delete', {
+            headers: {
+                "Content-Type" : "application/json",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'delete',
+            body: JSON.stringify(data)
+
+            }).then(data =>
+                data.json().then(object => {
+                    tableRow.remove().draw(false);
+                })
+            )
+            .catch(error => console.log(error))
+    })
+
+
+  },
+  e => console.log($(`Error capturado:  ${e}`)));
+
+
 
 });
 
 
- 
+
 </script>
 @endpush
 
 </body>
-</html>  
+</html>

@@ -69,14 +69,6 @@ $(document).ready(function() {
 
         });
 
-
-
-
-
-
-
-
-
         },
         responsive: true,
         processing: true,
@@ -135,28 +127,23 @@ $(document).ready(function() {
     $('#sectors-table').on('click', '.delete', function(e){
 			let sectorId = table.row( $(this).parents('tr') ).data().id;
 			let tableRow = (table.row( $(this).parents('tr') ));
-						$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-						});
-            $.ajax({
-										url: '/sectors/delete',
-										method: 'delete',
-										data: {
-											id: sectorId,
-										},
-                    success: function(result){
+			var data = {id: sectorId};
 
-												if(result.success === "1"){
-                          tableRow.remove().draw(false);
-                          var ticketsOpen = $('tbody').children().length
-                          $('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
-                        }
-										}
+			fetch('/sectors/delete', {
+			headers: {
+					"Content-Type" : "application/json",
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			method: 'delete',
+			body: JSON.stringify(data)
 
-            });
-		  })
+			}).then(data =>
+					data.json().then(object => {
+							tableRow.remove().draw(false);
+					})
+			)
+			.catch(error => console.log(error))
+})
   },
   e => console.log($(`Error capturado:  ${e}`)));
 

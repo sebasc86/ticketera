@@ -146,35 +146,30 @@ $(document).ready(function() {
 		});
 
 
-	const currentURL = document.URL.toString();
+
+    const currentURL = document.URL.toString();
   const promise = fetch(currentURL);
   promise.then(result => {
-
-    $('#tickets-table').on('click', '.delete', function(e){
-			let ticketNumber = table.row( $(this).parents('tr') ).data().number;
-			let tableRow = (table.row( $(this).parents('tr') ));
-						$.ajaxSetup({
+	$('#tickets-table').on('click', '.delete', function(e){
+      ticketNumber = table.row( $(this).parents('tr') ).data().number;
+      var tableRow = (table.row( $(this).parents('tr') ));
+      var data = {ticket: ticketNumber};
+            fetch('/ticket/delete', {
             headers: {
+                "Content-Type" : "application/json",
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-						});
-            $.ajax({
-										url: '/ticket/delete',
-										method: 'delete',
-										data: {
-												ticket: ticketNumber,
-										},
-                    success: function(result){
+            },
+            method: 'delete',
+            body: JSON.stringify(data)
 
-												if(result.success === "1"){
-                          tableRow.remove().draw(false);
-                          var ticketsOpen = $('tbody').children().length
-                          $('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
-                        }
-										}
+            }).then(data =>
+                data.json().then(object => {
+                    tableRow.remove().draw(false)
+                })
+            )
+            .catch(error => console.log(error))
+    })
 
-            });
-		  })
   },
   e => console.log($(`Error capturado:  ${e}`)));
 

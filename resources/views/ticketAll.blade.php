@@ -135,33 +135,25 @@ $(document).ready(function() {
   const promise = fetch(currentURL);
   promise.then(result => {
 	$('#tickets-table').on('click', '.delete', function(e){
-      var ticketNumber = table.row( $(this).parents('tr') ).data().number;
+      ticketNumber = table.row( $(this).parents('tr') ).data().number;
       var tableRow = (table.row( $(this).parents('tr') ));
+      var data = {ticket: ticketNumber};
+            fetch('/ticket/delete', {
+            headers: {
+                "Content-Type" : "application/json",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'delete',
+            body: JSON.stringify(data)
 
+            }).then(data =>
+                data.json().then(object => {
+                    tableRow.remove().draw(false);
+                })
+            )
+            .catch(error => console.log(error))
+    })
 
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
-			$.ajax({
-					url: '/ticket/delete',
-					method: 'delete',
-					data: {
-							ticket: ticketNumber,
-					},
-					success: function(result){
-						if(result.success === "1"){
-                            tableRow.remove().draw(false)
-						    var ticketsOpen = $('tbody').children().length
-							$('#numberOpen').html('<p id="numberOpen" class="h6">Tickets en estado Abierto: ' + ticketsOpen + '</p>')
-
-
-						}
-					}
-
-			});
-		  })
   },
   e => console.log($(`Error capturado:  ${e}`)));
 
