@@ -43,7 +43,7 @@ Route::get('/get/get', ['as'=>'datas.get','uses'=>'getTicketController@getTicket
 
 Route::get('/get/{id}', 'ticketAllForSectorsController@index')->name('/get');
 Route::get('/get/id/ticket', ['as'=>'dataTickets.get','uses'=>'ticketAllForSectorsController@getTickets']);
-//Route::get('/get/id/users', 'ticketAllForSectorsController@getUsers');
+
 
 Route::get('/ticketsAll', 'ticketsAllController@index')->name('/get');
 Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllController@getTickets']);
@@ -51,6 +51,7 @@ Route::get('/ticketsAll/tickets', ['as'=>'ticketsAll.get','uses'=>'ticketsAllCon
 
 Route::get('/get/sector/tickets', 'getTicketSectorController@index');
 Route::get('/get/sector/ticket', ['as'=>'dataSector.get','uses'=>'getTicketSectorController@getTicketsSector']);
+Route::get('/get/sector/id', 'getTicketSectorController@getOpenTicketSector');
 
 Route::get('/users', 'listUsersController@index')->name('/users');
 Route::get('/users/all', ['as'=>'usersAll.get','uses'=>'listUsersController@getUsers']);
@@ -63,6 +64,7 @@ Route::get('/sectors/all', ['as'=>'sectorsAll.get','uses'=>'listSectorsControlle
 
 Route::get('/sectors/{id}', 'sectorModifyController@index')->name('/sectors');
 Route::post('/sectors/id/update', 'sectorModifyController@update')->name('/sectors');
+
 
 Auth::routes();
 

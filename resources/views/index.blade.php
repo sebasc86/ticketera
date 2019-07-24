@@ -37,7 +37,7 @@
 						position: absolute;
 						right: 1%;
 						top: 6%;
-						">{{count($ticketsUser)}}</span>									
+						">{{count($ticketsUser)}}</span>
 						@endisset
 	          <a class="card-body link-container" href="get">
 	            	<div class=" row align-items-center" >
@@ -51,27 +51,27 @@
 			<div class="index card bg-light mb-3 info">
 				<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
 					@isset($ticketsSector)
-						<span class="badge badge-warning" style="
+						<span class=" badge-sector badge badge-warning" style="
 						position: absolute;
 						right: 1%;
 						top: 6%;
-						">{{count($ticketsSector)}}</span>	
+						">{{count($ticketsSector)}}</span>
 					@endisset
 					<a class="card-body link-container" href="get/sector/tickets">
 							<div class=" row align-items-center" >
 								<img class='imgIndex' src="img/sharing.png" alt="Tickets Generales del Sector">
 							</div>
-					</a>			
-			</div>	
-		</div>			
-	</div>	
+					</a>
+			</div>
+		</div>
+	</div>
 
 
 	@isset ($sector->isAdmin)
 		@if($sector->isAdmin === 1)
 		<div class="container-fluid flex">
 			@isset($sectors)
-				
+
 					@foreach ($sectors as $sectorU)
 						@if($sectorU->isAdmin != 1)
 
@@ -94,15 +94,15 @@
 
 					@endif
 					@endforeach
-					
+
 			@endisset
-		</div>	
+		</div>
 		@endif
 	@endisset
-		
-		
 
-	
+
+
+
 </div>
 @endsection
 
@@ -110,7 +110,7 @@
 
 	<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
-@endpush	
+@endpush
 
-	
-	
+
+

@@ -316,22 +316,21 @@ $( document ).ready(function() {
         return false;
       });
 
-		// para hacer!
-    // function changeNumber() {
+      setInterval(changeNumber, 30000);
 
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-		// });
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "add.php",
-    //         success: function(data) {
-    //             $('#value').text(data);
-    //         }
-    //     });
-    // }
+      function changeNumber() {
+        fetch('/get/sector/id')
+        .then(function(response) {
+            return response.json();
+          }).then(function(response) {
+              $(".badge-sector").html(response)
+          });
+      }
+
+
+
+
+
 
 
 

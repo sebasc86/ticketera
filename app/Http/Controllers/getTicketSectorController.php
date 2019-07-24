@@ -10,29 +10,29 @@ use App\User;
 use App\Sector;
 
 class getTicketSectorController extends Controller
-{	
+{
 	public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
 	public function index()
     {
 
 
         $user = Auth::user();
         $sectorId= $user->sector->id;
-        
+
         //busco tickets al usuario 'queue' que coincide con mi sector
         //dado que mi sector en si tiene un usuario creado.
 
         $ticketsAll = Ticket::where('queue', $sectorId)->get();
-        
+
 
         $ticketsOpen = $ticketsAll->filter(function($item, $key){
 
             return $item->status === 1;
-            
+
         });
 
         return view('getSector')
@@ -43,12 +43,12 @@ class getTicketSectorController extends Controller
 
 
 	public function getTicketsSector()
-    {   
-        
+    {
+
         $user = Auth::user();
         $sectorId= $user->sector->id;
 
-        
+
         $ticketsAll = Ticket::where('queue', $sectorId)->get();
 
 
@@ -65,7 +65,7 @@ class getTicketSectorController extends Controller
                 $userQueue = $value->queue;
                 $userQueue = User::find($userQueue);
                 $userQueueName = $userQueue->name;
-                $value->queue = $userQueueName; 
+                $value->queue = $userQueueName;
 
                 if($value->status === 0){
                     $value->status = 'Cerrado';
@@ -79,9 +79,31 @@ class getTicketSectorController extends Controller
         } else {
 
             return Datatables::of($ticketsAll)->make(false);
-            
-        }    
 
+        }
+
+    }
+
+    public function getOpenTicketSector()
+    {
+
+
+        $user = Auth::user();
+        $sectorId= $user->sector->id;
+
+        $ticketsAll = Ticket::where('queue', $sectorId)->get();
+
+        $ticketsOpen = $ticketsAll->filter(function($item, $key){
+
+            return $item->status === 1;
+
+        });
+
+        $ticketsOpen = count($ticketsOpen);
+
+        return response()->json(
+            $ticketsOpen
+        );
     }
 
 }
