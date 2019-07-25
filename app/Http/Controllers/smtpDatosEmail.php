@@ -17,24 +17,24 @@ class smtpDatosEmail extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('sectorAdmin');
+        $this->middleware('admin');
     }
 
     public function index()
     {
 			$emailEnv =	readEmailinEnv();
 			$emailPassEnv =	readPassEmailinEnv();
-			
+
 			return view('smtpDatosEmail')
 																	->with('emailPassEnv', $emailPassEnv)
 																	->with('emailEnv', $emailEnv);
-				
-        
+
+
 		}
-		
+
 		public function update()
     {
-			
+
 			$email = [];
 			$email[] = request()->email;
 			$email[] = request()->pass;
@@ -49,11 +49,11 @@ class smtpDatosEmail extends Controller
 			} else {
 				$ok = 0;
 			}
-			
+
 			return view('smtpDatosEmail')->with('ok', $ok)
 																	->with('emailPassEnv', $emailPassEnv)
 																	->with('emailEnv', $emailEnv);
-				
-        
+
+
     }
 }
