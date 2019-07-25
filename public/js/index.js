@@ -322,8 +322,9 @@ $( document ).ready(function() {
         fetch('/get/sector/id')
         .then(function(response) {
             return response.json();
-          }).then(function(response) {
-              $(".badge-sector").html(response)
+				}).then(function (response) {
+						$(".badge-sector").html(response.sector)
+						$(".badge-user").html(response.user)
           });
       }
 

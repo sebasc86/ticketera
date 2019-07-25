@@ -33,7 +33,7 @@
 	        <div class="index card bg-light mb-3 info">
 						<div class="card-header h6 bg-primary text-white">Mis Tickets Recibidos</div>
 						@isset($ticketsUser)
-						<span class="badge badge-warning" style="
+						<span class="badge-user badge badge-warning" style="
 						position: absolute;
 						right: 1%;
 						top: 6%;
@@ -51,7 +51,7 @@
 			<div class="index card bg-light mb-3 info">
 				<div class="card-header h6 bg-primary text-white">Tickets Generales del Sector</div>
 					@isset($ticketsSector)
-						<span class=" badge-sector badge badge-warning" style="
+						<span class="badge-sector badge badge-warning" style="
 						position: absolute;
 						right: 1%;
 						top: 6%;

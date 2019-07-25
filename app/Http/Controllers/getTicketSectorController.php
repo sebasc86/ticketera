@@ -21,7 +21,7 @@ class getTicketSectorController extends Controller
 
 
         $user = Auth::user();
-        $sectorId= $user->sector->id;
+        $sectorId= $user->sector->user_id;
 
         //busco tickets al usuario 'queue' que coincide con mi sector
         //dado que mi sector en si tiene un usuario creado.
@@ -89,9 +89,11 @@ class getTicketSectorController extends Controller
 
 
         $user = Auth::user();
-        $sectorId= $user->sector->id;
+        $sectorId= $user->sector->user_id;
+        $userId = $user->id;
 
         $ticketsAll = Ticket::where('queue', $sectorId)->get();
+        $ticketsAllUser = Ticket::where('queue', $userId)->get();
 
         $ticketsOpen = $ticketsAll->filter(function($item, $key){
 
@@ -99,10 +101,17 @@ class getTicketSectorController extends Controller
 
         });
 
+        $ticketsOpenUser = $ticketsAllUser->filter(function($item, $key){
+
+            return $item->status === 1;
+
+        });
+
+        $ticketsOpenUser = count($ticketsOpenUser);
         $ticketsOpen = count($ticketsOpen);
 
-        return response()->json(
-            $ticketsOpen
+        return response()->json([
+            "sector" => $ticketsOpen, "user" => $ticketsOpenUser]
         );
     }
 
