@@ -32,20 +32,19 @@ class newTicketController extends Controller
 			$users =  User::all();
 
 			$usersArray = $users->filter(function ($value, $key) {
-				$userLogin = Auth::user();
+			$userLogin = Auth::user();
 				if($userLogin->sector->id === Sector::TELECENTRO_TECNICA){
 					if($value->id != $userLogin->id){
-						return $value;
+              return $value;
 					};
 				}else {
 					if(
 							$value->id != $userLogin->id &&
-							$value->id != Sector::TELECENTRO_TECNICA &&
-							$value->sector_id === $userLogin->sector_id
-						)
-							{
+              //$value->sector_id != Sector::TELECENTRO_TECNICA &&
+							$value->sector_id == Sector::TELECENTRO_TECNICA // activo envio de mails a sector telecentro
+						){
 							return $value;
-							};
+						};
 				}
 
 			});

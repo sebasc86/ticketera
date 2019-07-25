@@ -16,16 +16,16 @@ class isSectorAdminMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
+    {
         $sectorId = Auth::user()->sector_id;
         $sector =  Sector::find($sectorId);
         $sectorAdmin = $sector->isAdmin;
 
-        if (Auth::user() &&  $sectorAdmin == 1 ) {
+        if (Auth::user() &&  ($sectorAdmin == 1 || $sectorAdmin == 2) ) {
             return $next($request);
         }
 
-        
+
         return abort(403, 'No puede ingresar a esta pagina');
 
     }

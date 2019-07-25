@@ -4,7 +4,7 @@
 <div id="first" class="container-fluid px-5">
   <div id="second" class="container-fluid flex">
 		@isset ($sector->isAdmin)
-			@if($sector->isAdmin === 1)
+			@if($sector->isAdmin === 1 || $sector->isAdmin === 2)
 			<div class="row justify-content-between mb-3">
 						<div class="index card bg-light mb-3 info">
 							<div class="card-header h6 bg-primary text-white">Crear Nuevo Ticket</div>
