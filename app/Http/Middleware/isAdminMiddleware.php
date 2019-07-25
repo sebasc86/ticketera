@@ -15,12 +15,11 @@ class isAdminMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
+    {
         if (Auth::user() &&  Auth::user()->isAdmin == 1) {
             return $next($request);
         }
 
-        
         return abort(403, 'No puede ingresar a esta pagina');
 
     }

@@ -40,7 +40,7 @@ class newTicketController extends Controller
 				}else {
 					if(
 							$value->id != $userLogin->id &&
-              //$value->sector_id != Sector::TELECENTRO_TECNICA &&
+                            //$value->sector_id != Sector::TELECENTRO_TECNICA &&
 							$value->sector_id == Sector::TELECENTRO_TECNICA // activo envio de mails a sector telecentro
 						){
 							return $value;

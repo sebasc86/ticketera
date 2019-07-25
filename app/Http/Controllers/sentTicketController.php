@@ -17,19 +17,19 @@ class sentTicketController extends Controller
         $this->middleware('sectorAdmin');
     }
 
-    
+
     public function index()
-    {   
+    {
 
         $user = Auth::user();
-        $userId = $user->id;    
+        $userId = $user->id;
 
         $tickets = $user->ticket;
-        
+
         $ticketsOpen = $tickets->filter(function($item, $key){
 
             return $item->status === 1;
-            
+
         });
 
 		return view('sent')->with('ticketsOpen', $ticketsOpen);
@@ -37,24 +37,24 @@ class sentTicketController extends Controller
     }
 
     public function getTickets()
-    {   
-        
+    {
+
         $user = Auth::user();
         $userId = $user->id;
         $tickets = $user->ticket;
-       
-        
+
+
         foreach ($tickets as $key => $value) {
 
             $userQueue = $value->queue;
-            
+
             $userGet = User::find($userQueue);
 
             // return response()->json(['success'=>$userGet]);
             if($userGet == null) {
                 $ticket = Ticket::find($value->id)->delete();
-            } 
-        
+            }
+
             $value->queue = $userGet->name;
             $value->sector =  $userGet->sector->name;
 
@@ -65,8 +65,8 @@ class sentTicketController extends Controller
                 $value->status = 'Abierto';
             };
         }
-       
-        return Datatables::of($tickets)->make(true);        
+
+        return Datatables::of($tickets)->make(true);
 
     }
 }

@@ -15,31 +15,31 @@ class ticketsAllController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin'); 
+        $this->middleware('admin');
     }
-    
+
 		public function index(Request $request)
-    {   
+    {
 
 
         $user = Auth::user();
-        
+
         //si sector es diferente a admin devuelvo error dado que no quiero que vean los tickets de sectores admin si no se podria hacer get/1 y traer algun tickets de un sector administrador.
         if($user->sector->isAdmin != 1) {
             return abort('403', 'Usted no tiene permisos para ingresar a esta pagina' );
         }
-    
-        //busco el ticket      
+
+        //busco el ticket
 
         $tickets = Ticket::all();
 
         //busco tickets al usuario 'queue' que coincide con mi sector
-        //dado que el sector en si tiene un usuario creado y vinculado.      
-         
+        //dado que el sector en si tiene un usuario creado y vinculado.
+
         $ticketsOpen = $tickets->filter(function($item, $key){
 
             return $item->status === 1;
-            
+
         });
 
         return view('ticketAll')
@@ -49,22 +49,22 @@ class ticketsAllController extends Controller
     }
 
     public function getTickets(Request $request)
-    {       
+    {
 
 				// $ticketsAll = Ticket::all();
 				//para buscar el nombre a quien enviar
-				$users = User::All(['id', 'name', 'email']);		
-						
+				$users = User::All(['id', 'name', 'email']);
+
 				foreach ($users as $key => $value) {
 					$usersArray[$value->id] = $value;
 				}
-				
-                
+
+
 								$ticketsAll = DB::table('tickets')
 										->whereNull('tickets.deleted_at')
                     ->join('users', 'users.id', '=', 'tickets.user_id')
 										->leftjoin('sectors', 'sectors.user_id', '=', 'users.id')
-										
+
                     ->select(['tickets.queue',
 															'tickets.number',
 															'tickets.client',
@@ -72,7 +72,7 @@ class ticketsAllController extends Controller
 															'tickets.close_user_id',
 															'tickets.status',
 															'users.name as user_name', 'sectors.name as sector_name'])
-										
+
 										->get();
 
 

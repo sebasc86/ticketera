@@ -19,9 +19,9 @@ class ticketAllForSectorsController extends Controller
         $this->middleware('auth');
         $this->middleware('sectorAdmin');
     }
-    
+
 	public function index(Request $request, $id)
-    {   
+    {
 
 
         //guardo en session el id que viene desde el get
@@ -30,30 +30,30 @@ class ticketAllForSectorsController extends Controller
         $user = User::find($id);
 
         $userLogin = Auth::user();
-   
+
 
         //compruebo para que no arroje error el blade.
         //si no es numero devuelvo error 403
         if ( !is_numeric($id) || $user === null){
             return abort('403', 'Usted no tiene permisos para ingresar a esta pagina' );
-        } 
-        
-        //si sector es diferente a admin devuelvo error dado que no quiero que vean los tickets de sectores admin si no se podria hacer get/1 y traer algun tickets de un sector administrador.
-        if($user->sector->isAdmin != 0) {
+        }
+
+        // //si sector es diferente a admin devuelvo error dado que no quiero que vean los tickets de sectores admin si no se podria hacer get/1 y traer algun tickets de un sector administrador.
+        if($userLogin->sector->isAdmin != 1) {
             return abort('403', 'Usted no tiene permisos para ingresar a esta pagina' );
         }
-    
-        //busco el ticket      
+
+        //busco el ticket
 
         $tickets = Ticket::where('queue', $id)->get();
 
         //busco tickets al usuario 'queue' que coincide con mi sector
-        //dado que el sector en si tiene un usuario creado y vinculado.      
-         
+        //dado que el sector en si tiene un usuario creado y vinculado.
+
         $ticketsOpen = $tickets->filter(function($item, $key){
 
             return $item->status === 1;
-            
+
         });
 
         return view('ticketAllForSectors')
@@ -64,13 +64,13 @@ class ticketAllForSectorsController extends Controller
     }
 
     public function getTickets(Request $request)
-    {       
+    {
         $sector_id = $request->session()->get('sector_id');
 				$users = User::All(['id', 'name', 'email']);
 				foreach ($users as $key => $value) {
 					$usersArray[$value->id] = $value;
 				}
-        
+
         //busco tickets al usuario 'queue' que coincide con mi sector
 				// $ticketsAll = Ticket::select('queue','number', 'client', 'user_id', 'sector', 'close_user_id', 'created_at', 'updated_at', 'status')->where('queue', $sector_id)->get();
 
@@ -87,17 +87,17 @@ class ticketAllForSectorsController extends Controller
 									'users.name as user_name'])
 				->get();
 
-				
-				
-				
+
+
+
 				// $tickets = DB::table('tickets')
         //     ->join('users', 'tickets.user_id', '=', 'user.id')
         //     ->join('sectors', 'users.id', '=', 'sectors.user_id')
         //     // ->select('users.*', 'contacts.phone', 'orders.price')
 				// 		->get();
-						
 
-        
+
+
         //lo paso a array para saber si esta vacio o no
         if( !$ticketsAll->isEmpty() ) {
 
@@ -105,13 +105,13 @@ class ticketAllForSectorsController extends Controller
         //     	//para buscar el nombre Creador
         //     	$user = $value->user->name;
         //         $value->user_id = $user;
-        //         $value->sector = $value->user->sector->name;                
+        //         $value->sector = $value->user->sector->name;
 
         //         //para buscar el nombre a quien enviar
         //         $userQueue = $value->queue;
         //         $userQueue = User::find($userQueue);
         //         $userQueueName = $userQueue->name;
-        //         $value->queue = $userQueueName; 
+        //         $value->queue = $userQueueName;
 
         //         if($value->status === 0){
         //             $value->status = 'Cerrado';
@@ -126,7 +126,7 @@ class ticketAllForSectorsController extends Controller
         //         }
         //     }
 				// return response()->json(['success'=>'1']);
-						
+
 						return DataTables::of($ticketsAll)
                 ->with([
                     'users' => $usersArray,
@@ -136,10 +136,10 @@ class ticketAllForSectorsController extends Controller
         } else {
 
             return Datatables::of($ticketsAll)->make(false);
-            
-        } 
+
+        }
 
 		}
-		
-		
+
+
 }
