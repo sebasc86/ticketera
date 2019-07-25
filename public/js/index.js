@@ -323,8 +323,11 @@ $( document ).ready(function() {
         .then(function(response) {
             return response.json();
 				}).then(function (response) {
-						$(".badge-sector").html(response.sector)
-						$(".badge-user").html(response.user)
+					$(".badge-sector").html(response.sector)
+                    $(".badge-user").html(response.user)
+                    response.sectors[0].forEach(element => {
+                        $("#"+element.id).html(element.tkOpen)
+                    });
           });
       }
 

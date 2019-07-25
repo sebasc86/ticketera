@@ -89,6 +89,7 @@ class getTicketSectorController extends Controller
 
 
         $user = Auth::user();
+
         $sectorId= $user->sector->user_id;
         $userId = $user->id;
 
@@ -110,9 +111,31 @@ class getTicketSectorController extends Controller
         $ticketsOpenUser = count($ticketsOpenUser);
         $ticketsOpen = count($ticketsOpen);
 
-        return response()->json([
-            "sector" => $ticketsOpen, "user" => $ticketsOpenUser]
-        );
+        $sectors = Sector::select('user_id')->get();
+        $ticketSectors[] = $sectors->map(function ($item, $key) {
+            $ticketsSectorAll = Ticket::where('queue', $item->user_id)->get();
+            $ticketsSectorsOpen = $ticketsSectorAll->filter(function($item, $key){
+                $openTotal = $item->status === 1;
+                return $openTotal;
+            });
+            //busco el usuario vinculado al ticket
+            $user = User::find( $item->user_id);
+            //sector que corresponde
+            $sector = $user->sector->id;
+
+            return ['id' => $sector, 'tkOpen' => count($ticketsSectorsOpen)];
+        });
+
+        if($user->sector->isAdmin != 1) {
+            return response()->json([
+                "sector" => $ticketsOpen, "user" => $ticketsOpenUser ]
+            );
+        } else {
+            return response()->json([
+                "sector" => $ticketsOpen, "user" => $ticketsOpenUser, "sectors" => $ticketSectors ]
+            );
+        }
+
     }
 
 }
