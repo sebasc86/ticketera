@@ -14,7 +14,7 @@
 
 
 				{{-- agregado el datatables --}}
-				<link rel="stylesheet" type="text/css" href="{{asset( 'css/index.css' )}}">
+
 				<link rel="stylesheet" type="text/css" href="{{asset( 'css/view.css' )}}">
 
 				{{-- font-awesome--}}
@@ -23,7 +23,8 @@
 					<!-- include libraries(jQuery, bootstrap) -->
 
 					<script src="{{ asset('js/app.js') }}"></script>
-					<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+                    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+                    <link rel="stylesheet" type="text/css" href="{{asset( 'css/index.css' )}}">
 
 
   </head>
