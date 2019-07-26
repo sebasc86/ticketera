@@ -6,7 +6,7 @@
 				<div class="newModal">
 					<img src="{{asset('img/loading.gif')}}">
 				</div>
-			</div>	
+			</div>
 
 			<form  id="formTarget" action="" name="newTicket" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
@@ -14,7 +14,7 @@
 			    <label for="exampleFormControlInput1">Enviar a:</label>
 			    <select class="form-control is-valid" id="queue" name='queue'>
 			    @foreach ($usersAll as $user)
-					<option value='{{ $user->id }}'>{{ $user->email }}</option>	       	
+					<option value='{{ $user->id }}'>{{ $user->email }}</option>
 			    @endforeach
 					</select>
 					@isset($errorEmail)
@@ -28,18 +28,18 @@
               	</span>
 			    @endif
 			  </div>
-			
+
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Nro de cliente</label>
 			    <input id="clientN" type="clientN" class="form-control{{ $errors->has('clientN') ? ' is-invalid' : '' }}" name="clientN" value="{{ old('clientN') }}" placeholder="Ej: 454647 Máximo 10 números">
-		  
+
           @if ($errors->has('clientN'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('clientN') }}</strong>
               </span>
           @endif
 			  </div>
-				
+
 			  <div class="form-group">
 			    <label for="exampleFormControlInput1">Titulo</label>
 			    <input type="text" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value='{{ old('title') }}' placeholder="Maximo 10 caraceteres">
@@ -83,10 +83,11 @@
 @push('scripts')
 
 	<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
-	
+
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('dist/summernote-bs4.css') }}">
-	<script src="{{ asset('dist/summernote-bs4.min.js') }}"></script>
+	<script src="{{ asset('dist/summernote.min.js') }}"></script>
+
 
 	<script>
 	$(document).ready(function() {
