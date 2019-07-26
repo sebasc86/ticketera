@@ -5,13 +5,13 @@
   <div class="container-fluid ticketOpen" style="padding: 20px; color: red">
     <p class="h6">Tickets en estado Abierto:  {{  count($ticketsOpen) }} </p>
   </div>
-    
+
 
   <div id="container" class="container-fluid mt-2 px-5 mb-5">
       <table class='table table-striped table-bordered' id='tickets-table'>
       <thead >
         <tr>
-          
+
           <th scope="col">Nro ticket</th>
           <th scope="col">Cliente</th>
           <th scope="col">Descripcion</th>
@@ -22,13 +22,13 @@
           <th scope="col">Estado</th>
           <th scope="col">#</th>
           <th id='href' scope="col">Button</th>
-          
-          
+
+
         </tr>
       </thead>
       <tfoot>
             <tr>
-                
+
                 <th>Ticket</th>
                 <th>Cliente</th>
                 <th>Descripcion</th>
@@ -52,10 +52,10 @@
 
 <script>
 
- 
+
 $(document).ready(function() {
-    
-      
+
+
   var tickets = $('#tickets-table').DataTable({
         initComplete: function () {
         this.api().columns().every( function () {
@@ -71,7 +71,7 @@ $(document).ready(function() {
                         .search( val ? '^'+val+'$' : '', true, false )
                         .draw();
                 } );
-           
+
             column.data().unique().sort().each(function (d, j) {
 
                 select.append( '<option value="'+d+'">'+d+'</option>' )
@@ -86,9 +86,9 @@ $(document).ready(function() {
         responsive: true,
         processing: true,
         serverSide: false,
-        "order": [[ 0, 'asc' ], [ 8, 'desc' ]],
+        "order": [[ 8, 'asc' ], [ 7, 'desc' ]],
         "language": {
-            "emptyTable":     "My Custom Message On Empty Table",
+            "emptyTable":     "Sin registros",
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "Nothing found - sorry",
             "info": "Mostrando pagina _PAGE_ de _PAGES_",
@@ -105,7 +105,7 @@ $(document).ready(function() {
         },
         ajax: '{!! route('datas.get') !!}',
         columns: [
-            
+
             { data: 'number', name: 'number' },
             { data: 'client', name: 'client' },
             { data: 'title', name: 'title', visible: true,
@@ -117,9 +117,9 @@ $(document).ready(function() {
             { data: 'created_at', name: 'created_at' },
             { data: 'user_id', name: 'user_id' },
             { data: 'sector', name: 'sector' },
-            { data: 'status', name: 'status' }, 
+            { data: 'status', name: 'status' },
             { data: 'updated_at', name: 'updated_at', visible: false  },
-            { data: 'number', 
+            { data: 'number',
               render: function(data){
                 return "<a href={{asset('view')}}"+ "/"+ data + " class='view btn btn-dark'>Ver Ticket</button>"
               }
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
 
 });
- 
+
 </script>
 @endpush
 
