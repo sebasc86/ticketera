@@ -184,6 +184,11 @@ div.hover:hover {
 	padding: 5px;
 }
 
+/*index*/
+.badge {
+	font-size: 80%;
+}
+
 /* user modify blade */
 
 .pencil {
