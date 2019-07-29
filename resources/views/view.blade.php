@@ -1,20 +1,20 @@
 @extends('layouts.master')
 
-  
-  
+
+
 @section('content')
 
-  
-  
+
+
   <div class='container-fluid px-5 mt-2'>
-    
+
     <div class="row justify-content-between">
-      <div class="col-5">
+      <div class="col-sm-12 col-md-5">
         <div class="card bg-light mb-3 info">
           <div class="card-header h5 bg-primary text-white">Información del Tickets</div>
           <div class="card-body">
             <div class="row align-items-center">
-              
+
               <div class="col-6">
                 <h2 class='h5'>Estado Ticket: </h2>
               </div>
@@ -37,7 +37,7 @@
 
               <div class="col-6">
                <p class='h6'>{{$userSent->name}}</p>
-              </div>   
+              </div>
 
               <div class="col-6">
                 <h2 class='h5'>Sector:</h2>
@@ -53,21 +53,21 @@
 
           </div>
         </div>
-      </div>  
-      
-      <div class="col-5">
+      </div>
+
+      <div class="col-sm-12 col-md-5">
         <div class="card bg-light mb-3 info">
           <div class="card-header h5 bg-primary text-white">Usuario Información</div>
           <div class="card-body">
             <div class="row align-items-center">
-              
+
               <div class="col-6">
                 <h2 class='h5'>Nombre Creador</h2>
               </div>
 
               <div class="col-6">
                 <p class='h6'>{{$ticket->user->name}}</h2>
-              </div>   
+              </div>
 
               <div class="col-6">
                 <h2 class='h5'>Correo</h2>
@@ -82,16 +82,16 @@
               </div>
               <div class="col-6">
                 <p class='h6'>{{$ticket->user->sector->name}}</p>
-              </div>    
+              </div>
             </div>
           </div>
         </div>
-      </div>  
+      </div>
 
       <div class="col-12">
         <div class="card bg-light mb-5 info">
           <div class="card-header h5 bg-dark text-white">Ticket Nro:
-            <span id="ticketNumberField">{{$ticket->number}}</span> 
+            <span id="ticketNumberField">{{$ticket->number}}</span>
           </div>
           <div class="card-body">
             <div class="row align-items-center">
@@ -101,41 +101,41 @@
               </div>
               <div class="col-6">
                 <p class='h6 text-center'>{{$ticket->client}}</p>
-              </div>   
+              </div>
 
               <div class="col-6">
                 <h2 class='h5'>Título:</h2>
               </div>
-              
+
               <div class="col-6">
                 <p class='h6 text-center'>{{$ticket->title}}</p>
               </div>
-              
+
               <div class="col-12">
                 <hr>
                 <p class='h5 mt-3 mb-3 font-weight-bold'>Detalles:</p>
 
               </div>
 
-                            
+
               <div class="col mt-2 details">
                 {!! $ticket->details !!}
-              </div>      
-              
+              </div>
+
               <div class="col-12 mt-2 d-flex flex-wrap">
 
               @foreach ($files as $file)
-              
+
               <ul class="list group d-flex mt-2" style="padding: 0px; margin: 0">
                 <li class="list-group-item d-flex p-2">
                   <span class="p-1 oi oi-data-transfer-download" title="person" aria-hidden="true"></span>
                   <a class="" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
-                </li> 
+                </li>
               </ul>
 
               @endforeach
 
-              </div> 
+              </div>
 
 
 
@@ -143,25 +143,25 @@
           </div>
         </div>
       </div>
-      
-    
+
+
       <div class="col-12" id="commentsNew"></div>
 
      @if(!$ticket->comment->isEmpty())
-      
+
       <div class="col-12 mb-5">
         <div class="card bg-white mb-3 info">
           <div class="card-header h6 bg-secondary text-white">Comentarios</div>
           <div class="card-body">
-            
+
       @foreach($ticket->comment as $dato)
-      
-            
+
+
             <div class="row align-items-center bg-light mt-2 info">
 
               <div class="col mt-4">
                 <p class=''>{{$dato['comments']}}</p>
-              </div>  
+              </div>
 
               <div class="col-12 mt-2">
                 <p class='text-right text-muted' style="margin-bottom: 0px">Creado por: {{($dato->user->name)}}  </p>
@@ -170,35 +170,35 @@
               <div class="col-12">
                 <p class='small text-right text-muted'>A las: {{$dato['created_at']}}hs </p>
               </div>
-              
+
               @foreach ($dato->file as $file)
                 <div class="col-12 mb-3">
                   <a class="small" href="{{url('/view/'. $ticket->number .'/download/'.$file->filename)}}" download>{{ $file->filename }}</a>
                 </div>
-              @endforeach  
-  
-                             
+              @endforeach
+
+
             </div>
-            
 
 
 
-            
+
+
       @endforeach
 
       <div id="commentsNode"></div>
       </div>
       </div>
       </div>
-      
+
       @endif
 
-      
+
 
     @if($ticket->status != 0)
-    
+
       <div class="col-9">
-        
+
         <form class='bg-light col-12 border rounded mt-3 mb-5 info' action="" name="newComment" id='newComment' method="post" enctype="multipart/form-data">
 
          <div class="form-group">
@@ -210,14 +210,14 @@
             <button type="button" id='buttonArea' class="btn btn-primary">Agregar comentario</button>
             <input type="file" class="form-control form-control mt-2 mb-2" name="file[]" id="file" multiple="">
           </div>
-          
-         </div>    
-        </form> 
-                  
+
+         </div>
+        </form>
+
 
         @if($ticket->queue == $userLoginId  || $sectorQueue->id == $userSent->sector_id)
             <form class='mt-5' action="" name="close" id='closeTicket' method="post" enctype="multipart/form-data">
-               
+
               <div class="mt-5 pr-3 align-self-end">
                   {{-- <input class="btn btn-primary" id='close' type="submit" value="Cerrar Ticket"> --}}
                     <!-- Button trigger modal -->
@@ -225,14 +225,14 @@
                 Cerrar
               </button>
               </div>
-              
+
             </form>
-        @endif 
+        @endif
 
 
       </div>
 
-    @endif  
+    @endif
 
 
 
@@ -258,12 +258,12 @@
     </div>
   </div>
 </div>
-  
+
 
 @endsection
 
 
-  
+
 @push('scripts')
 
 
@@ -272,6 +272,6 @@
   <!-- include summernote css/js -->
   <link rel="stylesheet" type="text/css" href="{{ asset('dist/summernote-bs4.css') }}">
   <script src="{{ asset('dist/summernote-bs4.min.js') }}"></script>
- 
+
 
 @endpush
