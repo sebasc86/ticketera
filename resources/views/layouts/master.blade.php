@@ -32,7 +32,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand px-4" href="{{ url('/') }}">
+            <a class="navbar-brand px-2 px-md-4" href="{{ url('/') }}">
                 <img class="imgHeader" src="{{asset('img/telecentroLogo.png')}}" alt="Telecentro Logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
