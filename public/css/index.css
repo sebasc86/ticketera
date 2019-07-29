@@ -2,6 +2,13 @@
 	margin-bottom: 0px;
 }
 
+/* header */
+
+.sticky-top {
+    min-width: 300px;
+}
+/* header */
+
 .container h1 {
 	width: 100%;
 	margin: 20px 0;
