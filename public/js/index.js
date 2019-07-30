@@ -323,11 +323,23 @@ $( document ).ready(function() {
         .then(function(response) {
             return response.json();
 				}).then(function (response) {
-					$(".badge-sector").html(response.sector)
+                    $(".badge-sector").html(response.sector)
+                    if (response.sector > 0) {
+                        $(".badge-sector").css("background-color", "red")
+                        $(".badge-sector").css("color", "white")
+                    }
+
                     $(".badge-user").html(response.user)
-                    response.sectors[0].forEach(element => {
-                        $("#"+element.id).html(element.tkOpen)
-                    });
+                    if (response.user > 0) {
+                        $(".badge-user").css("background-color", "red")
+                        $(".badge-user").css("color", "white")
+                    }
+
+                    if (response.sectors) {
+                        response.sectors[0].forEach(element => {
+                            $("#" + element.id).html(element.tkOpen)
+                        });
+                    }
           });
       }
 
