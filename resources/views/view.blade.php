@@ -96,19 +96,14 @@
           <div class="card-body">
             <div class="row align-items-center">
 
-              <div class="col-6">
-                <h2 class='h5'>Nro de cliente</h2>
-              </div>
-              <div class="col-6">
-                <p class='h6 text-center'>{{$ticket->client}}</p>
+              <div class="col-12">
+                <h2 class='h5 d-inline'>Nro de cliente</h2>
+                <span class='h6 text-center pl-2 font-weight-bold'>{{$ticket->client}}</span>
               </div>
 
-              <div class="col-6">
-                <h2 class='h5'>Título:</h2>
-              </div>
-
-              <div class="col-6">
-                <p class='h6 text-center'>{{$ticket->title}}</p>
+              <div class="col-12">
+                <h2 class='h5 d-inline'>Título:</h2>
+                <span class='h6 text-center pl-2 font-weight-bold'>{{$ticket->title}}</span>
               </div>
 
               <div class="col-12">
